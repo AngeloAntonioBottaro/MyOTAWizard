@@ -49,7 +49,7 @@ end;
 
 procedure TMyOTAWizardKeyBidingNotepad.BindKeyboard(const BindingServices: IOTAKeyBindingServices);
 begin
-   BindingServices.AddKeyBinding([TextToShortCut(TMyOTAWizardShortCuts.Notepad)], self.Execute, nil, 0, '', TMyOTAWizardConsts.MyMenuItemNameNotepad);
+   BindingServices.AddKeyBinding([TextToShortCut(TMyOTAWizardShortCuts.Notepad)], Self.Execute, nil, 0, '', TMyOTAWizardConsts.MyMenuItemNotepadName);
 end;
 
 procedure TMyOTAWizardKeyBidingNotepad.Execute(const Context: IOTAKeyContext; KeyCode: TShortcut; var BindingResult: TKeyBindingResult);

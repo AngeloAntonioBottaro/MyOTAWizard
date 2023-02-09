@@ -14,7 +14,7 @@ implementation
 
 procedure Register;
 begin
-   //RegisterSplashWizard;
+   RegisterSplashWizard;
    RegisterMainMenuWizard;
    RegisterKeyBidings;
 end;

@@ -20,6 +20,7 @@ type
     procedure CreateMainMenu;
     procedure MyMenuDestroyIfExists;
     procedure CreateMyMenu;
+    procedure CreateSubMenuBatch(AParent: TMenuItem);
   protected
     function GetIDString: string;
     function GetName: string;
@@ -110,12 +111,36 @@ begin
    TMyOTAWizardMenuItem.New
     .Parent(LMyMenu)
     .ImageList(FImages)
-    .Caption('Notepad++')
-    .Name(TMyOTAWizardConsts.MyMenuItemNameNotepad)
-    .ImageResource('icone')
+    .Caption(TMyOTAWizardConsts.MyMenuItemNotepadCaption)
+    .Name(TMyOTAWizardConsts.MyMenuItemNotepadName)
+    .ImageResource('')
     .ShortCut(TMyOTAWizardShortCuts.Notepad)
     .OnClick(TMyOTAWizardOnClicks.Notepad)
     .CreateMenuItem;
+
+   Self.CreateSubMenuBatch(LMyMenu);
+end;
+
+procedure TMyOTAWizardMainMenu.CreateSubMenuBatch(AParent: TMenuItem);
+var
+  LMyMenuBatch: TMenuItem;
+begin
+   LMyMenuBatch := TMyOTAWizardMenuItem.New
+                     .Parent(AParent)
+                     .ImageList(FImages)
+                     .Caption(TMyOTAWizardConsts.MyMenuItemBatchCaption)
+                     .Name(TMyOTAWizardConsts.MyMenuItemBatchName)
+                     .ImageResource('')
+                     .CreateMenuItem;
+
+   TMyOTAWizardMenuItem.New
+     .Parent(LMyMenuBatch)
+     .ImageList(FImages)
+     .Caption(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPCaption)
+     .Name(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPName)
+     .ImageResource('')
+     .OnClick(TMyOTAWizardOnClicks.BatchCompactarExe)
+     .CreateMenuItem;
 end;
 
 procedure TMyOTAWizardMainMenu.Execute;
