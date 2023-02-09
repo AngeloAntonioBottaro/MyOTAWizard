@@ -112,14 +112,11 @@
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Consts.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MenuItem.pas"/>
-        <DCCReference Include="src\MainMenu\MyOTAWizard.OnClicks.pas"/>
+        <DCCReference Include="src\Utils\MyOTAWizard.OnClicks.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.pas"/>
         <RcItem Include="Resource\Icone.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>icone</ResourceId>
-        </RcItem>
-        <RcItem Include="Resource\notepad.png">
-            <ResourceType>RCDATA</ResourceType>
-            <ResourceId>notepad</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

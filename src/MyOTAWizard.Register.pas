@@ -5,7 +5,8 @@ interface
 uses
   ToolsAPI,
   MyOTAWizard.Splash,
-  MyOTAWizard.MainMenu;
+  MyOTAWizard.MainMenu,
+  MyOTAWizard.KeyBiding;
 
 procedure Register;
 
@@ -15,6 +16,7 @@ procedure Register;
 begin
    //RegisterSplashWizard;
    RegisterMainMenuWizard;
+   RegisterKeyBidings;
 end;
 
 end.

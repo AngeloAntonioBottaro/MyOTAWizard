@@ -9,15 +9,12 @@ uses
 
 type
   TMyOTAWizardOnClicks = class
-    class procedure OnClickMenuNotepad(Sender: TObject);
+    class procedure Notepad(Sender: TObject);
   end;
-
 
 implementation
 
-{ TMyOTAWizardOnClicks }
-
-class procedure TMyOTAWizardOnClicks.OnClickMenuNotepad(Sender: TObject);
+class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);
 var
   LArquivo: string;
 begin

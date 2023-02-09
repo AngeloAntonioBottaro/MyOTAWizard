@@ -111,10 +111,10 @@ begin
     .Parent(LMyMenu)
     .ImageList(FImages)
     .Caption('Notepad++')
-    .Name(TMyOTAWizardConsts.MyMenuItemPrefix + 'notepad')
-    .ImageResource('')
-    .ShortCut('')
-    .OnClick(TMyOTAWizardOnClicks.OnClickMenuNotepad)
+    .Name(TMyOTAWizardConsts.MyMenuItemNameNotepad)
+    .ImageResource('icone')
+    .ShortCut(TMyOTAWizardShortCuts.Notepad)
+    .OnClick(TMyOTAWizardOnClicks.Notepad)
     .CreateMenuItem;
 end;
 

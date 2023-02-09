@@ -4,15 +4,19 @@ interface
 
 type
   TMyOTAWizardConsts = class
-  public
     const
      MySplashIconeName  = 'icone';
      MySplashWizardName = 'AAB Softwares';
 
-     MyMenuName         = 'MyMenu';
-     MyMenuItemPrefix   = 'mi';
-     MyMenuCaption      = 'AAB Softwares';
-     MyImagesPrefix     = 'aabimg';
+     MyMenuName             = 'MyMenu';
+     MyMenuCaption          = 'AAB Softwares';
+     MyMenuItemNameNotepad  = 'miNotepad';
+     MyImagesPrefix         = 'aabimg';
+  end;
+
+  TMyOTAWizardShortCuts = class
+    const
+     Notepad = 'CTRL+Shift+P';
   end;
 
 implementation
