@@ -107,13 +107,14 @@
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="designide.dcp"/>
-        <DCCReference Include="src\MyOTAWizard.Register.pas"/>
+        <DCCReference Include="src\Utils\MyOTAWizard.Register.pas"/>
         <DCCReference Include="src\Splash\MyOTAWizard.Splash.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Consts.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MenuItem.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.OnClicks.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.pas"/>
+        <DCCReference Include="src\Utils\MyOTAWizard.ShortCuts.pas"/>
         <RcItem Include="Resource\Icone.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>icone</ResourceId>

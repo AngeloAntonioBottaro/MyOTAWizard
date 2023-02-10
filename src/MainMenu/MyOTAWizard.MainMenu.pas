@@ -37,8 +37,9 @@ procedure RegisterMainMenuWizard;
 implementation
 
 uses
-  MyOTAWizard.Consts,
   MyOTAWizard.MenuItem,
+  MyOTAWizard.Consts,
+  MyOTAWizard.ShortCuts,
   MyOTAWizard.OnClicks;
 
 procedure RegisterMainMenuWizard;
@@ -139,7 +140,8 @@ begin
      .Caption(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPCaption)
      .Name(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPName)
      .ImageResource('')
-     .OnClick(TMyOTAWizardOnClicks.BatchCompactarExe)
+     .ShortCut(TMyOTAWizardShortCuts.BatchCompactarMyERP)
+     .OnClick(TMyOTAWizardOnClicks.BatchCompactarMyERP)
      .CreateMenuItem;
 end;
 

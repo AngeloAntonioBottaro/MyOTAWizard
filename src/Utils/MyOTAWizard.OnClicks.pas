@@ -9,13 +9,13 @@ uses
 
 type
   TMyOTAWizardOnClicks = class
-    class procedure BatchCompactarExe(Sender: TObject);
+    class procedure BatchCompactarMyERP(Sender: TObject);
     class procedure Notepad(Sender: TObject);
   end;
 
 implementation
 
-class procedure TMyOTAWizardOnClicks.BatchCompactarExe(Sender: TObject);
+class procedure TMyOTAWizardOnClicks.BatchCompactarMyERP(Sender: TObject);
 var
   LBatch: string;
 begin

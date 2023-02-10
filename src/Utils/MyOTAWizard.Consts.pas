@@ -23,11 +23,6 @@ type
      MyMenuItemBatchCompactarMyERPName    = 'miBatchCompactar';
   end;
 
-  TMyOTAWizardShortCuts = class
-    const
-     Notepad = 'CTRL+Shift+P';
-  end;
-
 implementation
 
 end.
