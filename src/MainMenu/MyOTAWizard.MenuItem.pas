@@ -17,6 +17,7 @@ type
     FImageList: TDictionary<string, Integer>;
     FImageResource: string;
     FShortCut: String;
+    FVisible: Boolean;
     FOnClick: TNotifyEvent;
 
     function GetImageIndex(AResourceName: String): Integer;
@@ -30,6 +31,7 @@ type
     function ImageResource(AImageResource: string): TMyOTAWizardMenuItem;
     function ShortCut(AShortCut: String): TMyOTAWizardMenuItem;
     function OnClick(AOnClick: TNotifyEvent): TMyOTAWizardMenuItem;
+    function Visible(AVisible: Boolean): TMyOTAWizardMenuItem;
     function CreateMenuItem: TMenuItem;
   end;
 
@@ -48,6 +50,7 @@ begin
    FImageList     := nil;
    FImageResource := '';
    FShortCut      := '';
+   FVisible       := True;
    FOnClick       := nil;
 end;
 
@@ -87,6 +90,12 @@ begin
    FShortCut := AShortCut;
 end;
 
+function TMyOTAWizardMenuItem.Visible(AVisible: Boolean): TMyOTAWizardMenuItem;
+begin
+   Result := Self;
+   FVisible := AVisible;
+end;
+
 function TMyOTAWizardMenuItem.OnClick(AOnClick: TNotifyEvent): TMyOTAWizardMenuItem;
 begin
    Result := Self;
@@ -102,6 +111,7 @@ begin
   LMenuItem.Caption := FCaption;
   LMenuItem.Name    := FName;
   LMenuItem.OnClick := FOnClick;
+  LMenuItem.Visible := FVisible;
 
   if(not FImageResource.IsEmpty)then
   begin

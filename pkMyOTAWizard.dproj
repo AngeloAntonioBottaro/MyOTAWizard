@@ -3,7 +3,7 @@
         <ProjectGuid>{D21D51C2-D4DD-43B0-AE43-B4042EFAA02D}</ProjectGuid>
         <MainSource>pkMyOTAWizard.dpk</MainSource>
         <ProjectVersion>18.8</ProjectVersion>
-        <FrameworkType>None</FrameworkType>
+        <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -59,7 +59,7 @@
         <DCC_K>false</DCC_K>
         <GenDll>true</GenDll>
         <GenPackage>true</GenPackage>
-        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <DCC_CBuilderOutput>All</DCC_CBuilderOutput>
         <SanitizedProjectName>pkMyOTAWizard</SanitizedProjectName>
     </PropertyGroup>
@@ -115,13 +115,17 @@
         <DCCReference Include="src\Utils\MyOTAWizard.OnClicks.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.ShortCuts.pas"/>
+        <DCCReference Include="src\ProjectsList\View.ProjectsList.pas">
+            <Form>ViewProjectsList</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\ProjectsList\View.AddProject.pas">
+            <Form>ViewAddProject</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="Resource\Icone.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>icone</ResourceId>
-        </RcItem>
-        <RcItem Include="Resource\Icone.png">
-            <ResourceType>RCDATA</ResourceType>
-            <ResourceId>iconepng</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

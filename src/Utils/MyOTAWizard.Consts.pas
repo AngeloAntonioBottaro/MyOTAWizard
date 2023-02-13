@@ -21,6 +21,15 @@ type
 
      MyMenuItemBatchCompactarMyERPCaption = 'Compactar MyERP';
      MyMenuItemBatchCompactarMyERPName    = 'miBatchCompactar';
+
+     MyMenuItemExtrasCaption = 'Extras';
+     MyMenuItemExtrasName    = 'miExtras';
+
+     MyMenuItemExtrasListaProjetosCaption = 'Lista de projetos';
+     MyMenuItemExtrasListaProjetosName    = 'miExtraListaProjetos';
+
+     MyMenuItemExtrasListaAddProjetosCaption = 'Adicionar projetos a lista';
+     MyMenuItemExtrasListaAddProjetosName    = 'miExtraAddProjetosLista';
   end;
 
 implementation

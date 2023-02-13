@@ -11,9 +11,25 @@ type
   TMyOTAWizardOnClicks = class
     class procedure BatchCompactarMyERP(Sender: TObject);
     class procedure Notepad(Sender: TObject);
+    class procedure ListarProjetos(Sender: TObject);
+    class procedure AdicionarProjetosLista(Sender: TObject);
   end;
 
 implementation
+
+uses
+  View.ProjectsList,
+  View.AddProject;
+
+class procedure TMyOTAWizardOnClicks.AdicionarProjetosLista(Sender: TObject);
+begin
+   try
+     ViewAddProject := TViewAddProject.Create(nil);
+     ViewAddProject.ShowModal;
+   finally
+     FreeAndNil(ViewAddProject);
+   end;
+end;
 
 class procedure TMyOTAWizardOnClicks.BatchCompactarMyERP(Sender: TObject);
 var
@@ -25,6 +41,16 @@ begin
 
    if(not LBatch.IsEmpty)then
      ShellExecute(HInstance, 'open', Pchar(LBatch), nil, nil, SW_SHOWNORMAL);
+end;
+
+class procedure TMyOTAWizardOnClicks.ListarProjetos(Sender: TObject);
+begin
+   try
+     ViewProjectsList := TViewProjectsList.Create(nil);
+     ViewProjectsList.ShowModal;
+   finally
+     FreeAndNil(ViewProjectsList);
+   end;
 end;
 
 class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);

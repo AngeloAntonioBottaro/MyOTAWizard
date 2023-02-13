@@ -21,6 +21,7 @@ type
     procedure MyMenuDestroyIfExists;
     procedure CreateMyMenu;
     procedure CreateSubMenuBatch(AParent: TMenuItem);
+    procedure CreateSubMenuExtras(AParent: TMenuItem);
   protected
     function GetIDString: string;
     function GetName: string;
@@ -120,6 +121,7 @@ begin
     .CreateMenuItem;
 
    Self.CreateSubMenuBatch(LMyMenu);
+   Self.CreateSubMenuExtras(LMyMenu);
 end;
 
 procedure TMyOTAWizardMainMenu.CreateSubMenuBatch(AParent: TMenuItem);
@@ -143,6 +145,40 @@ begin
      .ShortCut(TMyOTAWizardShortCuts.BatchCompactarMyERP)
      .OnClick(TMyOTAWizardOnClicks.BatchCompactarMyERP)
      .CreateMenuItem;
+end;
+
+procedure TMyOTAWizardMainMenu.CreateSubMenuExtras(AParent: TMenuItem);
+var
+  LMyMenuExtra: TMenuItem;
+begin
+   LMyMenuExtra := TMyOTAWizardMenuItem.New
+                     .Parent(AParent)
+                     .ImageList(FImages)
+                     .Caption(TMyOTAWizardConsts.MyMenuItemExtrasCaption)
+                     .Name(TMyOTAWizardConsts.MyMenuItemExtrasName)
+                     .ImageResource('')
+                     .Visible(False)
+                     .CreateMenuItem;
+
+   TMyOTAWizardMenuItem.New
+    .Parent(LMyMenuExtra)
+    .ImageList(FImages)
+    .Caption(TMyOTAWizardConsts.MyMenuItemExtrasListaProjetosCaption)
+    .Name(TMyOTAWizardConsts.MyMenuItemExtrasListaProjetosName)
+    .ImageResource('')
+    .ShortCut(TMyOTAWizardShortCuts.ListarProjetos)
+    .OnClick(TMyOTAWizardOnClicks.ListarProjetos)
+    .CreateMenuItem;
+
+   TMyOTAWizardMenuItem.New
+    .Parent(LMyMenuExtra)
+    .ImageList(FImages)
+    .Caption(TMyOTAWizardConsts.MyMenuItemExtrasListaAddProjetosCaption)
+    .Name(TMyOTAWizardConsts.MyMenuItemExtrasListaAddProjetosName)
+    .ImageResource('')
+    .ShortCut(TMyOTAWizardShortCuts.AdicionarProjetos)
+    .OnClick(TMyOTAWizardOnClicks.AdicionarProjetosLista)
+    .CreateMenuItem;
 end;
 
 procedure TMyOTAWizardMainMenu.Execute;
