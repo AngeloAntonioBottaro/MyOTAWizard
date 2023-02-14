@@ -9,17 +9,20 @@ uses
   System.SysUtils,
   System.Variants,
   System.Classes,
+  System.IniFiles,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
-  Vcl.Dialogs;
+  Vcl.Dialogs, Vcl.StdCtrls;
 
 type
   TViewProjectsList = class(TForm)
+    ListBox: TListBox;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
+    procedure ListarProjetos;
   public
   end;
 
@@ -29,6 +32,9 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  ProjectsList.IniFileConsts;
 
 procedure TViewProjectsList.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
@@ -51,6 +57,31 @@ begin
    {$IF CompilerVersion >= 32.0}
    (BorlandIDEServices as IOTAIDEThemingServices250).RegisterFormClass(TViewProjectsList);
    {$ENDIF}
+   Self.ListarProjetos;
+end;
+
+procedure TViewProjectsList.ListarProjetos;
+var
+  LIniFile: TIniFile;
+  LSections: TStringList;
+  I: Integer;
+begin
+   LIniFile := TIniFile.Create(TProjectsListIniFileConsts.IniFile);
+   try
+     LSections := TStringList.Create;
+     try
+       LIniFile.ReadSections(LSections);
+
+       for I := 0 to Pred(LSections.Count) do
+       begin
+          ListBox.Items.Add(LSections[I] + '  -  ' + LIniFile.ReadString(LSections[I], TProjectsListIniFileConsts.IdentifierDirectory, ''));
+       end;
+     finally
+       LSections.Free;
+     end;
+   finally
+     LIniFile.Free;
+   end;
 end;
 
 end.

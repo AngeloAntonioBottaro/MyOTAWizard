@@ -19,4 +19,18 @@ object ViewProjectsList: TViewProjectsList
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object ListBox: TListBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 639
+    Height = 303
+    Align = alClient
+    ItemHeight = 13
+    TabOrder = 0
+    ExplicitLeft = 160
+    ExplicitTop = 112
+    ExplicitWidth = 121
+    ExplicitHeight = 97
+  end
 end

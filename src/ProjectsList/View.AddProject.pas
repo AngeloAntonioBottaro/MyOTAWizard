@@ -83,7 +83,7 @@ end;
 
 procedure TViewAddProject.pnIniFilePathClick(Sender: TObject);
 begin
-   Clipboard.AsText := ExtractFilePath(GetModuleName(HInstance))
+   Clipboard.AsText := TProjectsListIniFileConsts.IniFilePath;
 end;
 
 procedure TViewAddProject.btnSelecionarProjetoClick(Sender: TObject);
@@ -146,10 +146,8 @@ end;
 procedure TViewAddProject.SalvarNaLista;
 var
   LIniFile: TIniFile;
-  LIniFileName: string;
 begin
-   LIniFileName := ExtractFilePath(GetModuleName(HInstance)) + 'ProjectsList.ini';
-   LIniFile := TIniFile.Create(LIniFileName);
+   LIniFile := TIniFile.Create(TProjectsListIniFileConsts.IniFile);
    try
      LIniFile.WriteString(Trim(edtNomeProjeto.Text), TProjectsListIniFileConsts.IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
    finally
