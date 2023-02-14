@@ -42,6 +42,7 @@ contains
   MyOTAWizard.KeyBiding in 'src\KeyBiding\MyOTAWizard.KeyBiding.pas',
   MyOTAWizard.ShortCuts in 'src\Utils\MyOTAWizard.ShortCuts.pas',
   View.ProjectsList in 'src\ProjectsList\View.ProjectsList.pas' {ViewProjectsList},
-  View.AddProject in 'src\ProjectsList\View.AddProject.pas' {ViewAddProject};
+  View.AddProject in 'src\ProjectsList\View.AddProject.pas' {ViewAddProject},
+  ProjectsList.IniFileConsts in 'src\ProjectsList\ProjectsList.IniFileConsts.pas';
 
 end.

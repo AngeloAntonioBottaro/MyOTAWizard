@@ -9,10 +9,11 @@ type
      'CTRL+Shift+M';
      'CTRL+Shift+L';
      'CTRL+Shift+E';}
-     Notepad = 'CTRL+Shift+T';
-     BatchCompactarMyERP = 'CTRL+Shift+K';
      ListarProjetos = 'CTRL+Shift+P';
      AdicionarProjetos = 'CTRL+Shift+J';
+
+     // = 'CTRL+Shift+T';
+     // = 'CTRL+Shift+K';
   end;
 
 implementation

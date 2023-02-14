@@ -39,12 +39,15 @@ object ViewAddProject: TViewAddProject
     Width = 75
     Height = 25
     Caption = 'Adicionar'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 3
+    OnClick = btnAdicionarClick
   end
   object btnSelecionarProjeto: TButton
-    Left = 398
+    Left = 401
     Top = 73
-    Width = 31
+    Width = 28
     Height = 21
     Caption = '...'
     TabOrder = 2
@@ -56,7 +59,7 @@ object ViewAddProject: TViewAddProject
     Width = 390
     Height = 21
     TabStop = False
-    Enabled = False
+    ReadOnly = True
     TabOrder = 1
   end
   object edtNomeProjeto: TEdit
@@ -66,5 +69,15 @@ object ViewAddProject: TViewAddProject
     Height = 21
     MaxLength = 50
     TabOrder = 0
+  end
+  object pnIniFilePath: TPanel
+    Left = 8
+    Top = 115
+    Width = 20
+    Height = 20
+    Cursor = crHelp
+    BevelOuter = bvNone
+    TabOrder = 4
+    OnClick = pnIniFilePathClick
   end
 end

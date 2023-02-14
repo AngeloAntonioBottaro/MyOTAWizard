@@ -5,9 +5,8 @@ interface
 type
   TMyOTAWizardConsts = class
     const
-     MyImagesPrefix         = 'aabimg';
+     MyImagesPrefix = 'aabimg';
 
-     MySplashIconeName  = 'icone';
      MySplashWizardName = 'AAB Softwares';
 
      MyMenuName             = 'MyMenu';

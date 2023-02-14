@@ -9,8 +9,10 @@ uses
   System.SysUtils,
   System.Variants,
   System.Classes,
+  System.IniFiles,
   Vcl.Graphics,
   Vcl.Controls,
+  Vcl.Clipbrd,
   Vcl.Forms,
   Vcl.Dialogs,
   Vcl.StdCtrls,
@@ -24,11 +26,17 @@ type
     edtNomeProjeto: TEdit;
     lbNomeProjeto: TLabel;
     lbDiretorioProjeto: TLabel;
+    pnIniFilePath: TPanel;
     procedure FormShow(Sender: TObject);
     procedure btnSelecionarProjetoClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure btnAdicionarClick(Sender: TObject);
+    procedure pnIniFilePathClick(Sender: TObject);
   private
+    procedure ValidarCampos;
+    procedure SalvarNaLista;
+    procedure LimparCampos;
   public
   end;
 
@@ -38,6 +46,9 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  ProjectsList.IniFileConsts;
 
 procedure TViewAddProject.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
@@ -67,11 +78,89 @@ begin
       lbDiretorioProjeto.Font.Color := clWhite;
    end;
    {$ENDIF}
+   Self.LimparCampos;
+end;
+
+procedure TViewAddProject.pnIniFilePathClick(Sender: TObject);
+begin
+   Clipboard.AsText := ExtractFilePath(GetModuleName(HInstance))
 end;
 
 procedure TViewAddProject.btnSelecionarProjetoClick(Sender: TObject);
+var
+  LSaveDialog: TSaveDialog;
+  LFile: string;
+  LExt: string;
 begin
-   //
+   edtDiretorioProjeto.Text := '';
+   LFile := '';
+   LSaveDialog := TSaveDialog.Create(nil);
+   try
+     LSaveDialog.DefaultExt := 'pdf';
+     LSaveDialog.Filter     := 'All|*.*|Project|*.dproj|Project Group|*.groupproj';
+     LSaveDialog.InitialDir := 'C:\';
+     LSaveDialog.FileName   := '';
+     if(LSaveDialog.Execute)then
+       LFile := LSaveDialog.FileName;
+   finally
+     LSaveDialog.Free;
+   end;
+
+   if(LFile = EmptyStr)then
+     Exit;
+
+   LExt := ExtractFileExt(LFile);
+   if(LExt <> '.dproj')and(LExt <> '.groupproj')then
+     Exit;
+
+   edtDiretorioProjeto.Text := LFile;
+
+   if(Trim(edtNomeProjeto.Text).IsEmpty)then
+     edtNomeProjeto.Text := StringReplace(ExtractFileName(LFile), ExtractFileExt(LFile), '', []);
+end;
+
+procedure TViewAddProject.btnAdicionarClick(Sender: TObject);
+begin
+   Self.ValidarCampos;
+   Self.SalvarNaLista;
+   Self.LimparCampos;
+end;
+
+procedure TViewAddProject.ValidarCampos;
+begin
+   if(Trim(edtNomeProjeto.Text).IsEmpty)then
+   begin
+      edtNomeProjeto.SetFocus;
+      ShowMessage('Nome do projeto não informado');
+      Abort;
+   end;
+
+   if(Trim(edtDiretorioProjeto.Text).IsEmpty)then
+   begin
+      edtDiretorioProjeto.SetFocus;
+      ShowMessage('Diretório do projeto não informado');
+      Abort;
+   end;
+end;
+
+procedure TViewAddProject.SalvarNaLista;
+var
+  LIniFile: TIniFile;
+  LIniFileName: string;
+begin
+   LIniFileName := ExtractFilePath(GetModuleName(HInstance)) + 'ProjectsList.ini';
+   LIniFile := TIniFile.Create(LIniFileName);
+   try
+     LIniFile.WriteString(Trim(edtNomeProjeto.Text), TProjectsListIniFileConsts.IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
+   finally
+     LIniFile.Free;
+   end;
+end;
+
+procedure TViewAddProject.LimparCampos;
+begin
+   edtNomeProjeto.Text := EmptyStr;
+   edtDiretorioProjeto.Text := EmptyStr;
 end;
 
 end.

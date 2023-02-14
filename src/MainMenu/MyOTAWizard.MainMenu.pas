@@ -57,7 +57,8 @@ constructor TMyOTAWizardMainMenu.Create;
 begin
    FImages := TDictionary<string, Integer>.create;
 
-   Self.AddImageToImageList('icone');
+   Self.AddImageToImageList('batch');
+   Self.AddImageToImageList('notepad');
 
    Self.CreateMainMenu;
 end;
@@ -115,8 +116,7 @@ begin
     .ImageList(FImages)
     .Caption(TMyOTAWizardConsts.MyMenuItemNotepadCaption)
     .Name(TMyOTAWizardConsts.MyMenuItemNotepadName)
-    .ImageResource('')
-    .ShortCut(TMyOTAWizardShortCuts.Notepad)
+    .ImageResource('notepad')
     .OnClick(TMyOTAWizardOnClicks.Notepad)
     .CreateMenuItem;
 
@@ -133,7 +133,7 @@ begin
                      .ImageList(FImages)
                      .Caption(TMyOTAWizardConsts.MyMenuItemBatchCaption)
                      .Name(TMyOTAWizardConsts.MyMenuItemBatchName)
-                     .ImageResource('')
+                     .ImageResource('batch')
                      .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
@@ -141,8 +141,7 @@ begin
      .ImageList(FImages)
      .Caption(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPCaption)
      .Name(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPName)
-     .ImageResource('')
-     .ShortCut(TMyOTAWizardShortCuts.BatchCompactarMyERP)
+     .ImageResource('batch')
      .OnClick(TMyOTAWizardOnClicks.BatchCompactarMyERP)
      .CreateMenuItem;
 end;

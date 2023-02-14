@@ -19,7 +19,7 @@ var
 begin
    LBmp := TBitmap.Create;
    try
-     LBmp.LoadFromResourceName(HInstance, TMyOTAWizardConsts.MySplashIconeName);
+     LBmp.LoadFromResourceName(HInstance, 'splash');
      SplashScreenServices
       .AddPluginBitmap(TMyOTAWizardConsts.MySplashWizardName, LBmp.Handle, False, '', '');
    finally

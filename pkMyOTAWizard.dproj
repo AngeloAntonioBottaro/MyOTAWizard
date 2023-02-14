@@ -123,9 +123,18 @@
             <Form>ViewAddProject</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <RcItem Include="Resource\Icone.bmp">
+        <DCCReference Include="src\ProjectsList\ProjectsList.IniFileConsts.pas"/>
+        <RcItem Include="Resource\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
-            <ResourceId>icone</ResourceId>
+            <ResourceId>batch</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\notepad.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>notepad</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\splash.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>splash</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
