@@ -9,8 +9,8 @@ type
 
      MySplashWizardName = 'AAB Softwares';
 
-     MyMenuName             = 'MyMenu';
-     MyMenuCaption          = 'AAB Softwares';
+     MyMenuName    = 'MyMenu';
+     MyMenuCaption = 'AAB Softwares';
 
      MyMenuItemNotepadCaption = 'Notepad';
      MyMenuItemNotepadName    = 'miNotepad';
@@ -19,7 +19,7 @@ type
      MyMenuItemBatchName    = 'miBatchs';
 
      MyMenuItemBatchCompactarMyERPCaption = 'Compactar MyERP';
-     MyMenuItemBatchCompactarMyERPName    = 'miBatchCompactar';
+     MyMenuItemBatchCompactarMyERPName    = 'miBatchCompactarMyERP';
 
      MyMenuItemExtrasCaption = 'Extras';
      MyMenuItemExtrasName    = 'miExtras';

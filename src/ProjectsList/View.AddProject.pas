@@ -48,7 +48,7 @@ implementation
 {$R *.dfm}
 
 uses
-  ProjectsList.IniFileConsts;
+  ProjectsList.IniFileUtils;
 
 procedure TViewAddProject.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
@@ -78,12 +78,11 @@ begin
       lbDiretorioProjeto.Font.Color := clWhite;
    end;
    {$ENDIF}
-   Self.LimparCampos;
 end;
 
 procedure TViewAddProject.pnIniFilePathClick(Sender: TObject);
 begin
-   Clipboard.AsText := TProjectsListIniFileConsts.IniFilePath;
+   Clipboard.AsText := TProjectsListIniFileUtils.IniFilePath;
 end;
 
 procedure TViewAddProject.btnSelecionarProjetoClick(Sender: TObject);
@@ -109,12 +108,7 @@ begin
    if(LFile = EmptyStr)then
      Exit;
 
-   LExt := ExtractFileExt(LFile);
-   if(LExt <> '.dproj')and(LExt <> '.groupproj')then
-     Exit;
-
    edtDiretorioProjeto.Text := LFile;
-
    if(Trim(edtNomeProjeto.Text).IsEmpty)then
      edtNomeProjeto.Text := StringReplace(ExtractFileName(LFile), ExtractFileExt(LFile), '', []);
 end;
@@ -147,9 +141,9 @@ procedure TViewAddProject.SalvarNaLista;
 var
   LIniFile: TIniFile;
 begin
-   LIniFile := TIniFile.Create(TProjectsListIniFileConsts.IniFile);
+   LIniFile := TIniFile.Create(TProjectsListIniFileUtils.IniFile);
    try
-     LIniFile.WriteString(Trim(edtNomeProjeto.Text), TProjectsListIniFileConsts.IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
+     LIniFile.WriteString(Trim(edtNomeProjeto.Text), IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
    finally
      LIniFile.Free;
    end;

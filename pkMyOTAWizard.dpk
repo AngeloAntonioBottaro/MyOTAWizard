@@ -30,7 +30,10 @@ package pkMyOTAWizard;
 
 requires
   rtl,
-  designide;
+  designide,
+  dbrtl,
+  dsnap,
+  vcldb;
 
 contains
   MyOTAWizard.Register in 'src\Utils\MyOTAWizard.Register.pas',
@@ -43,6 +46,6 @@ contains
   MyOTAWizard.ShortCuts in 'src\Utils\MyOTAWizard.ShortCuts.pas',
   View.ProjectsList in 'src\ProjectsList\View.ProjectsList.pas' {ViewProjectsList},
   View.AddProject in 'src\ProjectsList\View.AddProject.pas' {ViewAddProject},
-  ProjectsList.IniFileConsts in 'src\ProjectsList\ProjectsList.IniFileConsts.pas';
+  ProjectsList.IniFileUtils in 'src\ProjectsList\ProjectsList.IniFileUtils.pas';
 
 end.
