@@ -126,7 +126,8 @@
             <Form>ViewAddProject</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="src\ProjectsList\ProjectsList.IniFileUtils.pas"/>
+        <DCCReference Include="src\ProjectsList\ProjectsList.IniFile.pas"/>
+        <DCCReference Include="src\ProjectsList\ProjectsList.Types.pas"/>
         <RcItem Include="Resource\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>

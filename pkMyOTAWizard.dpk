@@ -46,6 +46,7 @@ contains
   MyOTAWizard.ShortCuts in 'src\Utils\MyOTAWizard.ShortCuts.pas',
   View.ProjectsList in 'src\ProjectsList\View.ProjectsList.pas' {ViewProjectsList},
   View.AddProject in 'src\ProjectsList\View.AddProject.pas' {ViewAddProject},
-  ProjectsList.IniFileUtils in 'src\ProjectsList\ProjectsList.IniFileUtils.pas';
+  ProjectsList.IniFile in 'src\ProjectsList\ProjectsList.IniFile.pas',
+  ProjectsList.Types in 'src\ProjectsList\ProjectsList.Types.pas';
 
 end.

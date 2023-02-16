@@ -20,20 +20,24 @@ uses
 
 type
   TViewAddProject = class(TForm)
-    btnAdicionar: TButton;
+    btnSalvar: TButton;
     btnSelecionarProjeto: TButton;
     edtDiretorioProjeto: TEdit;
     edtNomeProjeto: TEdit;
     lbNomeProjeto: TLabel;
     lbDiretorioProjeto: TLabel;
     pnIniFilePath: TPanel;
+    cbGrupo: TComboBox;
+    lbGrupo: TLabel;
     procedure FormShow(Sender: TObject);
     procedure btnSelecionarProjetoClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure btnAdicionarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
     procedure pnIniFilePathClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
+    procedure ConfComponentsTheme(ATheme: string);
     procedure ValidarCampos;
     procedure SalvarNaLista;
     procedure LimparCampos;
@@ -48,7 +52,15 @@ implementation
 {$R *.dfm}
 
 uses
-  ProjectsList.IniFileUtils;
+  ProjectsList.IniFile,
+  ProjectsList.Types;
+
+procedure TViewAddProject.FormCreate(Sender: TObject);
+begin
+   cbGrupo.Items.Clear;
+   TEnumUtils<TGroup>.EnumToList(cbGrupo.Items);
+   cbGrupo.ItemIndex := 0;
+end;
 
 procedure TViewAddProject.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
@@ -69,27 +81,33 @@ end;
 procedure TViewAddProject.FormShow(Sender: TObject);
 begin
    {$IF CompilerVersion >= 32.0}
-   (BorlandIDEServices as IOTAIDEThemingServices250).RegisterFormClass(TViewAddProject);
-   lbNomeProjeto.Font.Color      := clBlack;
-   lbDiretorioProjeto.Font.Color := clBlack;
-   if((BorlandIDEServices as IOTAIDEThemingServices250).ActiveTheme = 'Dark')then
-   begin
-      lbNomeProjeto.Font.Color      := clWhite;
-      lbDiretorioProjeto.Font.Color := clWhite;
-   end;
+    (BorlandIDEServices as IOTAIDEThemingServices250).RegisterFormClass(TViewAddProject);
+    Self.ConfComponentsTheme((BorlandIDEServices as IOTAIDEThemingServices250).ActiveTheme);
    {$ENDIF}
+end;
+
+procedure TViewAddProject.ConfComponentsTheme(ATheme: string);
+var
+  LColor: TColor;
+begin
+   LColor := clBlack;
+   if(ATheme = 'Dark')then
+     LColor := clWhite;
+
+   lbNomeProjeto.Font.Color      := LColor;
+   lbDiretorioProjeto.Font.Color := LColor;
+   lbGrupo.Font.Color            := LColor;
 end;
 
 procedure TViewAddProject.pnIniFilePathClick(Sender: TObject);
 begin
-   Clipboard.AsText := TProjectsListIniFileUtils.IniFilePath;
+   Clipboard.AsText := TProjectsListIniFile.New.IniFilePath;
 end;
 
 procedure TViewAddProject.btnSelecionarProjetoClick(Sender: TObject);
 var
   LSaveDialog: TSaveDialog;
   LFile: string;
-  LExt: string;
 begin
    edtDiretorioProjeto.Text := '';
    LFile := '';
@@ -113,7 +131,7 @@ begin
      edtNomeProjeto.Text := StringReplace(ExtractFileName(LFile), ExtractFileExt(LFile), '', []);
 end;
 
-procedure TViewAddProject.btnAdicionarClick(Sender: TObject);
+procedure TViewAddProject.btnSalvarClick(Sender: TObject);
 begin
    Self.ValidarCampos;
    Self.SalvarNaLista;
@@ -138,21 +156,16 @@ begin
 end;
 
 procedure TViewAddProject.SalvarNaLista;
-var
-  LIniFile: TIniFile;
 begin
-   LIniFile := TIniFile.Create(TProjectsListIniFileUtils.IniFile);
-   try
-     LIniFile.WriteString(Trim(edtNomeProjeto.Text), IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
-   finally
-     LIniFile.Free;
-   end;
+   TProjectsListIniFile.New.IniFile.WriteString(Trim(edtNomeProjeto.Text), IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(Trim(edtNomeProjeto.Text), IdentifierGroup, Trim(cbGrupo.Text));
 end;
 
 procedure TViewAddProject.LimparCampos;
 begin
    edtNomeProjeto.Text := EmptyStr;
    edtDiretorioProjeto.Text := EmptyStr;
+   cbGrupo.ItemIndex := 0;
 end;
 
 end.

@@ -14,6 +14,7 @@ object ViewAddProject: TViewAddProject
   KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -21,32 +22,39 @@ object ViewAddProject: TViewAddProject
   TextHeight = 13
   object lbNomeProjeto: TLabel
     Left = 8
-    Top = 8
+    Top = 11
     Width = 65
     Height = 13
     Caption = 'Nome projeto'
   end
   object lbDiretorioProjeto: TLabel
     Left = 8
-    Top = 54
+    Top = 51
     Width = 79
     Height = 13
     Caption = 'Diret'#243'rio projeto'
   end
-  object btnAdicionar: TButton
+  object lbGrupo: TLabel
+    Left = 8
+    Top = 90
+    Width = 29
+    Height = 13
+    Caption = 'Grupo'
+  end
+  object btnSalvar: TButton
     Left = 354
-    Top = 108
+    Top = 102
     Width = 75
     Height = 25
-    Caption = 'Adicionar'
+    Caption = 'Salvar'
     ParentShowHint = False
     ShowHint = True
     TabOrder = 3
-    OnClick = btnAdicionarClick
+    OnClick = btnSalvarClick
   end
   object btnSelecionarProjeto: TButton
     Left = 401
-    Top = 73
+    Top = 65
     Width = 28
     Height = 21
     Caption = '...'
@@ -55,7 +63,7 @@ object ViewAddProject: TViewAddProject
   end
   object edtDiretorioProjeto: TEdit
     Left = 8
-    Top = 73
+    Top = 65
     Width = 390
     Height = 21
     TabStop = False
@@ -71,13 +79,22 @@ object ViewAddProject: TViewAddProject
     TabOrder = 0
   end
   object pnIniFilePath: TPanel
-    Left = 8
-    Top = 115
+    Left = 409
+    Top = 4
     Width = 20
     Height = 20
     Cursor = crHelp
     BevelOuter = bvNone
     TabOrder = 4
     OnClick = pnIniFilePathClick
+  end
+  object cbGrupo: TComboBox
+    Left = 8
+    Top = 104
+    Width = 161
+    Height = 21
+    Style = csDropDownList
+    ParentColor = True
+    TabOrder = 5
   end
 end
