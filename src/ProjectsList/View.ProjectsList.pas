@@ -186,16 +186,13 @@ procedure TViewProjectsList.ListViewCustomDrawSubItem(Sender: TCustomListView; I
 var
   LColor: TColor;
 begin
-   LColor := clBlack;
-   if(TMyOTAWizardUtils.ActiveTheme = 'Dark')then
-     LColor := clWhite;
-
+   LColor := TMyOTAWizardUtils.FontColor(clBlack);
    if(FAbaShowing.Equals(TProjectsListGroup.Trabalho.ToString))then
-     LColor := clWebYellow
+     LColor := TMyOTAWizardUtils.FontColor(clYellow)
    else if(FAbaShowing.Equals(TProjectsListGroup.Pessoal.ToString))then
-     LColor := clWebAqua
+     LColor := TMyOTAWizardUtils.FontColor(clAqua)
    else if(FAbaShowing.Equals(TProjectsListGroup.Executaveis.ToString))then
-     LColor := clWebRed;
+     LColor := TMyOTAWizardUtils.FontColor(clRed);
 
    Sender.Canvas.Font.Color := LColor;
 end;

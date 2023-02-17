@@ -52,6 +52,7 @@ implementation
 {$R *.dfm}
 
 uses
+  MyOTAWizard.Utils,
   ProjectsList.IniFile,
   ProjectsList.Types;
 
@@ -80,23 +81,15 @@ end;
 
 procedure TViewAddProject.FormShow(Sender: TObject);
 begin
-   {$IF CompilerVersion >= 32.0}
-    (BorlandIDEServices as IOTAIDEThemingServices250).RegisterFormClass(TViewAddProject);
-    Self.ConfComponentsTheme;
-   {$ENDIF}
+   TMyOTAWizardUtils.ApplyTheme(TViewAddProject, Self);
+   Self.ConfComponentsTheme;
 end;
 
 procedure TViewAddProject.ConfComponentsTheme;
-var
-  LColor: TColor;
 begin
-   LColor := clBlack;
-   if((BorlandIDEServices as IOTAIDEThemingServices250).ActiveTheme = 'Dark')then
-     LColor := clWhite;
-
-   lbNomeProjeto.Font.Color      := LColor;
-   lbDiretorioProjeto.Font.Color := LColor;
-   lbGrupo.Font.Color            := LColor;
+   lbNomeProjeto.Font.Color      := TMyOTAWizardUtils.FontColor;
+   lbDiretorioProjeto.Font.Color := TMyOTAWizardUtils.FontColor;
+   lbGrupo.Font.Color            := TMyOTAWizardUtils.FontColor;
 end;
 
 procedure TViewAddProject.pnIniFilePathClick(Sender: TObject);
