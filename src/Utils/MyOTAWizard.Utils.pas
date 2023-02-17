@@ -7,6 +7,7 @@ uses
   System.SysUtils,
   System.Variants,
   System.Classes,
+  System.UITypes,
   Vcl.Forms,
   Vcl.Graphics,
   Vcl.Controls,
@@ -17,7 +18,7 @@ type
   public
     class function ActiveTheme: string;
     class procedure ApplyTheme(AClass: TCustomFormClass; AForm: TForm);
-    class function FontColor(AColor: Integer = 0): Integer;
+    class function FontColor(AColor: Integer): Integer;
   end;
 
 implementation
@@ -25,26 +26,24 @@ implementation
 function ColorDark(AColor: Integer): Integer;
 begin
    case(AColor)of
-    clRed:    Result := clWebRed;
-    clBlue:   Result := clWebBlue;
-    clAqua:   Result := clWebAqua;
-    clYellow: Result := clWebYellow;
-    clGreen:  Result := clWebGreen;
+    TColors.Red:    Result := TColors.Red;
+    TColors.Blue:   Result := TColors.Aqua;
+    TColors.Yellow: Result := TColors.Yellow;
+    TColors.Green:  Result := TColors.Green;
    else
-    Result := clWhite;
+    Result := TColors.White;
    end;
 end;
 
 function ColorLight(AColor: Integer): Integer;
 begin
    case(AColor)of
-    clRed:    Result := clWebDarkRed;
-    clBlue:   Result := clWebDarkBlue;
-    clAqua:   Result := clWebBlue;
-    clYellow: Result := clWebOrange;
-    clGreen:  Result := clWebDarkGreen;
+    TColors.Red:    Result := TColors.red;
+    TColors.Blue:   Result := TColors.blue;
+    TColors.Yellow: Result := TColors.Yellow;
+    TColors.Green:  Result := TColors.Green;
    else
-    Result := clBlack;
+    Result := TColors.Black;
    end;
 end;
 
@@ -61,18 +60,18 @@ var
   I: Integer;
 begin
    {$IF CompilerVersion >= 32.0}
-     (BorlandIDEServices as IOTAIDEThemingServices250).RegisterFormClass(AClass);
-     for I := 0 to Pred(AForm.ComponentCount) do
-     begin
-        if(AForm.Components[I] is TPanel)then
-          TPanel(AForm.Components[I]).ParentBackground := True;
+    (BorlandIDEServices as IOTAIDEThemingServices250).RegisterFormClass(AClass);
+    for I := 0 to Pred(AForm.ComponentCount) do
+    begin
+       if(AForm.Components[I] is TPanel)then
+         TPanel(AForm.Components[I]).ParentBackground := True;
 
-        (BorlandIDEServices as IOTAIDEThemingServices250).ApplyTheme(AForm.Components[i]);
-     end;
+       (BorlandIDEServices as IOTAIDEThemingServices250).ApplyTheme(AForm.Components[i]);
+    end;
    {$ENDIF}
 end;
 
-class function TMyOTAWizardUtils.FontColor(AColor: Integer = 0): Integer;
+class function TMyOTAWizardUtils.FontColor(AColor: Integer): Integer;
 begin
    Result := ColorLight(AColor);
    if(ActiveTheme = 'Dark')then

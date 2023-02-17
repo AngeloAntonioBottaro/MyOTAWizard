@@ -29,6 +29,8 @@ type
     pnIniFilePath: TPanel;
     cbGrupo: TComboBox;
     lbGrupo: TLabel;
+    Label1: TLabel;
+    cbCor: TComboBox;
     procedure FormShow(Sender: TObject);
     procedure btnSelecionarProjetoClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -61,6 +63,10 @@ begin
    cbGrupo.Items.Clear;
    TEnumUtils<TProjectsListGroup>.EnumToList(cbGrupo.Items);
    cbGrupo.ItemIndex := 0;
+
+   cbCor.Items.Clear;
+   TEnumUtils<TProjectsListColors>.EnumToList(cbCor.Items);
+   cbCor.ItemIndex := 0;
 end;
 
 procedure TViewAddProject.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -87,9 +93,9 @@ end;
 
 procedure TViewAddProject.ConfComponentsTheme;
 begin
-   lbNomeProjeto.Font.Color      := TMyOTAWizardUtils.FontColor;
-   lbDiretorioProjeto.Font.Color := TMyOTAWizardUtils.FontColor;
-   lbGrupo.Font.Color            := TMyOTAWizardUtils.FontColor;
+   lbNomeProjeto.Font.Color      := TProjectsListColors.Texto.ToColor;
+   lbDiretorioProjeto.Font.Color := TProjectsListColors.Texto.ToColor;
+   lbGrupo.Font.Color            := TProjectsListColors.Texto.ToColor;
 end;
 
 procedure TViewAddProject.pnIniFilePathClick(Sender: TObject);
@@ -149,9 +155,13 @@ begin
 end;
 
 procedure TViewAddProject.SalvarNaLista;
+var
+  LSection: string;
 begin
-   TProjectsListIniFile.New.IniFile.WriteString(Trim(edtNomeProjeto.Text), IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
-   TProjectsListIniFile.New.IniFile.WriteString(Trim(edtNomeProjeto.Text), IdentifierGroup, Trim(cbGrupo.Text));
+   LSection := Trim(edtNomeProjeto.Text);
+   TProjectsListIniFile.New.IniFile.WriteString(LSection, IdentifierDirectory, Trim(edtDiretorioProjeto.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(LSection, IdentifierGroup, Trim(cbGrupo.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(LSection, IdentifierColor, Trim(cbCor.Text));
 end;
 
 procedure TViewAddProject.LimparCampos;

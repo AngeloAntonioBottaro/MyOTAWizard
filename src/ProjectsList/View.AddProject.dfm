@@ -41,6 +41,13 @@ object ViewAddProject: TViewAddProject
     Height = 13
     Caption = 'Grupo'
   end
+  object Label1: TLabel
+    Left = 174
+    Top = 90
+    Width = 17
+    Height = 13
+    Caption = 'Cor'
+  end
   object btnSalvar: TButton
     Left = 354
     Top = 102
@@ -96,5 +103,14 @@ object ViewAddProject: TViewAddProject
     Style = csDropDownList
     ParentColor = True
     TabOrder = 5
+  end
+  object cbCor: TComboBox
+    Left = 174
+    Top = 104
+    Width = 161
+    Height = 21
+    Style = csDropDownList
+    ParentColor = True
+    TabOrder = 6
   end
 end

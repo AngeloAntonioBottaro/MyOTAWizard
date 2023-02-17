@@ -9,6 +9,7 @@ uses
 const
   IdentifierDirectory = 'Directory';
   IdentifierGroup     = 'Group';
+  IdentifierColor     = 'Color';
 
 type
   IProjectsListIniFile = interface
