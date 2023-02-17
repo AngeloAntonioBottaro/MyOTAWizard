@@ -128,6 +128,7 @@
         </DCCReference>
         <DCCReference Include="src\ProjectsList\ProjectsList.IniFile.pas"/>
         <DCCReference Include="src\ProjectsList\ProjectsList.Types.pas"/>
+        <DCCReference Include="src\Utils\MyOTAWizard.Utils.pas"/>
         <RcItem Include="Resource\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>

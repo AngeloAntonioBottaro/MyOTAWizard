@@ -4,7 +4,7 @@ object ViewProjectsList: TViewProjectsList
   BorderStyle = bsDialog
   Caption = 'Projetos'
   ClientHeight = 309
-  ClientWidth = 645
+  ClientWidth = 706
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,16 +14,27 @@ object ViewProjectsList: TViewProjectsList
   KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 290
+    Width = 706
+    Height = 19
+    Panels = <
+      item
+        Width = 200
+      end>
+  end
   object ListView: TListView
     Left = 0
     Top = 0
-    Width = 645
-    Height = 309
+    Width = 706
+    Height = 290
     Align = alClient
     Columns = <
       item
@@ -37,10 +48,6 @@ object ViewProjectsList: TViewProjectsList
       item
         Caption = 'Diretorio'
         Width = 350
-      end
-      item
-        Caption = 'Grupo'
-        Width = 100
       end>
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -52,13 +59,21 @@ object ViewProjectsList: TViewProjectsList
     ParentFont = False
     PopupMenu = PopupMenu
     SortType = stText
-    TabOrder = 0
+    TabOrder = 1
     ViewStyle = vsReport
+    OnCustomDrawSubItem = ListViewCustomDrawSubItem
     OnDblClick = ListViewDblClick
   end
   object PopupMenu: TPopupMenu
-    Left = 72
-    Top = 248
+    Left = 32
+    Top = 40
+    object AbrirDiretorio1: TMenuItem
+      Caption = 'Abrir diret'#243'rio'
+      OnClick = AbrirDiretorio1Click
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
     object ExcluirRegistro1: TMenuItem
       Caption = 'Excluir registro'
       OnClick = ExcluirRegistro1Click

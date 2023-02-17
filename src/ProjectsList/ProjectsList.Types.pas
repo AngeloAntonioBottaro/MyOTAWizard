@@ -9,11 +9,15 @@ uses
 
 type
   {$SCOPEDENUMS ON}
-  TGroup = (Tudo, Trabalho, Pessoal, Packets);
+  TProjectsListGroup = (Tudo, Executaveis, Trabalho, Pessoal, Packets);
   {$SCOPEDENUMS OFF}
 
   TEnumUtils<T> = class
    class procedure EnumToList(Value: TStrings);
+  end;
+
+  TGroupHelper = record helper for TProjectsListGroup
+   function ToString: string;
   end;
 
 implementation
@@ -34,6 +38,11 @@ begin
 
      System.Inc(I);
    until(Pos < 0);
+end;
+
+function TGroupHelper.ToString: string;
+begin
+   Result := GetEnumName(TypeInfo(TProjectsListGroup), Integer(Self));
 end;
 
 end.

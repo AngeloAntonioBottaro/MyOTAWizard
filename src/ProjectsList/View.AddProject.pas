@@ -37,7 +37,7 @@ type
     procedure pnIniFilePathClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    procedure ConfComponentsTheme(ATheme: string);
+    procedure ConfComponentsTheme;
     procedure ValidarCampos;
     procedure SalvarNaLista;
     procedure LimparCampos;
@@ -58,7 +58,7 @@ uses
 procedure TViewAddProject.FormCreate(Sender: TObject);
 begin
    cbGrupo.Items.Clear;
-   TEnumUtils<TGroup>.EnumToList(cbGrupo.Items);
+   TEnumUtils<TProjectsListGroup>.EnumToList(cbGrupo.Items);
    cbGrupo.ItemIndex := 0;
 end;
 
@@ -82,16 +82,16 @@ procedure TViewAddProject.FormShow(Sender: TObject);
 begin
    {$IF CompilerVersion >= 32.0}
     (BorlandIDEServices as IOTAIDEThemingServices250).RegisterFormClass(TViewAddProject);
-    Self.ConfComponentsTheme((BorlandIDEServices as IOTAIDEThemingServices250).ActiveTheme);
+    Self.ConfComponentsTheme;
    {$ENDIF}
 end;
 
-procedure TViewAddProject.ConfComponentsTheme(ATheme: string);
+procedure TViewAddProject.ConfComponentsTheme;
 var
   LColor: TColor;
 begin
    LColor := clBlack;
-   if(ATheme = 'Dark')then
+   if((BorlandIDEServices as IOTAIDEThemingServices250).ActiveTheme = 'Dark')then
      LColor := clWhite;
 
    lbNomeProjeto.Font.Color      := LColor;

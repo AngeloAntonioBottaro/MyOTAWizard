@@ -47,6 +47,7 @@ contains
   View.ProjectsList in 'src\ProjectsList\View.ProjectsList.pas' {ViewProjectsList},
   View.AddProject in 'src\ProjectsList\View.AddProject.pas' {ViewAddProject},
   ProjectsList.IniFile in 'src\ProjectsList\ProjectsList.IniFile.pas',
-  ProjectsList.Types in 'src\ProjectsList\ProjectsList.Types.pas';
+  ProjectsList.Types in 'src\ProjectsList\ProjectsList.Types.pas',
+  MyOTAWizard.Utils in 'src\Utils\MyOTAWizard.Utils.pas';
 
 end.
