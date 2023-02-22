@@ -23,8 +23,9 @@ type
     ListView: TListView;
     N1: TMenuItem;
     AbrirDiretorio1: TMenuItem;
-    ImageList: TImageList;
+    ImageListDark: TImageList;
     AbrirNovaJanela1: TMenuItem;
+    ImageListLight: TImageList;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -66,6 +67,9 @@ procedure TViewProjectsList.FormCreate(Sender: TObject);
 begin
    Constraints.MinHeight := Self.Height;
    Self.CriarPageControl;
+   ListView.SmallImages := ImageListLight;
+   if(TMyOTAWizardUtils.ActiveTheme = 'Dark')then
+     ListView.SmallImages := ImageListDark;
 end;
 
 procedure TViewProjectsList.CriarPageControl;
@@ -237,12 +241,10 @@ end;
 
 procedure TViewProjectsList.ListViewCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; var DefaultDraw: Boolean);
 var
-  LColor: TColor;
   LTypeColor: string;
 begin
    LTypeColor := TProjectsListIniFile.New.IniFile.ReadString(Item.SubItems[0], IdentifierColor, TPLColors.Texto.ToString);
-   LColor     := StrToProjectsListColors(LTypeColor).ToColor;
-   Sender.Canvas.Font.Color := LColor;
+   Sender.Canvas.Font.Color := StrToProjectsListColors(LTypeColor).ToColor;
 end;
 
 procedure TViewProjectsList.ListViewDblClick(Sender: TObject);

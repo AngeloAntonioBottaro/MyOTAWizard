@@ -114,7 +114,7 @@
         <DCCReference Include="src\Splash\MyOTAWizard.Splash.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Consts.pas"/>
-        <DCCReference Include="src\MainMenu\MyOTAWizard.MenuItem.pas"/>
+        <DCCReference Include="src\Utils\MyOTAWizard.MenuItem.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.OnClicks.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.ShortCuts.pas"/>
@@ -131,6 +131,8 @@
         <DCCReference Include="src\Utils\MyOTAWizard.Utils.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.AdicionarProjetosLista.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.ProjetosListar.pas"/>
+        <DCCReference Include="src\ProjectMenu\MyOTAWizard.ProjectMenu.pas"/>
+        <DCCReference Include="src\ProjectMenu\MyOTAWizard.ProjectMenu.Item.pas"/>
         <RcItem Include="Resource\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>

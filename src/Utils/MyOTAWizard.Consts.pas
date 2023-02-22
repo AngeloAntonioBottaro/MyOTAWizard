@@ -29,6 +29,12 @@ type
 
      MyMenuItemExtrasListaAddProjetosCaption = 'Adicionar projetos a lista';
      MyMenuItemExtrasListaAddProjetosName    = 'miExtraAddProjetosLista';
+
+     MyProjectMenuName    = 'MyProjectMenu';
+     MyProjectMenuCaption = 'AAB Softwares';
+     MyProjectMenuSeparatorName = 'MyProjectMenuSeparator';
+
+     MyProjectMenuSpaceValue = 35;
   end;
 
 implementation

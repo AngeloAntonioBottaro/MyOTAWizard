@@ -67,7 +67,7 @@ begin
    case(AColor)of
     TColors.Red:    Result := TColors.red;
     TColors.Blue:   Result := TColors.blue;
-    TColors.Yellow: Result := TColors.Yellow;
+    TColors.Yellow: Result := TColors.Olive;
     TColors.Green:  Result := TColors.Green;
    else
     Result := TColors.Black;

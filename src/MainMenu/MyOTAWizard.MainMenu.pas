@@ -90,7 +90,6 @@ end;
 procedure TMyOTAWizardMainMenu.CreateMainMenu;
 begin
    FDeplhiMainMenu := (BorlandIDEServices as INTAServices).MainMenu;
-
    Self.CreateMyMenu;
 end;
 
