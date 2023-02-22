@@ -4,6 +4,8 @@ interface
 
 uses
   ToolsAPI,
+  Winapi.Windows,
+  Winapi.ShellAPI,
   System.SysUtils,
   System.Variants,
   System.Classes,
@@ -19,33 +21,10 @@ type
     class function ActiveTheme: string;
     class procedure ApplyTheme(AClass: TCustomFormClass; AForm: TForm);
     class function FontColor(AColor: Integer): Integer;
+    class procedure Open(AFileName: string);
   end;
 
 implementation
-
-function ColorDark(AColor: Integer): Integer;
-begin
-   case(AColor)of
-    TColors.Red:    Result := TColors.Red;
-    TColors.Blue:   Result := TColors.Aqua;
-    TColors.Yellow: Result := TColors.Yellow;
-    TColors.Green:  Result := TColors.Green;
-   else
-    Result := TColors.White;
-   end;
-end;
-
-function ColorLight(AColor: Integer): Integer;
-begin
-   case(AColor)of
-    TColors.Red:    Result := TColors.red;
-    TColors.Blue:   Result := TColors.blue;
-    TColors.Yellow: Result := TColors.Yellow;
-    TColors.Green:  Result := TColors.Green;
-   else
-    Result := TColors.Black;
-   end;
-end;
 
 class function TMyOTAWizardUtils.ActiveTheme: string;
 begin
@@ -71,11 +50,40 @@ begin
    {$ENDIF}
 end;
 
+function ColorDark(AColor: Integer): Integer;
+begin
+   case(AColor)of
+    TColors.Red:    Result := TColors.Red;
+    TColors.Blue:   Result := TColors.Aqua;
+    TColors.Yellow: Result := TColors.Yellow;
+    TColors.Green:  Result := TColors.Lightgreen;
+   else
+    Result := TColors.White;
+   end;
+end;
+
+function ColorLight(AColor: Integer): Integer;
+begin
+   case(AColor)of
+    TColors.Red:    Result := TColors.red;
+    TColors.Blue:   Result := TColors.blue;
+    TColors.Yellow: Result := TColors.Yellow;
+    TColors.Green:  Result := TColors.Green;
+   else
+    Result := TColors.Black;
+   end;
+end;
+
 class function TMyOTAWizardUtils.FontColor(AColor: Integer): Integer;
 begin
    Result := ColorLight(AColor);
    if(ActiveTheme = 'Dark')then
      Result := ColorDark(AColor);
+end;
+
+class procedure TMyOTAWizardUtils.Open(AFileName: string);
+begin
+   ShellExecute(HInstance, 'open', Pchar(AFileName), nil, nil, SW_SHOWNORMAL);
 end;
 
 end.

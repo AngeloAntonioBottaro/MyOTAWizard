@@ -22,14 +22,14 @@ object ViewAddProject: TViewAddProject
   TextHeight = 13
   object lbNomeProjeto: TLabel
     Left = 8
-    Top = 11
+    Top = 52
     Width = 65
     Height = 13
     Caption = 'Nome projeto'
   end
   object lbDiretorioProjeto: TLabel
     Left = 8
-    Top = 51
+    Top = 12
     Width = 79
     Height = 13
     Caption = 'Diret'#243'rio projeto'
@@ -41,7 +41,7 @@ object ViewAddProject: TViewAddProject
     Height = 13
     Caption = 'Grupo'
   end
-  object Label1: TLabel
+  object lbCor: TLabel
     Left = 174
     Top = 90
     Width = 17
@@ -56,34 +56,34 @@ object ViewAddProject: TViewAddProject
     Caption = 'Salvar'
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 3
+    TabOrder = 5
     OnClick = btnSalvarClick
   end
   object btnSelecionarProjeto: TButton
     Left = 401
-    Top = 65
+    Top = 26
     Width = 28
     Height = 21
     Caption = '...'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = btnSelecionarProjetoClick
   end
   object edtDiretorioProjeto: TEdit
     Left = 8
-    Top = 65
-    Width = 390
+    Top = 26
+    Width = 391
     Height = 21
     TabStop = False
     ReadOnly = True
-    TabOrder = 1
+    TabOrder = 0
   end
   object edtNomeProjeto: TEdit
     Left = 8
-    Top = 25
+    Top = 65
     Width = 421
     Height = 21
     MaxLength = 50
-    TabOrder = 0
+    TabOrder = 2
   end
   object pnIniFilePath: TPanel
     Left = 409
@@ -92,8 +92,9 @@ object ViewAddProject: TViewAddProject
     Height = 20
     Cursor = crHelp
     BevelOuter = bvNone
-    TabOrder = 4
+    TabOrder = 6
     OnClick = pnIniFilePathClick
+    OnDblClick = pnIniFilePathDblClick
   end
   object cbGrupo: TComboBox
     Left = 8
@@ -102,7 +103,7 @@ object ViewAddProject: TViewAddProject
     Height = 21
     Style = csDropDownList
     ParentColor = True
-    TabOrder = 5
+    TabOrder = 3
   end
   object cbCor: TComboBox
     Left = 174
@@ -111,6 +112,6 @@ object ViewAddProject: TViewAddProject
     Height = 21
     Style = csDropDownList
     ParentColor = True
-    TabOrder = 6
+    TabOrder = 4
   end
 end

@@ -36,7 +36,7 @@ requires
   vcldb;
 
 contains
-  MyOTAWizard.Register in 'src\Utils\MyOTAWizard.Register.pas',
+  MyOTAWizard.Register in 'src\MyOTAWizard.Register.pas',
   MyOTAWizard.Splash in 'src\Splash\MyOTAWizard.Splash.pas',
   MyOTAWizard.MainMenu in 'src\MainMenu\MyOTAWizard.MainMenu.pas',
   MyOTAWizard.Consts in 'src\Utils\MyOTAWizard.Consts.pas',
@@ -48,6 +48,8 @@ contains
   View.AddProject in 'src\ProjectsList\View.AddProject.pas' {ViewAddProject},
   ProjectsList.IniFile in 'src\ProjectsList\ProjectsList.IniFile.pas',
   ProjectsList.Types in 'src\ProjectsList\ProjectsList.Types.pas',
-  MyOTAWizard.Utils in 'src\Utils\MyOTAWizard.Utils.pas';
+  MyOTAWizard.Utils in 'src\Utils\MyOTAWizard.Utils.pas',
+  MyOTAWizard.KeyBiding.AdicionarProjetosLista in 'src\KeyBiding\MyOTAWizard.KeyBiding.AdicionarProjetosLista.pas',
+  MyOTAWizard.KeyBiding.ProjetosListar in 'src\KeyBiding\MyOTAWizard.KeyBiding.ProjetosListar.pas';
 
 end.

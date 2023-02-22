@@ -29,7 +29,7 @@ type
     pnIniFilePath: TPanel;
     cbGrupo: TComboBox;
     lbGrupo: TLabel;
-    Label1: TLabel;
+    lbCor: TLabel;
     cbCor: TComboBox;
     procedure FormShow(Sender: TObject);
     procedure btnSelecionarProjetoClick(Sender: TObject);
@@ -38,6 +38,7 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure pnIniFilePathClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure pnIniFilePathDblClick(Sender: TObject);
   private
     procedure ConfComponentsTheme;
     procedure ValidarCampos;
@@ -103,6 +104,11 @@ begin
    Clipboard.AsText := TProjectsListIniFile.New.IniFilePath;
 end;
 
+procedure TViewAddProject.pnIniFilePathDblClick(Sender: TObject);
+begin
+   TMyOTAWizardUtils.Open(TProjectsListIniFile.New.IniFilePath);
+end;
+
 procedure TViewAddProject.btnSelecionarProjetoClick(Sender: TObject);
 var
   LSaveDialog: TSaveDialog;
@@ -139,17 +145,17 @@ end;
 
 procedure TViewAddProject.ValidarCampos;
 begin
-   if(Trim(edtNomeProjeto.Text).IsEmpty)then
-   begin
-      edtNomeProjeto.SetFocus;
-      ShowMessage('Nome do projeto não informado');
-      Abort;
-   end;
-
    if(Trim(edtDiretorioProjeto.Text).IsEmpty)then
    begin
       edtDiretorioProjeto.SetFocus;
       ShowMessage('Diretório do projeto não informado');
+      Abort;
+   end;
+
+   if(Trim(edtNomeProjeto.Text).IsEmpty)then
+   begin
+      edtNomeProjeto.SetFocus;
+      ShowMessage('Nome do projeto não informado');
       Abort;
    end;
 end;

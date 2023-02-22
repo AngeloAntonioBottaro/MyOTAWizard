@@ -10,7 +10,7 @@ uses
 
 type
   {$SCOPEDENUMS ON}
-  TProjectsListGroup  = (Tudo, Executaveis, Trabalho, Pessoal, Packets);
+  TProjectsListGroup  = (Tudo, Executaveis, Trabalho, Pessoal, Packets, Outros);
   TProjectsListColors = (Texto, Vermelho, Azul, Amarelo, Verde);
   {$SCOPEDENUMS OFF}
 
@@ -27,10 +27,23 @@ type
    function ToColor: Integer;
   end;
 
+function StrToProjectsListGroup(AStr: string): TProjectsListGroup;
+function StrToProjectsListColors(AStr: string): TProjectsListColors;
+
 implementation
 
 uses
   MyOTAWizard.UTils;
+
+function StrToProjectsListGroup(AStr: string): TProjectsListGroup;
+begin
+   Result := TProjectsListGroup(GetEnumValue(TypeInfo(TProjectsListGroup), AStr));
+end;
+
+function StrToProjectsListColors(AStr: string): TProjectsListColors;
+begin
+   Result := TProjectsListColors(GetEnumValue(TypeInfo(TProjectsListColors), AStr));
+end;
 
 class procedure TEnumUtils<T>.EnumToList(Value: TStrings);
 var

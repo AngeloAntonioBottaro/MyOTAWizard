@@ -3,9 +3,7 @@ unit MyOTAWizard.OnClicks;
 interface
 
 uses
-  Winapi.ShellAPI,
-  Winapi.Windows,
-  system.SysUtils;
+  System.SysUtils;
 
 type
   TMyOTAWizardOnClicks = class
@@ -18,6 +16,7 @@ type
 implementation
 
 uses
+  MyOTAWizard.Utils,
   View.ProjectsList,
   View.AddProject;
 
@@ -40,7 +39,7 @@ begin
      LBatch := 'C:\Projetos\MyHelpers\Batchs\MyERP Sign.bat';
 
    if(not LBatch.IsEmpty)then
-     ShellExecute(HInstance, 'open', Pchar(LBatch), nil, nil, SW_SHOWNORMAL);
+     TMyOTAWizardUtils.Open(LBatch);
 end;
 
 class procedure TMyOTAWizardOnClicks.ListarProjetos(Sender: TObject);
@@ -73,7 +72,7 @@ begin
      LExe := 'C:\Windows\system32\notepad.exe';
 
    if(not LExe.IsEmpty)then
-     ShellExecute(HInstance, 'open', Pchar(LExe), nil, nil, SW_SHOWNORMAL);
+     TMyOTAWizardUtils.Open(LExe);
 end;
 
 end.

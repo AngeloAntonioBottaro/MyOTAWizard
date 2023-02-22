@@ -110,7 +110,7 @@
         <DCCReference Include="dbrtl.dcp"/>
         <DCCReference Include="dsnap.dcp"/>
         <DCCReference Include="vcldb.dcp"/>
-        <DCCReference Include="src\Utils\MyOTAWizard.Register.pas"/>
+        <DCCReference Include="src\MyOTAWizard.Register.pas"/>
         <DCCReference Include="src\Splash\MyOTAWizard.Splash.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Consts.pas"/>
@@ -129,6 +129,8 @@
         <DCCReference Include="src\ProjectsList\ProjectsList.IniFile.pas"/>
         <DCCReference Include="src\ProjectsList\ProjectsList.Types.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Utils.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.AdicionarProjetosLista.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.ProjetosListar.pas"/>
         <RcItem Include="Resource\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>
@@ -140,6 +142,10 @@
         <RcItem Include="Resource\splash.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>splash</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\PinGrey.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>pingrey</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
