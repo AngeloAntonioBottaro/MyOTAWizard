@@ -24,6 +24,7 @@ type
     N1: TMenuItem;
     AbrirDiretorio1: TMenuItem;
     ImageList: TImageList;
+    AbrirNovaJanela1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -35,6 +36,7 @@ type
     procedure ListViewCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure ListViewColumnClick(Sender: TObject; Column: TListColumn);
     procedure ListViewCompare(Sender: TObject; Item1, Item2: TListItem; Data: Integer; var Compare: Integer);
+    procedure AbrirNovaJanela1Click(Sender: TObject);
   private
     FColIndex: Integer;
     FOrdAsc: Boolean;
@@ -44,6 +46,7 @@ type
     procedure ShowTabSheet(ATabSheetName: string);
     procedure ListarProjetos;
     procedure AddToList(ASection: string);
+    procedure SaveLastOpenedDate;
   public
   end;
 
@@ -106,7 +109,13 @@ begin
    case Key of
      VK_ESCAPE: if(Shift = [])then Self.Close;
      VK_DELETE: if(Shift = [])then Self.ExcluirRegistro1.Click;
-     VK_RETURN: Self.ListViewDblClick(nil);
+     VK_RETURN:
+     begin
+        if(Shift = [ssCtrl])then
+          Self.AbrirNovaJanela1.Click
+        else
+          Self.ListViewDblClick(nil);
+     end;
      VK_NUMPAD0: Self.ShowTabSheet(TPLGroup.Tudo.ToString);
      VK_NUMPAD1: Self.ShowTabSheet(TPLGroup.Executaveis.ToString);
      VK_NUMPAD2: Self.ShowTabSheet(TPLGroup.Trabalho.ToString);
@@ -237,13 +246,38 @@ begin
 end;
 
 procedure TViewProjectsList.ListViewDblClick(Sender: TObject);
+var
+  LFile: string;
+  LFileExt: string;
+begin
+   if(ListView.ItemIndex < 0)then
+     Exit;
+
+   LFile    := ListView.ItemFocused.SubItems[1];
+   LFileExt := ExtractFileExt(LFile);
+
+   if(LFileExt.Equals('.dproj') or LFileExt.Equals('.groupproj'))then
+     (BorlandIDEServices as IOTAActionServices).OpenProject(ListView.ItemFocused.SubItems[1], True)
+   else
+     TMyOTAWizardUtils.Open(LFile);
+
+   Self.SaveLastOpenedDate;
+   Self.Close;
+end;
+
+procedure TViewProjectsList.AbrirNovaJanela1Click(Sender: TObject);
 begin
    if(ListView.ItemIndex < 0)then
      Exit;
 
    TMyOTAWizardUtils.Open(ListView.ItemFocused.SubItems[1]);
-   TProjectsListIniFile.New.IniFile.WriteString(ListView.ItemFocused.SubItems[0], IdentifierDateLastOpened, DateTimeToStr(Now));
+   Self.SaveLastOpenedDate;
    Self.Close;
+end;
+
+procedure TViewProjectsList.SaveLastOpenedDate;
+begin
+   TProjectsListIniFile.New.IniFile.WriteString(ListView.ItemFocused.SubItems[0], IdentifierDateLastOpened, DateTimeToStr(Now));
 end;
 
 procedure TViewProjectsList.AbrirDiretorio1Click(Sender: TObject);

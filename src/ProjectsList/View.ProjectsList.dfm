@@ -60,14 +60,18 @@ object ViewProjectsList: TViewProjectsList
     OnCompare = ListViewCompare
     OnCustomDrawSubItem = ListViewCustomDrawSubItem
     OnDblClick = ListViewDblClick
-    ExplicitWidth = 1038
   end
   object PopupMenu: TPopupMenu
     Left = 32
     Top = 40
     object AbrirDiretorio1: TMenuItem
       Caption = 'Abrir diret'#243'rio'
+      ShortCut = 16464
       OnClick = AbrirDiretorio1Click
+    end
+    object AbrirNovaJanela1: TMenuItem
+      Caption = 'Abrir em nova janela'
+      OnClick = AbrirNovaJanela1Click
     end
     object N1: TMenuItem
       Caption = '-'
