@@ -8,11 +8,13 @@ uses
   System.SysUtils,
   System.Variants,
   System.Classes,
+  System.ImageList,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
   Vcl.Menus,
-  Vcl.ComCtrls, System.ImageList, Vcl.ImgList;
+  Vcl.ComCtrls,
+  Vcl.ImgList;
 
 type
   TViewProjectsList = class(TForm)
@@ -36,7 +38,6 @@ type
   private
     FColIndex: Integer;
     FOrdAsc: Boolean;
-    FLista: TListView;
     FAbaShowing: string;
     procedure CriarPageControl;
     procedure CriarAbasPageControl(APgControl: TPageControl);
@@ -61,8 +62,6 @@ uses
 procedure TViewProjectsList.FormCreate(Sender: TObject);
 begin
    Constraints.MinHeight := Self.Height;
-
-   FLista := ListView;
    Self.CriarPageControl;
 end;
 
@@ -71,7 +70,7 @@ var
   LPgControl: TPageControl;
 begin
    LPgControl := TPageControl(Self.FindComponent('pgControlGroups'));
-   if(Assigned(FLista))then
+   if(Assigned(LPgControl))then
      LPgControl.Free;
 
    LPgControl             := TPageControl.Create(Self);
@@ -86,10 +85,10 @@ end;
 
 procedure TViewProjectsList.CriarAbasPageControl(APgControl: TPageControl);
 var
-  LAba: TProjectsListGroup;
+  LAba: TPLGroup;
   LTab: TTabSheet;
 begin
-   for LAba := Low(TProjectsListGroup) to High(TProjectsListGroup) do
+   for LAba := Low(TPLGroup) to High(TPLGroup) do
    begin
       LTab             := TTabSheet.Create(Self);
       LTab.Parent      := APgControl;
@@ -108,12 +107,12 @@ begin
      VK_ESCAPE: if(Shift = [])then Self.Close;
      VK_DELETE: if(Shift = [])then Self.ExcluirRegistro1.Click;
      VK_RETURN: Self.ListViewDblClick(nil);
-     VK_NUMPAD0: Self.ShowTabSheet(TProjectsListGroup.Tudo.ToString);
-     VK_NUMPAD1: Self.ShowTabSheet(TProjectsListGroup.Executaveis.ToString);
-     VK_NUMPAD2: Self.ShowTabSheet(TProjectsListGroup.Trabalho.ToString);
-     VK_NUMPAD3: Self.ShowTabSheet(TProjectsListGroup.Pessoal.ToString);
-     VK_NUMPAD4: Self.ShowTabSheet(TProjectsListGroup.Packets.ToString);
-     VK_NUMPAD5: Self.ShowTabSheet(TProjectsListGroup.Outros.ToString);
+     VK_NUMPAD0: Self.ShowTabSheet(TPLGroup.Tudo.ToString);
+     VK_NUMPAD1: Self.ShowTabSheet(TPLGroup.Executaveis.ToString);
+     VK_NUMPAD2: Self.ShowTabSheet(TPLGroup.Trabalho.ToString);
+     VK_NUMPAD3: Self.ShowTabSheet(TPLGroup.Pessoal.ToString);
+     VK_NUMPAD4: Self.ShowTabSheet(TPLGroup.Packets.ToString);
+     VK_NUMPAD5: Self.ShowTabSheet(TPLGroup.Outros.ToString);
    end;
 end;
 
@@ -159,7 +158,7 @@ var
 begin
    FColIndex := 0;
    FOrdAsc   := True;
-   FLista.Items.Clear;
+   ListView.Items.Clear;
    LSections := TStringList.Create;
    try
      TProjectsListIniFile.New.IniFile.ReadSections(LSections);
@@ -176,19 +175,18 @@ var
   LItem: TListItem;
   LGroup: string;
 begin
-   LGroup := TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierGroup, TProjectsListGroup.Tudo.ToString);
+   LGroup := TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierGroup, TPLGroup.Tudo.ToString);
 
-   if(FAbaShowing <> TProjectsListGroup.Tudo.ToString)then
+   if(FAbaShowing <> TPLGroup.Tudo.ToString)then
      if(LGroup <> FAbaShowing)then
       Exit;
 
-   LItem := FLista.Items.Add;
+   LItem := ListView.Items.Add;
    LItem.Caption    := LGroup;
-   LItem.ImageIndex := Integer(TProjectsListGroup(StrToProjectsListGroup(LGroup)));
+   LItem.ImageIndex := Integer(TPLGroup(StrToProjectsListGroup(LGroup)));
    LItem.SubItems.Add(ASection);
    LItem.SubItems.Add(TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierDirectory, ''));
-   LItem.SubItems.Add(TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierGroup, TProjectsListGroup.Tudo.ToString));
-   LItem.SubItems.Add(TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierColor, TProjectsListColors.Texto.ToString));
+   LItem.SubItems.Add(TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierDateLastOpened, ''));
 end;
 
 procedure TViewProjectsList.ListViewColumnClick(Sender: TObject; Column: TListColumn);
@@ -196,13 +194,13 @@ begin
    if(FColIndex = Column.Index)then
    begin
      FOrdAsc := not(FOrdAsc);
-     FLista.AlphaSort;
+     ListView.AlphaSort;
    end
    else
    begin
      FOrdAsc   := True;
      FColIndex := Column.Index;
-     FLista.AlphaSort;
+     ListView.AlphaSort;
    end;
 end;
 
@@ -231,49 +229,38 @@ end;
 procedure TViewProjectsList.ListViewCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; var DefaultDraw: Boolean);
 var
   LColor: TColor;
+  LTypeColor: string;
 begin
-   LColor := StrToProjectsListColors(Item.SubItems[3]).ToColor;
-   if(LColor = TProjectsListColors.Texto.ToColor)then
-   begin
-      if(FAbaShowing.Equals(TProjectsListGroup.Trabalho.ToString))then
-        LColor := TProjectsListColors.Amarelo.ToColor
-      else if(FAbaShowing.Equals(TProjectsListGroup.Pessoal.ToString))then
-        LColor := TProjectsListColors.Azul.ToColor
-      else if(FAbaShowing.Equals(TProjectsListGroup.Executaveis.ToString))then
-        LColor := TProjectsListColors.Vermelho.ToColor
-      else if(FAbaShowing.Equals(TProjectsListGroup.Packets.ToString))then
-        LColor := TProjectsListColors.Verde.ToColor
-      else if(FAbaShowing.Equals(TProjectsListGroup.Outros.ToString))then
-        LColor := TProjectsListColors.Texto.ToColor;
-   end;
-
+   LTypeColor := TProjectsListIniFile.New.IniFile.ReadString(Item.SubItems[0], IdentifierColor, TPLColors.Texto.ToString);
+   LColor     := StrToProjectsListColors(LTypeColor).ToColor;
    Sender.Canvas.Font.Color := LColor;
 end;
 
 procedure TViewProjectsList.ListViewDblClick(Sender: TObject);
 begin
-   if(FLista.ItemIndex < 0)then
+   if(ListView.ItemIndex < 0)then
      Exit;
 
-   TMyOTAWizardUtils.Open(FLista.ItemFocused.SubItems[1]);
+   TMyOTAWizardUtils.Open(ListView.ItemFocused.SubItems[1]);
+   TProjectsListIniFile.New.IniFile.WriteString(ListView.ItemFocused.SubItems[0], IdentifierDateLastOpened, DateTimeToStr(Now));
    Self.Close;
 end;
 
 procedure TViewProjectsList.AbrirDiretorio1Click(Sender: TObject);
 begin
-   if(FLista.ItemIndex < 0)then
+   if(ListView.ItemIndex < 0)then
      Exit;
 
-   TMyOTAWizardUtils.Open(ExtractFileDir(FLista.ItemFocused.SubItems[1]));
+   TMyOTAWizardUtils.Open(ExtractFileDir(ListView.ItemFocused.SubItems[1]));
    Self.Close;
 end;
 
 procedure TViewProjectsList.ExcluirRegistro1Click(Sender: TObject);
 begin
-   if(FLista.ItemIndex < 0)then
+   if(ListView.ItemIndex < 0)then
      Exit;
 
-   TProjectsListIniFile.New.IniFile.EraseSection(FLista.ItemFocused.SubItems[0]);
+   TProjectsListIniFile.New.IniFile.EraseSection(ListView.ItemFocused.SubItems[0]);
    Self.ListarProjetos;
 end;
 

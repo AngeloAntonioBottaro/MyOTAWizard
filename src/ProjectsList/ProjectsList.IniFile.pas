@@ -7,9 +7,10 @@ uses
   System.IniFiles;
 
 const
-  IdentifierDirectory = 'Directory';
-  IdentifierGroup     = 'Group';
-  IdentifierColor     = 'Color';
+  IdentifierDirectory      = 'Directory';
+  IdentifierGroup          = 'Group';
+  IdentifierColor          = 'Color';
+  IdentifierDateLastOpened = 'LastOpened';
 
 type
   IProjectsListIniFile = interface

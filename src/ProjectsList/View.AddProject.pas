@@ -62,11 +62,11 @@ uses
 procedure TViewAddProject.FormCreate(Sender: TObject);
 begin
    cbGrupo.Items.Clear;
-   TEnumUtils<TProjectsListGroup>.EnumToList(cbGrupo.Items);
+   TEnumUtils<TPLGroup>.EnumToList(cbGrupo.Items);
    cbGrupo.ItemIndex := 0;
 
    cbCor.Items.Clear;
-   TEnumUtils<TProjectsListColors>.EnumToList(cbCor.Items);
+   TEnumUtils<TPLColors>.EnumToList(cbCor.Items);
    cbCor.ItemIndex := 0;
 end;
 
@@ -94,9 +94,9 @@ end;
 
 procedure TViewAddProject.ConfComponentsTheme;
 begin
-   lbNomeProjeto.Font.Color      := TProjectsListColors.Texto.ToColor;
-   lbDiretorioProjeto.Font.Color := TProjectsListColors.Texto.ToColor;
-   lbGrupo.Font.Color            := TProjectsListColors.Texto.ToColor;
+   lbNomeProjeto.Font.Color      := TPLColors.Texto.ToColor;
+   lbDiretorioProjeto.Font.Color := TPLColors.Texto.ToColor;
+   lbGrupo.Font.Color            := TPLColors.Texto.ToColor;
 end;
 
 procedure TViewAddProject.pnIniFilePathClick(Sender: TObject);
@@ -172,9 +172,10 @@ end;
 
 procedure TViewAddProject.LimparCampos;
 begin
-   edtNomeProjeto.Text := EmptyStr;
+   edtNomeProjeto.Text      := EmptyStr;
    edtDiretorioProjeto.Text := EmptyStr;
-   cbGrupo.ItemIndex := 0;
+   cbGrupo.ItemIndex        := 0;
+   cbCor.ItemIndex          := 0;
 end;
 
 end.

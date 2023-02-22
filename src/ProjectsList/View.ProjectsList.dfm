@@ -4,7 +4,7 @@ object ViewProjectsList: TViewProjectsList
   BorderIcons = [biSystemMenu]
   Caption = 'Projetos'
   ClientHeight = 318
-  ClientWidth = 924
+  ClientWidth = 1045
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object ViewProjectsList: TViewProjectsList
   object ListView: TListView
     Left = 0
     Top = 0
-    Width = 924
+    Width = 1045
     Height = 318
     Align = alClient
     Columns = <
@@ -38,6 +38,10 @@ object ViewProjectsList: TViewProjectsList
       item
         Caption = 'Diretorio'
         Width = 550
+      end
+      item
+        Caption = 'Data'
+        Width = 140
       end>
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -56,6 +60,7 @@ object ViewProjectsList: TViewProjectsList
     OnCompare = ListViewCompare
     OnCustomDrawSubItem = ListViewCustomDrawSubItem
     OnDblClick = ListViewDblClick
+    ExplicitWidth = 1038
   end
   object PopupMenu: TPopupMenu
     Left = 32
