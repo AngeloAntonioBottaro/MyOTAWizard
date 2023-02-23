@@ -41,8 +41,8 @@ begin
    if(IdentList.IndexOf(sProjectContainer) < 0)then
      Exit;
 
-   //ProjectManagerMenuList.Add(TMyOTAWizardProjectMenuSeparator.New);
-   ProjectManagerMenuList.Add(TMyOTAWizardProjectMenu.New);
+   ProjectManagerMenuList.Add(TMyOTAWizardProjectMenuSeparator.New);
+   ProjectManagerMenuList.Add(TMyOTAWizardProjectMenuItem.New);
 end;
 
 initialization

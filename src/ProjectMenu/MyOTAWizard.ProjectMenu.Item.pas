@@ -8,7 +8,7 @@ uses
   System.Classes;
 
 type
-  TMyOTAWizardProjectMenu = class(TNotifierObject, IOTALocalMenu, IOTAProjectManagerMenu)
+  TMyOTAWizardProjectMenuItem = class(TNotifierObject, IOTALocalMenu, IOTAProjectManagerMenu)
   protected
     function GetCaption: string;
     function GetChecked: Boolean;
@@ -68,112 +68,112 @@ uses
 
 {$REGION 'TMyOTAWizardProjectMenu'}
 
-class function TMyOTAWizardProjectMenu.New: IOTAProjectManagerMenu;
+class function TMyOTAWizardProjectMenuItem.New: IOTAProjectManagerMenu;
 begin
    Result := Self.Create;
 end;
 
-procedure TMyOTAWizardProjectMenu.Execute(const MenuContextList: IInterfaceList);
+procedure TMyOTAWizardProjectMenuItem.Execute(const MenuContextList: IInterfaceList);
 begin
    //
 end;
 
-function TMyOTAWizardProjectMenu.GetCaption: string;
+function TMyOTAWizardProjectMenuItem.GetCaption: string;
 begin
    Result := TMyOTAWizardConsts.MyProjectMenuCaption;
 end;
 
-function TMyOTAWizardProjectMenu.GetChecked: Boolean;
+function TMyOTAWizardProjectMenuItem.GetChecked: Boolean;
 begin
    Result := False;
 end;
 
-function TMyOTAWizardProjectMenu.GetEnabled: Boolean;
+function TMyOTAWizardProjectMenuItem.GetEnabled: Boolean;
 begin
    Result := True;
 end;
 
-function TMyOTAWizardProjectMenu.GetHelpContext: Integer;
+function TMyOTAWizardProjectMenuItem.GetHelpContext: Integer;
 begin
    Result := 0;
 end;
 
-function TMyOTAWizardProjectMenu.GetIsMultiSelectable: Boolean;
+function TMyOTAWizardProjectMenuItem.GetIsMultiSelectable: Boolean;
 begin
    Result := False;
 end;
 
-function TMyOTAWizardProjectMenu.GetName: string;
+function TMyOTAWizardProjectMenuItem.GetName: string;
 begin
    Result := TMyOTAWizardConsts.MyProjectMenuName;
 end;
 
-function TMyOTAWizardProjectMenu.GetParent: string;
+function TMyOTAWizardProjectMenuItem.GetParent: string;
 begin
    Result := '';
 end;
 
-function TMyOTAWizardProjectMenu.GetPosition: Integer;
+function TMyOTAWizardProjectMenuItem.GetPosition: Integer;
 begin
    Result := pmmpInstallSeparator - TMyOTAWizardConsts.MyProjectMenuSpaceValue;
 end;
 
-function TMyOTAWizardProjectMenu.GetVerb: string;
+function TMyOTAWizardProjectMenuItem.GetVerb: string;
 begin
    Result := 'verb' + TMyOTAWizardConsts.MyProjectMenuName;
 end;
 
-function TMyOTAWizardProjectMenu.PostExecute(const MenuContextList: IInterfaceList): Boolean;
+function TMyOTAWizardProjectMenuItem.PostExecute(const MenuContextList: IInterfaceList): Boolean;
 begin
    Result := True;
 end;
 
-function TMyOTAWizardProjectMenu.PreExecute(const MenuContextList: IInterfaceList): Boolean;
+function TMyOTAWizardProjectMenuItem.PreExecute(const MenuContextList: IInterfaceList): Boolean;
 begin
    Result := True;
 end;
 
-procedure TMyOTAWizardProjectMenu.SetCaption(const Value: string);
+procedure TMyOTAWizardProjectMenuItem.SetCaption(const Value: string);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetChecked(Value: Boolean);
+procedure TMyOTAWizardProjectMenuItem.SetChecked(Value: Boolean);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetEnabled(Value: Boolean);
+procedure TMyOTAWizardProjectMenuItem.SetEnabled(Value: Boolean);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetHelpContext(Value: Integer);
+procedure TMyOTAWizardProjectMenuItem.SetHelpContext(Value: Integer);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetIsMultiSelectable(Value: Boolean);
+procedure TMyOTAWizardProjectMenuItem.SetIsMultiSelectable(Value: Boolean);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetName(const Value: string);
+procedure TMyOTAWizardProjectMenuItem.SetName(const Value: string);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetParent(const Value: string);
+procedure TMyOTAWizardProjectMenuItem.SetParent(const Value: string);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetPosition(Value: Integer);
+procedure TMyOTAWizardProjectMenuItem.SetPosition(Value: Integer);
 begin
    //
 end;
 
-procedure TMyOTAWizardProjectMenu.SetVerb(const Value: string);
+procedure TMyOTAWizardProjectMenuItem.SetVerb(const Value: string);
 begin
    //
 end;
