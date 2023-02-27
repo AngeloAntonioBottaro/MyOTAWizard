@@ -45,6 +45,7 @@ type
     procedure SalvarNaLista;
     procedure LimparCampos;
   public
+    procedure PegarNomeArquivoSelecionado;
   end;
 
 var
@@ -132,6 +133,18 @@ begin
      Exit;
 
    edtDiretorioProjeto.Text := LFile;
+   Self.PegarNomeArquivoSelecionado;
+end;
+
+procedure TViewAddProject.PegarNomeArquivoSelecionado;
+var
+  LFile: string;
+begin
+   LFile := edtDiretorioProjeto.Text;
+
+   if(Trim(LFile).IsEmpty)then
+     Exit;
+
    if(Trim(edtNomeProjeto.Text).IsEmpty)then
      edtNomeProjeto.Text := StringReplace(ExtractFileName(LFile), ExtractFileExt(LFile), '', []);
 end;

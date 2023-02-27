@@ -39,8 +39,7 @@ contains
   MyOTAWizard.Register in 'src\MyOTAWizard.Register.pas',
   MyOTAWizard.Splash in 'src\Splash\MyOTAWizard.Splash.pas',
   MyOTAWizard.MainMenu in 'src\MainMenu\MyOTAWizard.MainMenu.pas',
-  MyOTAWizard.Consts in 'src\Utils\MyOTAWizard.Consts.pas',
-  MyOTAWizard.MenuItem in 'src\Utils\MyOTAWizard.MenuItem.pas',
+  MyOTAWizard.MenuItem in 'src\MainMenu\MyOTAWizard.MenuItem.pas',
   MyOTAWizard.OnClicks in 'src\Utils\MyOTAWizard.OnClicks.pas',
   MyOTAWizard.KeyBiding in 'src\KeyBiding\MyOTAWizard.KeyBiding.pas',
   MyOTAWizard.ShortCuts in 'src\Utils\MyOTAWizard.ShortCuts.pas',
@@ -52,6 +51,9 @@ contains
   MyOTAWizard.KeyBiding.AdicionarProjetosLista in 'src\KeyBiding\MyOTAWizard.KeyBiding.AdicionarProjetosLista.pas',
   MyOTAWizard.KeyBiding.ProjetosListar in 'src\KeyBiding\MyOTAWizard.KeyBiding.ProjetosListar.pas',
   MyOTAWizard.ProjectMenu in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.pas',
-  MyOTAWizard.ProjectMenu.Item in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.Item.pas';
+  MyOTAWizard.ProjectMenu.Item in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.Item.pas',
+  MyOTAWizard.Types in 'src\Utils\MyOTAWizard.Types.pas',
+  MyOTAWizard.ProjectMenu.Consts in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.Consts.pas',
+  MyOTAWizard.Consts in 'src\Utils\MyOTAWizard.Consts.pas';
 
 end.

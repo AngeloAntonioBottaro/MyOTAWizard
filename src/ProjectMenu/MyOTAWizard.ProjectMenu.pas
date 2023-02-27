@@ -5,13 +5,22 @@ interface
 uses
   ToolsAPI,
   System.SysUtils,
-  System.Classes;
+  System.Classes,
+  MyOTAWizard.Types;
 
 type
   TMyOTAWizardProjectMenu = class(TNotifierObject, IOTAProjectMenuItemCreatorNotifier)
   private
+    FProject: IOTAProject;
+    procedure OnExecuteAdicionarProjetoNaLista(const MenuContextList: IInterfaceList);
+
+    function AddMenu(ACaption: String;
+                     APosition: Integer;
+                     AParent: string = '';
+                     AOnExecute: TMYOnContextMenuClick = nil;
+                     AChecked: Boolean = False): IOTAProjectManagerMenu; overload;
   protected
-    procedure AddMenu(const Project: IOTAProject; const IdentList: TStrings; const ProjectManagerMenuList: IInterfaceList; IsMultiSelect: Boolean);
+    procedure AddMenu(const Project: IOTAProject; const IdentList: TStrings; const ProjectManagerMenuList: IInterfaceList; IsMultiSelect: Boolean); overload;
   public
     class function New: IOTAProjectMenuItemCreatorNotifier;
   end;
@@ -24,7 +33,9 @@ procedure RegisterProjectMenuWizard;
 implementation
 
 uses
-  MyOTAWizard.ProjectMenu.Item;
+  MyOTAWizard.ProjectMenu.Consts,
+  MyOTAWizard.ProjectMenu.Item,
+  View.AddProject;
 
 procedure RegisterProjectMenuWizard;
 begin
@@ -38,12 +49,47 @@ end;
 
 procedure TMyOTAWizardProjectMenu.AddMenu(const Project: IOTAProject; const IdentList: TStrings; const ProjectManagerMenuList: IInterfaceList; IsMultiSelect: Boolean);
 begin
-   if(IdentList.IndexOf(sProjectContainer) < 0)then
+   if(IdentList.IndexOf(sProjectContainer) < 0) or
+     (not Assigned(ProjectManagerMenuList))
+   then
      Exit;
 
-   ProjectManagerMenuList.Add(TMyOTAWizardProjectMenuSeparator.New);
-   ProjectManagerMenuList.Add(TMyOTAWizardProjectMenuItem.New);
+   FProject := Project;
+   ProjectManagerMenuList.Add(Self.AddMenu('-', MY_MENU_POSITION -1));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_CAPTION, MY_MENU_POSITION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_ADICIONAR_PROJETO_CAPTION, MY_MENU_ITEM_ADICIONAR_PROJETO_POSITION, MY_MENU_CAPTION, OnExecuteAdicionarProjetoNaLista));
+   ProjectManagerMenuList.Add(Self.AddMenu('-', MY_MENU_ITEM_ADICIONAR_PROJETO_POSITION + 1, MY_MENU_CAPTION));
+   //ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SUB_ITEM_1_CAPTION, MY_MENU_SUB_ITEM_1_POSITION, MY_MENU_ITEM_1_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_2_CAPTION, MY_MENU_ITEM_2_POSITION, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_3_CAPTION, MY_MENU_ITEM_3_POSITION, MY_MENU_CAPTION));
 end;
+
+function TMyOTAWizardProjectMenu.AddMenu(ACaption: String; APosition: Integer; AParent: string; AOnExecute: TMYOnContextMenuClick; AChecked: Boolean): IOTAProjectManagerMenu;
+begin
+   result                   := TMyOTAWizardProjectMenuItem.New(AOnExecute);
+   Result.Caption           := ACaption;
+   result.Verb              := ACaption;
+   Result.Parent            := AParent;
+   result.Position          := APosition;
+   result.Checked           := AChecked;
+   result.IsMultiSelectable := False;
+end;
+
+{$REGION 'OnExecute'}
+
+procedure TMyOTAWizardProjectMenu.OnExecuteAdicionarProjetoNaLista(const MenuContextList: IInterfaceList);
+begin
+   try
+     ViewAddProject := TViewAddProject.Create(nil);
+     ViewAddProject.edtDiretorioProjeto.Text := FProject.FileName;
+     ViewAddProject.PegarNomeArquivoSelecionado;
+     ViewAddProject.ShowModal;
+   finally
+     FreeAndNil(ViewAddProject);
+   end;
+end;
+
+{$ENDREGION 'OnExecute'}
 
 initialization
 

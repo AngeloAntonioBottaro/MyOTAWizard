@@ -5,10 +5,22 @@ interface
 uses
   ToolsAPI,
   System.SysUtils,
-  System.Classes;
+  System.Classes,
+  MyOTAWizard.Types;
 
 type
   TMyOTAWizardProjectMenuItem = class(TNotifierObject, IOTALocalMenu, IOTAProjectManagerMenu)
+  private
+    FCaption: String;
+    FIsMultiSelectable: Boolean;
+    FChecked: Boolean;
+    FEnabled: Boolean;
+    FHelpContext: Integer;
+    FName: string;
+    FParent: string;
+    FPosition: Integer;
+    FVerb: string;
+    FOnExecute: TMyOnContextMenuClick;
   protected
     function GetCaption: string;
     function GetChecked: Boolean;
@@ -32,95 +44,74 @@ type
     function PreExecute(const MenuContextList: IInterfaceList): Boolean;
     function PostExecute(const MenuContextList: IInterfaceList): Boolean;
   public
-    class function New: IOTAProjectManagerMenu;
-  end;
-  TMyOTAWizardProjectMenuSeparator = class(TNotifierObject, IOTALocalMenu, IOTAProjectManagerMenu)
-  protected
-    function GetCaption: string;
-    function GetChecked: Boolean;
-    function GetEnabled: Boolean;
-    function GetHelpContext: Integer;
-    function GetName: string;
-    function GetParent: string;
-    function GetPosition: Integer;
-    function GetVerb: string;
-    procedure SetCaption(const Value: string);
-    procedure SetChecked(Value: Boolean);
-    procedure SetEnabled(Value: Boolean);
-    procedure SetHelpContext(Value: Integer);
-    procedure SetName(const Value: string);
-    procedure SetParent(const Value: string);
-    procedure SetPosition(Value: Integer);
-    procedure SetVerb(const Value: string);
-    function GetIsMultiSelectable: Boolean;
-    procedure SetIsMultiSelectable(Value: Boolean);
-    procedure Execute(const MenuContextList: IInterfaceList); overload;
-    function PreExecute(const MenuContextList: IInterfaceList): Boolean;
-    function PostExecute(const MenuContextList: IInterfaceList): Boolean;
-  public
-    class function New: IOTAProjectManagerMenu;
+    constructor create(AOnExecute: TMyOnContextMenuClick); overload;
+    class function New(AOnExecute: TMyOnContextMenuClick): IOTAProjectManagerMenu; overload;
   end;
 
 implementation
 
-uses
-  MyOTAWizard.Consts;
-
-{$REGION 'TMyOTAWizardProjectMenu'}
-
-class function TMyOTAWizardProjectMenuItem.New: IOTAProjectManagerMenu;
+class function TMyOTAWizardProjectMenuItem.New(AOnExecute: TMyOnContextMenuClick): IOTAProjectManagerMenu;
 begin
-   Result := Self.Create;
+   Result := Self.Create(AOnExecute);
+end;
+
+constructor TMyOTAWizardProjectMenuItem.create(AOnExecute: TMyOnContextMenuClick);
+begin
+   FOnExecute         := AOnExecute;
+   FEnabled           := True;
+   FChecked           := False;
+   FIsMultiSelectable := False;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.Execute(const MenuContextList: IInterfaceList);
 begin
-   //
+   if Assigned(FOnExecute) then
+    FOnExecute(MenuContextList);
 end;
 
 function TMyOTAWizardProjectMenuItem.GetCaption: string;
 begin
-   Result := TMyOTAWizardConsts.MyProjectMenuCaption;
+   Result := FCaption;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetChecked: Boolean;
 begin
-   Result := False;
+   Result := FChecked;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetEnabled: Boolean;
 begin
-   Result := True;
+   Result := FEnabled;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetHelpContext: Integer;
 begin
-   Result := 0;
+   Result := FHelpContext;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetIsMultiSelectable: Boolean;
 begin
-   Result := False;
+   Result := FIsMultiSelectable;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetName: string;
 begin
-   Result := TMyOTAWizardConsts.MyProjectMenuName;
+   Result := FName;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetParent: string;
 begin
-   Result := '';
+   Result := FParent;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetPosition: Integer;
 begin
-   Result := pmmpInstallSeparator - TMyOTAWizardConsts.MyProjectMenuSpaceValue;
+   Result := FPosition;
 end;
 
 function TMyOTAWizardProjectMenuItem.GetVerb: string;
 begin
-   Result := 'verb' + TMyOTAWizardConsts.MyProjectMenuName;
+   Result := FVerb;
 end;
 
 function TMyOTAWizardProjectMenuItem.PostExecute(const MenuContextList: IInterfaceList): Boolean;
@@ -135,163 +126,47 @@ end;
 
 procedure TMyOTAWizardProjectMenuItem.SetCaption(const Value: string);
 begin
-   //
+   FCaption := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetChecked(Value: Boolean);
 begin
-   //
+   FChecked := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetEnabled(Value: Boolean);
 begin
-   //
+   FEnabled := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetHelpContext(Value: Integer);
 begin
-   //
+   FHelpContext := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetIsMultiSelectable(Value: Boolean);
 begin
-   //
+   FIsMultiSelectable := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetName(const Value: string);
 begin
-   //
+   FName := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetParent(const Value: string);
 begin
-   //
+   FParent := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetPosition(Value: Integer);
 begin
-   //
+   FPosition := Value;
 end;
 
 procedure TMyOTAWizardProjectMenuItem.SetVerb(const Value: string);
 begin
-   //
+   FVerb := Value;
 end;
-
-{$ENDREGION 'TMyOTAWizardProjectMenu'}
-
-{$REGION 'TMyOTAWizardProjectMenuSeparator'}
-
-class function TMyOTAWizardProjectMenuSeparator.New: IOTAProjectManagerMenu;
-begin
-   Result := Self.Create;
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.Execute(const MenuContextList: IInterfaceList);
-begin
-   //
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetCaption: string;
-begin
-   Result := '-';
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetChecked: Boolean;
-begin
-   Result := False;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetEnabled: Boolean;
-begin
-   Result := True;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetHelpContext: Integer;
-begin
-   Result := 0;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetIsMultiSelectable: Boolean;
-begin
-   Result := False;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetName: string;
-begin
-   Result := TMyOTAWizardConsts.MyProjectMenuSeparatorName;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetParent: string;
-begin
-   Result := '';
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetPosition: Integer;
-begin
-   Result := pmmpInstallSeparator - TMyOTAWizardConsts.MyProjectMenuSpaceValue - 1;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.GetVerb: string;
-begin
-   Result := 'verb' + TMyOTAWizardConsts.MyProjectMenuSeparatorName;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.PostExecute(const MenuContextList: IInterfaceList): Boolean;
-begin
-   Result := True;
-end;
-
-function TMyOTAWizardProjectMenuSeparator.PreExecute(const MenuContextList: IInterfaceList): Boolean;
-begin
-   Result := True;
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetCaption(const Value: string);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetChecked(Value: Boolean);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetEnabled(Value: Boolean);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetHelpContext(Value: Integer);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetIsMultiSelectable(Value: Boolean);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetName(const Value: string);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetParent(const Value: string);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetPosition(Value: Integer);
-begin
-   //
-end;
-
-procedure TMyOTAWizardProjectMenuSeparator.SetVerb(const Value: string);
-begin
-   //
-end;
-
-{$ENDREGION 'TMyOTAWizardProjectMenuSeparator'}
 
 end.
