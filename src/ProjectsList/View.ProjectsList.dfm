@@ -3,7 +3,7 @@ object ViewProjectsList: TViewProjectsList
   Top = 0
   BorderIcons = [biSystemMenu]
   Caption = 'Projetos'
-  ClientHeight = 318
+  ClientHeight = 455
   ClientWidth = 1045
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -24,7 +24,7 @@ object ViewProjectsList: TViewProjectsList
     Left = 0
     Top = 0
     Width = 1045
-    Height = 318
+    Height = 436
     Align = alClient
     Columns = <
       item
@@ -60,6 +60,16 @@ object ViewProjectsList: TViewProjectsList
     OnCompare = ListViewCompare
     OnCustomDrawSubItem = ListViewCustomDrawSubItem
     OnDblClick = ListViewDblClick
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Top = 436
+    Width = 1045
+    Height = 19
+    Panels = <
+      item
+        Width = 500
+      end>
   end
   object PopupMenu: TPopupMenu
     Left = 32
@@ -634,5 +644,12 @@ object ViewProjectsList: TViewProjectsList
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
+  end
+  object TimerSearch: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = TimerSearchTimer
+    Left = 32
+    Top = 192
   end
 end

@@ -22,9 +22,13 @@ type
     class procedure ApplyTheme(AClass: TCustomFormClass; AForm: TForm);
     class function FontColor(AColor: Integer): Integer;
     class procedure Open(AFileName: string);
+    class function ReturnEdtValidChar(const AChar: string): string;
   end;
 
 implementation
+
+const
+  ALFA_ARRAY: PChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹ 0123456789.;,<>?/[]{}*&^%$#@!_+-="`~\';
 
 class function TMyOTAWizardUtils.ActiveTheme: string;
 begin
@@ -84,6 +88,13 @@ end;
 class procedure TMyOTAWizardUtils.Open(AFileName: string);
 begin
    ShellExecute(HInstance, 'open', Pchar(AFileName), nil, nil, SW_SHOWNORMAL);
+end;
+
+class function TMyOTAWizardUtils.ReturnEdtValidChar(const AChar: string): string;
+begin
+   Result := EmptyStr;
+   if(Pos(AChar, ALFA_ARRAY) <> 0)then
+     Result := LowerCase(AChar)
 end;
 
 end.
