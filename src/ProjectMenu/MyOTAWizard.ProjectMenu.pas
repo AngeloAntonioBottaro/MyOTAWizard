@@ -55,13 +55,16 @@ begin
      Exit;
 
    FProject := Project;
-   ProjectManagerMenuList.Add(Self.AddMenu('-', MY_MENU_POSITION -1));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_POSITION -1));
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_CAPTION, MY_MENU_POSITION));
+
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_ADICIONAR_PROJETO_CAPTION, MY_MENU_ITEM_ADICIONAR_PROJETO_POSITION, MY_MENU_CAPTION, OnExecuteAdicionarProjetoNaLista));
-   ProjectManagerMenuList.Add(Self.AddMenu('-', MY_MENU_ITEM_ADICIONAR_PROJETO_POSITION + 1, MY_MENU_CAPTION));
-   //ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SUB_ITEM_1_CAPTION, MY_MENU_SUB_ITEM_1_POSITION, MY_MENU_ITEM_1_CAPTION));
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_2_CAPTION, MY_MENU_ITEM_2_POSITION, MY_MENU_CAPTION));
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_3_CAPTION, MY_MENU_ITEM_3_POSITION, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_ADICIONAR_PROJETO_POSITION + 1, MY_MENU_CAPTION));
+
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_INIT_CAPTION, MY_MENU_ITEM_BOSS_INIT_POSITION, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_INSTALL_CAPTION, MY_MENU_ITEM_BOSS_INSTALL_POSITION, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_UPDATE_CAPTION, MY_MENU_ITEM_BOSS_UPDATE_POSITION, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_BOSS_UPDATE_POSITION + 1, MY_MENU_CAPTION));
 end;
 
 function TMyOTAWizardProjectMenu.AddMenu(ACaption: String; APosition: Integer; AParent: string; AOnExecute: TMYOnContextMenuClick; AChecked: Boolean): IOTAProjectManagerMenu;

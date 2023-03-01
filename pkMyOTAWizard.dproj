@@ -135,6 +135,7 @@
         <DCCReference Include="src\Utils\MyOTAWizard.Types.pas"/>
         <DCCReference Include="src\ProjectMenu\MyOTAWizard.ProjectMenu.Consts.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Consts.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.OrganizarUses.pas"/>
         <RcItem Include="Resource\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>

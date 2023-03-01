@@ -30,11 +30,11 @@ type
      MyMenuItemExtrasListaAddProjetosCaption = 'Adicionar projetos a lista';
      MyMenuItemExtrasListaAddProjetosName    = 'miExtraAddProjetosLista';
 
-     MyProjectMenuName    = 'MyProjectMenu';
-     MyProjectMenuCaption = 'AAB Softwares';
-     MyProjectMenuSeparatorName = 'MyProjectMenuSeparator';
+     MyMenuItemExtrasOrganizarUsesCaption = 'Organizar uses do arquivo atual';
+     MyMenuItemExtrasOrganizarUsesName    = 'miOrganizarUses';
 
-     MyProjectMenuSpaceValue = 35;
+     MyMenuItemTestesCaption = 'Info';
+     MyMenuItemTestesName    = 'miTestes';
   end;
 
 implementation

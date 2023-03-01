@@ -54,6 +54,7 @@ contains
   MyOTAWizard.ProjectMenu.Item in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.Item.pas',
   MyOTAWizard.Types in 'src\Utils\MyOTAWizard.Types.pas',
   MyOTAWizard.ProjectMenu.Consts in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.Consts.pas',
-  MyOTAWizard.Consts in 'src\Utils\MyOTAWizard.Consts.pas';
+  MyOTAWizard.Consts in 'src\Utils\MyOTAWizard.Consts.pas',
+  MyOTAWizard.KeyBiding.OrganizarUses in 'src\KeyBiding\MyOTAWizard.KeyBiding.OrganizarUses.pas';
 
 end.

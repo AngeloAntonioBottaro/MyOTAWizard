@@ -121,6 +121,21 @@ begin
 
    Self.CreateSubMenuBatch(LMyMenu);
    Self.CreateSubMenuExtras(LMyMenu);
+
+   TMyOTAWizardMenuItem.New
+    .Parent(LMyMenu)
+    .ImageList(FImages)
+    .Caption('-')
+    .Name('miSeparator1')
+    .CreateMenuItem;
+
+   TMyOTAWizardMenuItem.New
+    .Parent(LMyMenu)
+    .ImageList(FImages)
+    .Caption(TMyOTAWizardConsts.MyMenuItemTestesCaption)
+    .Name(TMyOTAWizardConsts.MyMenuItemTestesName)
+    .OnClick(TMyOTAWizardOnClicks.Testes)
+    .CreateMenuItem;
 end;
 
 procedure TMyOTAWizardMainMenu.CreateSubMenuBatch(AParent: TMenuItem);
@@ -176,6 +191,16 @@ begin
     .ImageResource('')
     .ShortCut(TMyOTAWizardShortCuts.AdicionarProjetos)
     .OnClick(TMyOTAWizardOnClicks.AdicionarProjetosLista)
+    .CreateMenuItem;
+
+   TMyOTAWizardMenuItem.New
+    .Parent(LMyMenuExtra)
+    .ImageList(FImages)
+    .Caption(TMyOTAWizardConsts.MyMenuItemExtrasOrganizarUsesCaption)
+    .Name(TMyOTAWizardConsts.MyMenuItemExtrasOrganizarUsesName)
+    .ImageResource('')
+    .ShortCut(TMyOTAWizardShortCuts.OrganizarUses)
+    .OnClick(TMyOTAWizardOnClicks.OrganizarUses)
     .CreateMenuItem;
 end;
 
