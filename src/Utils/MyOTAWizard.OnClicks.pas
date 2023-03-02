@@ -50,12 +50,7 @@ end;
 
 class procedure TMyOTAWizardOnClicks.ListarProjetos(Sender: TObject);
 begin
-   try
-     ViewProjectsList := TViewProjectsList.Create(nil);
-     ViewProjectsList.ShowModal;
-   finally
-     FreeAndNil(ViewProjectsList);
-   end;
+   ShowGeradorModelo;
 end;
 
 class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);

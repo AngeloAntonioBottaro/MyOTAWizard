@@ -7,8 +7,11 @@ procedure Register;
 implementation
 
 uses
-  MyOTAWizard.Splash, MyOTAWizard.MainMenu, MyOTAWizard.KeyBiding,
-  MyOTAWizard.ProjectMenu;
+  MyOTAWizard.Splash,
+  MyOTAWizard.MainMenu,
+  MyOTAWizard.KeyBiding,
+  MyOTAWizard.ProjectMenu,
+  View.ProjectsList;
 
 procedure Register;
 begin
@@ -16,6 +19,7 @@ begin
    RegisterMainMenuWizard;
    RegisterKeyBidings;
    RegisterProjectMenuWizard;
+   RegisterModeloDockForm;
 end;
 
 end.

@@ -13,8 +13,7 @@ object ViewProjectsList: TViewProjectsList
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
-  Position = poMainFormCenter
-  OnCreate = FormCreate
+  Position = poScreenCenter
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -60,6 +59,7 @@ object ViewProjectsList: TViewProjectsList
     OnCompare = ListViewCompare
     OnCustomDrawSubItem = ListViewCustomDrawSubItem
     OnDblClick = ListViewDblClick
+    OnKeyPress = ListViewKeyPress
   end
   object StatusBar: TStatusBar
     Left = 0

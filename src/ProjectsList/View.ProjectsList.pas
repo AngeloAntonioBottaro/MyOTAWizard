@@ -4,7 +4,7 @@ interface
 
 uses
   ToolsAPI,
-  Dockform,
+  DockForm,
   DeskUtil,
   Winapi.Windows,
   System.SysUtils,
@@ -20,7 +20,7 @@ uses
   Vcl.ExtCtrls;
 
 type
-  TViewProjectsList = class(TForm)
+  TViewProjectsList = class(TDockableForm)
     PopupMenu: TPopupMenu;
     ExcluirRegistro1: TMenuItem;
     ListView: TListView;
@@ -36,7 +36,6 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure ExcluirRegistro1Click(Sender: TObject);
     procedure ListViewDblClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure TabSheetShow(Sender: TObject);
     procedure AbrirDiretorio1Click(Sender: TObject);
     procedure ListViewCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; var DefaultDraw: Boolean);
@@ -44,6 +43,7 @@ type
     procedure ListViewCompare(Sender: TObject; Item1, Item2: TListItem; Data: Integer; var Compare: Integer);
     procedure AbrirNovaJanela1Click(Sender: TObject);
     procedure TimerSearchTimer(Sender: TObject);
+    procedure ListViewKeyPress(Sender: TObject; var Key: Char);
   private
     FColIndex: Integer;
     FOrdAsc: Boolean;
@@ -58,10 +58,16 @@ type
 
     procedure AddSearch(AChar: string = '');
   public
+    constructor Create(AOwner: TComponent); override;
   end;
 
 var
   ViewProjectsList: TViewProjectsList;
+
+procedure RegisterModeloDockForm;
+procedure UnRegister;
+
+procedure ShowGeradorModelo;
 
 implementation
 
@@ -72,13 +78,46 @@ uses
   ProjectsList.IniFile,
   ProjectsList.Types;
 
-procedure TViewProjectsList.FormCreate(Sender: TObject);
+procedure RegisterModeloDockForm;
 begin
-   Constraints.MinHeight := Self.Height;
-   Self.CriarPageControl;
-   ListView.SmallImages := ImageListLight;
-   if(TMyOTAWizardUtils.ActiveTheme = 'Dark')then
-     ListView.SmallImages := ImageListDark;
+   if(not Assigned(ViewProjectsList))then
+     ViewProjectsList := TViewProjectsList.Create(nil);
+
+   if(@RegisterFieldAddress <> nil)then
+     RegisterFieldAddress(ViewProjectsList.Name, @ViewProjectsList);
+
+   RegisterDesktopFormClass(TViewProjectsList,
+                            ViewProjectsList.Name,
+                            ViewProjectsList.Name);
+end;
+
+procedure UnRegister;
+begin
+  if(not Assigned(ViewProjectsList))then
+    Exit;
+
+  if(@UnregisterFieldAddress <> nil)then
+    UnregisterFieldAddress(@ViewProjectsList);
+
+  FreeAndNil(ViewProjectsList);
+end;
+
+procedure ShowGeradorModelo;
+begin
+  if(not Assigned(ViewProjectsList))then
+    Exit;
+
+  ShowDockableForm(ViewProjectsList);
+  FocusWindow(ViewProjectsList);
+  ViewProjectsList.ListView.SetFocus;
+end;
+
+constructor TViewProjectsList.Create(AOwner: TComponent);
+begin
+   inherited;
+   DeskSection        := Name;
+   AutoSave           := True;
+   SaveStateNecessary := True;
 end;
 
 procedure TViewProjectsList.CriarPageControl;
@@ -141,13 +180,30 @@ end;
 
 procedure TViewProjectsList.FormKeyPress(Sender: TObject; var Key: Char);
 begin
-   Self.AddSearch(Key);
-
    if(Key = #13)then
    begin
       Perform(CM_DialogKey, VK_TAB, 0);
       Key := #0;
    end;
+end;
+
+procedure TViewProjectsList.FormShow(Sender: TObject);
+var
+  LTabSheet: TTabSheet;
+begin
+   Self.CriarPageControl;
+
+   ListView.SmallImages := ImageListLight;
+   if(TMyOTAWizardUtils.ActiveTheme = 'Dark')then
+     ListView.SmallImages := ImageListDark;
+
+   TMyOTAWizardUtils.ApplyTheme(TViewProjectsList, Self);
+
+   LTabSheet := TTabSheet(Self.FindComponent(FAbaShowing));
+   if(Assigned(LTabSheet))then
+     LTabSheet.Show
+   else
+     Self.ShowTabSheet(TPLGroup.Tudo.ToString);
 end;
 
 procedure TViewProjectsList.AddSearch(AChar: string);
@@ -166,12 +222,6 @@ end;
 procedure TViewProjectsList.TimerSearchTimer(Sender: TObject);
 begin
    TimerSearch.Enabled := False;
-   Self.ListarProjetos;
-end;
-
-procedure TViewProjectsList.FormShow(Sender: TObject);
-begin
-   TMyOTAWizardUtils.ApplyTheme(TViewProjectsList, Self);
    Self.ListarProjetos;
 end;
 
@@ -212,6 +262,9 @@ begin
    finally
      LSections.Free;
    end;
+
+   if(ViewProjectsList.Visible)then
+     ListView.SetFocus;
 end;
 
 procedure TViewProjectsList.AddToList(ASection: string);
@@ -309,6 +362,11 @@ begin
    Self.Close;
 end;
 
+procedure TViewProjectsList.ListViewKeyPress(Sender: TObject; var Key: Char);
+begin
+   Self.AddSearch(Key);
+end;
+
 procedure TViewProjectsList.AbrirNovaJanela1Click(Sender: TObject);
 begin
    if(ListView.ItemIndex < 0)then
@@ -321,7 +379,10 @@ end;
 
 procedure TViewProjectsList.SaveLastOpenedDate;
 begin
-   TProjectsListIniFile.New.IniFile.WriteString(ListView.ItemFocused.SubItems[0], IdentifierDateLastOpened, DateTimeToStr(Now));
+   try
+     TProjectsListIniFile.New.IniFile.WriteString(ListView.ItemFocused.SubItems[0], IdentifierDateLastOpened, DateTimeToStr(Now));
+   except
+   end;
 end;
 
 procedure TViewProjectsList.AbrirDiretorio1Click(Sender: TObject);
@@ -335,11 +396,18 @@ end;
 
 procedure TViewProjectsList.ExcluirRegistro1Click(Sender: TObject);
 begin
+   ShowInfo(DeskSection);
+   Exit;
    if(ListView.ItemIndex < 0)then
      Exit;
 
    TProjectsListIniFile.New.IniFile.EraseSection(ListView.ItemFocused.SubItems[0]);
    Self.ListarProjetos;
 end;
+
+initialization
+
+finalization
+  UnRegister;
 
 end.
