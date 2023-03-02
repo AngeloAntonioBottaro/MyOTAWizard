@@ -11,6 +11,7 @@ uses
   System.Classes,
   System.UITypes,
   Vcl.Forms,
+  Vcl.Dialogs,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.ExtCtrls;
@@ -24,6 +25,9 @@ type
     class procedure Open(AFileName: string);
     class function ReturnEdtValidChar(const AChar: string): string;
   end;
+
+procedure ShowInfo(AMsg: string);
+procedure ShowError(AMsg: string);
 
 implementation
 
@@ -95,6 +99,16 @@ begin
    Result := EmptyStr;
    if(Pos(AChar, ALFA_ARRAY) <> 0)then
      Result := LowerCase(AChar)
+end;
+
+procedure ShowInfo(AMsg: string);
+begin
+   MessageDlg(AMsg, mtInformation, [mbOK], 0);
+end;
+
+procedure ShowError(AMsg: string);
+begin
+   MessageDlg(AMsg, mtError, [mbOK], 0);
 end;
 
 end.

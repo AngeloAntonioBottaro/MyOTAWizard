@@ -12,7 +12,8 @@ implementation
 
 uses
   MyOTAWizard.KeyBiding.AdicionarProjetosLista,
-  MyOTAWizard.KeyBiding.ProjetosListar;
+  MyOTAWizard.KeyBiding.ProjetosListar,
+  MyOTAWizard.KeyBiding.OrganizarUses;
 
 var
   FLista: TList<Integer>;
@@ -21,6 +22,7 @@ procedure RegisterKeyBidings;
 begin
    FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingProjetosListar.New));
    FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingAdicionarProjetosLista.New));
+   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingOrganizarUses.New));
 end;
 
 initialization

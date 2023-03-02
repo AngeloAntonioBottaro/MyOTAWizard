@@ -6,6 +6,7 @@ uses
   ToolsAPI,
   System.SysUtils,
   System.Classes,
+  System.UITypes,
   Vcl.Dialogs;
 
 type
@@ -140,7 +141,7 @@ begin
             Inc(LLinha);
             LTextoDaLinha := LStrListAux.Strings[LLinha];
          end;
-         LStrUses := StringReplace(LStrUses, 'uses', '', [rfReplaceAll, rfIgnoreCase]);
+         LStrUses := StringReplace(LStrUses, 'uses', '', [rfIgnoreCase]);
 
          LListaDosUses := TStringList.Create;
          try
@@ -176,17 +177,14 @@ begin
       LStrListAux.Free;
       LStrList.Free;
     end;
-  except
-   on E: Exception do
-   begin
-      ShowMessage('Ocorreu o erro: ' + E.Message + sLineBreak);
-   end
+  except on E: Exception do
+    ShowError('Ocorreu o erro: ' + E.Message);
   end;
 end;
 
 class procedure TMyOTAWizardOnClicks.Testes(Sender: TObject);
 begin
-   //
+   ShowInfo('AAB Softwares Delphi wizard.');
 end;
 
 end.

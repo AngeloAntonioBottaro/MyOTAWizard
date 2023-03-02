@@ -59,6 +59,7 @@ begin
 
    Self.AddImageToImageList('batch');
    Self.AddImageToImageList('notepad');
+   Self.AddImageToImageList('info');
 
    Self.CreateMainMenu;
 end;
@@ -135,6 +136,7 @@ begin
     .Caption(TMyOTAWizardConsts.MyMenuItemTestesCaption)
     .Name(TMyOTAWizardConsts.MyMenuItemTestesName)
     .OnClick(TMyOTAWizardOnClicks.Testes)
+    .ImageResource('info')
     .CreateMenuItem;
 end;
 

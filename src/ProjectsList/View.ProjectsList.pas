@@ -4,6 +4,8 @@ interface
 
 uses
   ToolsAPI,
+  Dockform,
+  DeskUtil,
   Winapi.Windows,
   System.SysUtils,
   System.Variants,
@@ -14,7 +16,8 @@ uses
   Vcl.Forms,
   Vcl.Menus,
   Vcl.ComCtrls,
-  Vcl.ImgList, Vcl.ExtCtrls;
+  Vcl.ImgList,
+  Vcl.ExtCtrls;
 
 type
   TViewProjectsList = class(TForm)
@@ -148,8 +151,6 @@ begin
 end;
 
 procedure TViewProjectsList.AddSearch(AChar: string);
-var
-  LChar: string;
 begin
    TimerSearch.Enabled := False;
 

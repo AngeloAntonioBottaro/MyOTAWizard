@@ -10,6 +10,7 @@ uses
   System.Variants,
   System.Classes,
   System.IniFiles,
+  System.UITypes,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Clipbrd,
@@ -161,14 +162,14 @@ begin
    if(Trim(edtDiretorioProjeto.Text).IsEmpty)then
    begin
       edtDiretorioProjeto.SetFocus;
-      ShowMessage('Diretório do projeto não informado');
+      ShowInfo('Diretório do projeto não informado');
       Abort;
    end;
 
    if(Trim(edtNomeProjeto.Text).IsEmpty)then
    begin
       edtNomeProjeto.SetFocus;
-      ShowMessage('Nome do projeto não informado');
+      ShowInfo('Nome do projeto não informado');
       Abort;
    end;
 end;
