@@ -4,7 +4,7 @@ object ViewProjectsList: TViewProjectsList
   BorderIcons = [biSystemMenu]
   Caption = 'Projetos'
   ClientHeight = 455
-  ClientWidth = 1045
+  ClientWidth = 1074
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,10 +19,17 @@ object ViewProjectsList: TViewProjectsList
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object ListView: TListView
-    Left = 0
+  object Splitter1: TSplitter
+    Left = 120
     Top = 0
-    Width = 1045
+    Width = 5
+    Height = 436
+    ExplicitLeft = 177
+  end
+  object ListView: TListView
+    Left = 125
+    Top = 0
+    Width = 949
     Height = 436
     Align = alClient
     Columns = <
@@ -36,7 +43,7 @@ object ViewProjectsList: TViewProjectsList
       end
       item
         Caption = 'Diretorio'
-        Width = 550
+        Width = 450
       end
       item
         Caption = 'Data'
@@ -60,16 +67,44 @@ object ViewProjectsList: TViewProjectsList
     OnCustomDrawSubItem = ListViewCustomDrawSubItem
     OnDblClick = ListViewDblClick
     OnKeyPress = ListViewKeyPress
+    ExplicitWidth = 992
   end
   object StatusBar: TStatusBar
     Left = 0
     Top = 436
-    Width = 1045
+    Width = 1074
     Height = 19
     Panels = <
       item
         Width = 500
       end>
+    ExplicitWidth = 1117
+  end
+  object pnPaletaGrupos: TPanel
+    Left = 0
+    Top = 0
+    Width = 120
+    Height = 436
+    Align = alLeft
+    BevelOuter = bvNone
+    TabOrder = 2
+    object ListViewPaletaGrupos: TListView
+      Left = 0
+      Top = 0
+      Width = 120
+      Height = 436
+      Align = alClient
+      Columns = <
+        item
+        end>
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 0
+      ViewStyle = vsReport
+      OnClick = ListViewPaletaGruposClick
+      OnCustomDrawItem = ListViewPaletaGruposCustomDrawItem
+      OnResize = ListViewPaletaGruposResize
+    end
   end
   object PopupMenu: TPopupMenu
     Left = 32

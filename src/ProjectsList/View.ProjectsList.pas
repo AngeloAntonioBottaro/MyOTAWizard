@@ -31,12 +31,14 @@ type
     ImageListLight: TImageList;
     TimerSearch: TTimer;
     StatusBar: TStatusBar;
+    pnPaletaGrupos: TPanel;
+    Splitter1: TSplitter;
+    ListViewPaletaGrupos: TListView;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure ExcluirRegistro1Click(Sender: TObject);
     procedure ListViewDblClick(Sender: TObject);
-    procedure TabSheetShow(Sender: TObject);
     procedure AbrirDiretorio1Click(Sender: TObject);
     procedure ListViewCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure ListViewColumnClick(Sender: TObject; Column: TListColumn);
@@ -44,14 +46,16 @@ type
     procedure AbrirNovaJanela1Click(Sender: TObject);
     procedure TimerSearchTimer(Sender: TObject);
     procedure ListViewKeyPress(Sender: TObject; var Key: Char);
+    procedure ListViewPaletaGruposResize(Sender: TObject);
+    procedure ListViewPaletaGruposCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+    procedure ListViewPaletaGruposClick(Sender: TObject);
   private
     FColIndex: Integer;
     FOrdAsc: Boolean;
-    FAbaShowing: string;
+    FSelectedGroup: string;
     FSearch: string;
-    procedure CriarPageControl;
-    procedure CriarAbasPageControl(APgControl: TPageControl);
-    procedure ShowTabSheet(ATabSheetName: string);
+    procedure CriarPaletaGrupos;
+    procedure ListarGrupo(AGroup: string);
     procedure ListarProjetos;
     procedure AddToList(ASection: string);
     procedure SaveLastOpenedDate;
@@ -120,42 +124,6 @@ begin
    SaveStateNecessary := True;
 end;
 
-procedure TViewProjectsList.CriarPageControl;
-var
-  LPgControl: TPageControl;
-begin
-   LPgControl := TPageControl(Self.FindComponent('pgControlGroups'));
-   if(Assigned(LPgControl))then
-     LPgControl.Free;
-
-   LPgControl             := TPageControl.Create(Self);
-   LPgControl.Parent      := Self;
-   LPgControl.Name        := 'pgControlGroups';
-   LPgControl.Align       := alLeft;
-   LPgControl.TabPosition := tpLeft;
-   LPgControl.Width       := 22;
-
-   Self.CriarAbasPageControl(LPgControl);
-end;
-
-procedure TViewProjectsList.CriarAbasPageControl(APgControl: TPageControl);
-var
-  LAba: TPLGroup;
-  LTab: TTabSheet;
-begin
-   for LAba := Low(TPLGroup) to High(TPLGroup) do
-   begin
-      LTab             := TTabSheet.Create(Self);
-      LTab.Parent      := APgControl;
-      LTab.PageControl := APgControl;
-      LTab.Name        := LAba.ToString;
-      LTab.Caption     := LAba.ToString;
-      LTab.OnShow      := Self.TabSheetShow;
-      LTab.OnEnter     := Self.TabSheetShow;
-      LTab.OnExit      := Self.TabSheetShow;
-   end;
-end;
-
 procedure TViewProjectsList.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
    case Key of
@@ -169,12 +137,12 @@ begin
         else
           Self.ListViewDblClick(nil);
      end;
-     VK_NUMPAD0: if(Shift = [ssCtrl])then Self.ShowTabSheet(TPLGroup.Tudo.ToString);
-     VK_NUMPAD1: if(Shift = [ssCtrl])then Self.ShowTabSheet(TPLGroup.Executaveis.ToString);
-     VK_NUMPAD2: if(Shift = [ssCtrl])then Self.ShowTabSheet(TPLGroup.Trabalho.ToString);
-     VK_NUMPAD3: if(Shift = [ssCtrl])then Self.ShowTabSheet(TPLGroup.Pessoal.ToString);
-     VK_NUMPAD4: if(Shift = [ssCtrl])then Self.ShowTabSheet(TPLGroup.Packets.ToString);
-     VK_NUMPAD5: if(Shift = [ssCtrl])then Self.ShowTabSheet(TPLGroup.Outros.ToString);
+     VK_NUMPAD0: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Tudo.ToString);
+     VK_NUMPAD1: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Executaveis.ToString);
+     VK_NUMPAD2: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Trabalho.ToString);
+     VK_NUMPAD3: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Pessoal.ToString);
+     VK_NUMPAD4: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Packets.ToString);
+     VK_NUMPAD5: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Outros.ToString);
    end;
 end;
 
@@ -188,22 +156,35 @@ begin
 end;
 
 procedure TViewProjectsList.FormShow(Sender: TObject);
-var
-  LTabSheet: TTabSheet;
 begin
-   Self.CriarPageControl;
+   Self.CriarPaletaGrupos;
 
    ListView.SmallImages := ImageListLight;
    if(TMyOTAWizardUtils.ActiveTheme = 'Dark')then
      ListView.SmallImages := ImageListDark;
 
+   ListViewPaletaGrupos.SmallImages := ListView.SmallImages;
+
    TMyOTAWizardUtils.ApplyTheme(TViewProjectsList, Self);
 
-   LTabSheet := TTabSheet(Self.FindComponent(FAbaShowing));
-   if(Assigned(LTabSheet))then
-     LTabSheet.Show
+   if(not FSelectedGroup.IsEmpty)then
+     Self.ListarGrupo(FSelectedGroup)
    else
-     Self.ShowTabSheet(TPLGroup.Tudo.ToString);
+     Self.ListarGrupo(TPLGroup.Tudo.ToString);
+end;
+
+procedure TViewProjectsList.CriarPaletaGrupos;
+var
+  LItem: TListItem;
+  LGroup: TPLGroup;
+begin
+   ListViewPaletaGrupos.Items.Clear;
+   for LGroup := Low(TPLGroup) to High(TPLGroup) do
+   begin
+      LItem := ListViewPaletaGrupos.Items.Add;
+      LItem.Caption    := '  ' + LGroup.ToString;
+      LItem.ImageIndex := Integer(LGroup);
+   end;
 end;
 
 procedure TViewProjectsList.AddSearch(AChar: string);
@@ -225,23 +206,12 @@ begin
    Self.ListarProjetos;
 end;
 
-procedure TViewProjectsList.TabSheetShow(Sender: TObject);
+procedure TViewProjectsList.ListarGrupo(AGroup: string);
 begin
-   Self.ShowTabSheet(TTabSheet(Sender).Name);
-end;
+   FSelectedGroup := AGroup;
+   if(FSelectedGroup.IsEmpty)then
+     FSelectedGroup := TPLGroup.Tudo.ToString;
 
-procedure TViewProjectsList.ShowTabSheet(ATabSheetName: string);
-var
-  LTabSheet: TTabSheet;
-begin
-   LTabSheet := TTabSheet(Self.FindComponent(ATabSheetName));
-   if(not Assigned(LTabSheet))then
-     Exit;
-
-   if(not LTabSheet.Showing)then
-     LTabSheet.Show;
-
-   FAbaShowing := LTabSheet.Name;
    Self.ListarProjetos;
 end;
 
@@ -278,8 +248,8 @@ begin
    LLastOpened := TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierDateLastOpened, '');
    LGroup      := TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierGroup, TPLGroup.Tudo.ToString);
 
-   if(FAbaShowing <> TPLGroup.Tudo.ToString)then
-     if(LGroup <> FAbaShowing)then
+   if(FSelectedGroup <> TPLGroup.Tudo.ToString)then
+     if(LGroup <> FSelectedGroup)then
       Exit;
 
    if(not FSearch.IsEmpty)then
@@ -367,6 +337,36 @@ begin
    Self.AddSearch(Key);
 end;
 
+procedure TViewProjectsList.ListViewPaletaGruposClick(Sender: TObject);
+begin
+   if(ListViewPaletaGrupos.ItemIndex < 0)then
+     Exit;
+
+   Self.ListarGrupo(ListViewPaletaGrupos.ItemFocused.Caption.Trim);
+end;
+
+procedure TViewProjectsList.ListViewPaletaGruposCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+var
+  LColor: Integer;
+begin
+   LColor := TPLColors.Texto.ToColor;
+   if(Item.Caption.Trim.Equals(TPLGroup.Executaveis.ToString))then
+     LColor := TPLColors.Vermelho.ToColor
+   else if(Item.Caption.Trim.Equals(TPLGroup.Trabalho.ToString))then
+     LColor := TPLColors.Amarelo.ToColor
+   else if(Item.Caption.Trim.Equals(TPLGroup.Pessoal.ToString))then
+     LColor := TPLColors.Azul.ToColor
+   else if(Item.Caption.Trim.Equals(TPLGroup.Packets.ToString))then
+     LColor := TPLColors.Verde.ToColor;
+
+   Sender.Canvas.Font.Color := LColor;
+end;
+
+procedure TViewProjectsList.ListViewPaletaGruposResize(Sender: TObject);
+begin
+   ListViewPaletaGrupos.Column[0].Width := ListViewPaletaGrupos.Width - 10;
+end;
+
 procedure TViewProjectsList.AbrirNovaJanela1Click(Sender: TObject);
 begin
    if(ListView.ItemIndex < 0)then
@@ -396,8 +396,6 @@ end;
 
 procedure TViewProjectsList.ExcluirRegistro1Click(Sender: TObject);
 begin
-   ShowInfo(DeskSection);
-   Exit;
    if(ListView.ItemIndex < 0)then
      Exit;
 
