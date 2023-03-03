@@ -136,21 +136,21 @@
         <DCCReference Include="src\ProjectMenu\MyOTAWizard.ProjectMenu.Consts.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Consts.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.OrganizarUses.pas"/>
-        <RcItem Include="Resource\batch.bmp">
+        <RcItem Include="Resource\Menu\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>
         </RcItem>
-        <RcItem Include="Resource\notepad.bmp">
+        <RcItem Include="Resource\Menu\info.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>info</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\notepad.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>notepad</ResourceId>
         </RcItem>
-        <RcItem Include="Resource\splash.bmp">
+        <RcItem Include="Resource\Splash\splash.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>splash</ResourceId>
-        </RcItem>
-        <RcItem Include="Resource\info.bmp">
-            <ResourceType>BITMAP</ResourceType>
-            <ResourceId>info</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

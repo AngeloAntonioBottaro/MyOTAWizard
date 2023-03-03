@@ -49,9 +49,9 @@ end;
 
 procedure TMyOTAWizardProjectMenu.AddMenu(const Project: IOTAProject; const IdentList: TStrings; const ProjectManagerMenuList: IInterfaceList; IsMultiSelect: Boolean);
 begin
-   if(IdentList.IndexOf(sProjectContainer) < 0) or
-     (not Assigned(ProjectManagerMenuList))
-   then
+   if((IdentList.IndexOf(sProjectContainer) < 0)and(IdentList.IndexOf(sProjectGroupContainer) < 0)or
+      (not Assigned(ProjectManagerMenuList))
+   )then
      Exit;
 
    FProject := Project;

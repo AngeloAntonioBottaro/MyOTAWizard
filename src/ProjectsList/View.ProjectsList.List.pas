@@ -187,7 +187,7 @@ begin
    begin
       LItem := ListViewPaletaGrupos.Items.Add;
       LItem.Caption    := '  ' + LGroup.ToString;
-      LItem.ImageIndex := Integer(LGroup);
+      LItem.ImageIndex := Integer(LGroup) + 6;
    end;
 end;
 
