@@ -24,10 +24,13 @@ type
     class function FontColor(AColor: Integer): Integer;
     class procedure Open(AFileName: string);
     class function ReturnEdtValidChar(const AChar: string): string;
+    class function CreateGuidStr: String;
+    class function FileExists(AFile1: string; AFile2: string = ''; AFile3: string = ''; AFile4: string = ''; AFile5: string = ''): string;
   end;
 
 procedure ShowInfo(AMsg: string);
 procedure ShowError(AMsg: string);
+function ShowQuestion(AMsg: string): Boolean;
 
 implementation
 
@@ -58,6 +61,15 @@ begin
    {$ENDIF}
 end;
 
+class function TMyOTAWizardUtils.CreateGuidStr: String;
+var
+ LGUID1: TGUID;
+begin
+   Result := EmptyStr;
+   CreateGUID(LGUID1);
+   Result := GUIDToString(LGUID1);
+end;
+
 function ColorDark(AColor: Integer): Integer;
 begin
    case(AColor)of
@@ -80,6 +92,27 @@ begin
    else
     Result := TColors.Black;
    end;
+end;
+
+function IfThenFileExist(AFileIFExists, AFileElse: string): string;
+begin
+   Result := AFileElse;
+
+   if(AFileIFExists.IsEmpty)then
+     Exit;
+
+   if(System.SysUtils.FileExists(AFileIFExists))then
+     Result := AFileIFExists
+end;
+
+class function TMyOTAWizardUtils.FileExists(AFile1: string; AFile2: string = ''; AFile3: string = ''; AFile4: string = ''; AFile5: string = ''): string;
+begin
+   Result := EmptyStr;
+   Result := IfThenFileExist(AFile5, Result);
+   Result := IfThenFileExist(AFile4, Result);
+   Result := IfThenFileExist(AFile3, Result);
+   Result := IfThenFileExist(AFile2, Result);
+   Result := IfThenFileExist(AFile1, Result);
 end;
 
 class function TMyOTAWizardUtils.FontColor(AColor: Integer): Integer;
@@ -109,6 +142,13 @@ end;
 procedure ShowError(AMsg: string);
 begin
    MessageDlg(AMsg, mtError, [mbOK], 0);
+end;
+
+function ShowQuestion(AMsg: string): Boolean;
+begin
+   Result := True;
+   if(MessageDlg(AMsg, mtConfirmation, [mbNo, mbYes], 0) = mrNo)then
+     Result := False;
 end;
 
 end.

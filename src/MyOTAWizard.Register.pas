@@ -11,7 +11,7 @@ uses
   MyOTAWizard.MainMenu,
   MyOTAWizard.KeyBiding,
   MyOTAWizard.ProjectMenu,
-  View.ProjectsList;
+  View.ProjectsList.List;
 
 procedure Register;
 begin
@@ -19,7 +19,7 @@ begin
    RegisterMainMenuWizard;
    RegisterKeyBidings;
    RegisterProjectMenuWizard;
-   RegisterModeloDockForm;
+   RegisterProjectListDockForm;
 end;
 
 end.

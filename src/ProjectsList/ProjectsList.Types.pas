@@ -27,20 +27,20 @@ type
    function ToColor: Integer;
   end;
 
-function StrToProjectsListGroup(AStr: string): TPLGroup;
-function StrToProjectsListColors(AStr: string): TPLColors;
+function StrToPLGroup(AStr: string): TPLGroup;
+function StrToPLColors(AStr: string): TPLColors;
 
 implementation
 
 uses
   MyOTAWizard.UTils;
 
-function StrToProjectsListGroup(AStr: string): TPLGroup;
+function StrToPLGroup(AStr: string): TPLGroup;
 begin
    Result := TPLGroup(GetEnumValue(TypeInfo(TPLGroup), AStr));
 end;
 
-function StrToProjectsListColors(AStr: string): TPLColors;
+function StrToPLColors(AStr: string): TPLColors;
 begin
    Result := TPLColors(GetEnumValue(TypeInfo(TPLColors), AStr));
 end;

@@ -1,4 +1,4 @@
-unit View.ProjectsList;
+unit View.ProjectsList.List;
 
 interface
 
@@ -34,6 +34,7 @@ type
     pnPaletaGrupos: TPanel;
     Splitter1: TSplitter;
     ListViewPaletaGrupos: TListView;
+    AlterarRegistro1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -49,14 +50,15 @@ type
     procedure ListViewPaletaGruposResize(Sender: TObject);
     procedure ListViewPaletaGruposCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure ListViewPaletaGruposClick(Sender: TObject);
+    procedure AlterarRegistro1Click(Sender: TObject);
   private
     FColIndex: Integer;
     FOrdAsc: Boolean;
     FSelectedGroup: string;
     FSearch: string;
-    procedure CriarPaletaGrupos;
-    procedure ListarGrupo(AGroup: string);
-    procedure ListarProjetos;
+    procedure CreateGroupPallet;
+    procedure ListGroup(AGroup: string);
+    procedure ListProjects;
     procedure AddToList(ASection: string);
     procedure SaveLastOpenedDate;
 
@@ -68,10 +70,10 @@ type
 var
   ViewProjectsList: TViewProjectsList;
 
-procedure RegisterModeloDockForm;
+procedure RegisterProjectListDockForm;
 procedure UnRegister;
 
-procedure ShowGeradorModelo;
+procedure ShowProjectList;
 
 implementation
 
@@ -80,9 +82,10 @@ implementation
 uses
   MyOTAWizard.Utils,
   ProjectsList.IniFile,
-  ProjectsList.Types;
+  ProjectsList.Types,
+  View.ProjectsList.AddProject;
 
-procedure RegisterModeloDockForm;
+procedure RegisterProjectListDockForm;
 begin
    if(not Assigned(ViewProjectsList))then
      ViewProjectsList := TViewProjectsList.Create(nil);
@@ -106,7 +109,7 @@ begin
   FreeAndNil(ViewProjectsList);
 end;
 
-procedure ShowGeradorModelo;
+procedure ShowProjectList;
 begin
   if(not Assigned(ViewProjectsList))then
     Exit;
@@ -137,12 +140,13 @@ begin
         else
           Self.ListViewDblClick(nil);
      end;
-     VK_NUMPAD0: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Tudo.ToString);
-     VK_NUMPAD1: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Executaveis.ToString);
-     VK_NUMPAD2: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Trabalho.ToString);
-     VK_NUMPAD3: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Pessoal.ToString);
-     VK_NUMPAD4: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Packets.ToString);
-     VK_NUMPAD5: if(Shift = [ssCtrl])then Self.ListarGrupo(TPLGroup.Outros.ToString);
+     VK_NUMPAD0: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Tudo.ToString);
+     VK_NUMPAD1: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Executaveis.ToString);
+     VK_NUMPAD2: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Trabalho.ToString);
+     VK_NUMPAD3: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Pessoal.ToString);
+     VK_NUMPAD4: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Packets.ToString);
+     VK_NUMPAD5: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Outros.ToString);
+     VK_F5:      if(Shift = [])then Self.ListProjects;
    end;
 end;
 
@@ -157,7 +161,7 @@ end;
 
 procedure TViewProjectsList.FormShow(Sender: TObject);
 begin
-   Self.CriarPaletaGrupos;
+   Self.CreateGroupPallet;
 
    ListView.SmallImages := ImageListLight;
    if(TMyOTAWizardUtils.ActiveTheme = 'Dark')then
@@ -168,12 +172,12 @@ begin
    TMyOTAWizardUtils.ApplyTheme(TViewProjectsList, Self);
 
    if(not FSelectedGroup.IsEmpty)then
-     Self.ListarGrupo(FSelectedGroup)
+     Self.ListGroup(FSelectedGroup)
    else
-     Self.ListarGrupo(TPLGroup.Tudo.ToString);
+     Self.ListGroup(TPLGroup.Tudo.ToString);
 end;
 
-procedure TViewProjectsList.CriarPaletaGrupos;
+procedure TViewProjectsList.CreateGroupPallet;
 var
   LItem: TListItem;
   LGroup: TPLGroup;
@@ -192,7 +196,7 @@ begin
    TimerSearch.Enabled := False;
 
    if(AChar.IsEmpty)then
-     FSearch := ''
+     FSearch := EmptyStr
    else
      FSearch := LowerCase(FSearch + TMyOTAWizardUtils.ReturnEdtValidChar(AChar));
 
@@ -203,19 +207,19 @@ end;
 procedure TViewProjectsList.TimerSearchTimer(Sender: TObject);
 begin
    TimerSearch.Enabled := False;
-   Self.ListarProjetos;
+   Self.ListProjects;
 end;
 
-procedure TViewProjectsList.ListarGrupo(AGroup: string);
+procedure TViewProjectsList.ListGroup(AGroup: string);
 begin
    FSelectedGroup := AGroup;
    if(FSelectedGroup.IsEmpty)then
      FSelectedGroup := TPLGroup.Tudo.ToString;
 
-   Self.ListarProjetos;
+   Self.ListProjects;
 end;
 
-procedure TViewProjectsList.ListarProjetos;
+procedure TViewProjectsList.ListProjects;
 var
   LSections: TStringList;
   I: Integer;
@@ -240,13 +244,15 @@ end;
 procedure TViewProjectsList.AddToList(ASection: string);
 var
   LItem: TListItem;
-  LGroup: string;
+  LName: string;
   LDirectory: string;
   LLastOpened: string;
+  LGroup: string;
 begin
-   LDirectory  := TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierDirectory, '');
-   LLastOpened := TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierDateLastOpened, '');
-   LGroup      := TProjectsListIniFile.New.IniFile.ReadString(ASection, IdentifierGroup, TPLGroup.Tudo.ToString);
+   LName       := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_NAME, '');
+   LDirectory  := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_DIRECTORY, '');
+   LLastOpened := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_DATELASTOPENED, '');
+   LGroup      := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_GROUP, TPLGroup.Tudo.ToString);
 
    if(FSelectedGroup <> TPLGroup.Tudo.ToString)then
      if(LGroup <> FSelectedGroup)then
@@ -261,10 +267,11 @@ begin
 
    LItem := ListView.Items.Add;
    LItem.Caption    := LGroup;
-   LItem.ImageIndex := Integer(TPLGroup(StrToProjectsListGroup(LGroup)));
-   LItem.SubItems.Add(ASection);
+   LItem.ImageIndex := Integer(TPLGroup(StrToPLGroup(LGroup)));
+   LItem.SubItems.Add(LName);
    LItem.SubItems.Add(LDirectory);
    LItem.SubItems.Add(LLastOpened);
+   LItem.SubItems.Add(ASection);
 end;
 
 procedure TViewProjectsList.ListViewColumnClick(Sender: TObject; Column: TListColumn);
@@ -308,8 +315,8 @@ procedure TViewProjectsList.ListViewCustomDrawSubItem(Sender: TCustomListView; I
 var
   LTypeColor: string;
 begin
-   LTypeColor := TProjectsListIniFile.New.IniFile.ReadString(Item.SubItems[0], IdentifierColor, TPLColors.Texto.ToString);
-   Sender.Canvas.Font.Color := StrToProjectsListColors(LTypeColor).ToColor;
+   LTypeColor := TProjectsListIniFile.New.IniFile.ReadString(Item.SubItems[3], INI_IDENTIFIER_COLOR, TPLColors.Texto.ToString);
+   Sender.Canvas.Font.Color := StrToPLColors(LTypeColor).ToColor;
 end;
 
 procedure TViewProjectsList.ListViewDblClick(Sender: TObject);
@@ -342,7 +349,7 @@ begin
    if(ListViewPaletaGrupos.ItemIndex < 0)then
      Exit;
 
-   Self.ListarGrupo(ListViewPaletaGrupos.ItemFocused.Caption.Trim);
+   Self.ListGroup(ListViewPaletaGrupos.ItemFocused.Caption.Trim);
 end;
 
 procedure TViewProjectsList.ListViewPaletaGruposCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
@@ -380,7 +387,7 @@ end;
 procedure TViewProjectsList.SaveLastOpenedDate;
 begin
    try
-     TProjectsListIniFile.New.IniFile.WriteString(ListView.ItemFocused.SubItems[0], IdentifierDateLastOpened, DateTimeToStr(Now));
+     TProjectsListIniFile.New.IniFile.WriteString(ListView.ItemFocused.SubItems[3], INI_IDENTIFIER_DATELASTOPENED, DateTimeToStr(Now));
    except
    end;
 end;
@@ -399,8 +406,24 @@ begin
    if(ListView.ItemIndex < 0)then
      Exit;
 
-   TProjectsListIniFile.New.IniFile.EraseSection(ListView.ItemFocused.SubItems[0]);
-   Self.ListarProjetos;
+   TProjectsListIniFile.New.IniFile.EraseSection(ListView.ItemFocused.SubItems[3]);
+   Self.ListProjects;
+end;
+
+procedure TViewProjectsList.AlterarRegistro1Click(Sender: TObject);
+begin
+   if(ListView.ItemIndex < 0)then
+     Exit;
+
+   if(ViewProjectsListAddProject = nil)then Application.CreateForm(TViewProjectsListAddProject, ViewProjectsListAddProject);
+   try
+     ViewProjectsListAddProject.SectionToUpdate := ListView.ItemFocused.SubItems[3];
+     ViewProjectsListAddProject.ShowModal;
+   finally
+     FreeAndNil(ViewProjectsListAddProject);
+   end;
+
+   Self.ListProjects;
 end;
 
 initialization

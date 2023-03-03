@@ -67,7 +67,6 @@ object ViewProjectsList: TViewProjectsList
     OnCustomDrawSubItem = ListViewCustomDrawSubItem
     OnDblClick = ListViewDblClick
     OnKeyPress = ListViewKeyPress
-    ExplicitWidth = 992
   end
   object StatusBar: TStatusBar
     Left = 0
@@ -78,7 +77,6 @@ object ViewProjectsList: TViewProjectsList
       item
         Width = 500
       end>
-    ExplicitWidth = 1117
   end
   object pnPaletaGrupos: TPanel
     Left = 0
@@ -120,6 +118,10 @@ object ViewProjectsList: TViewProjectsList
     end
     object N1: TMenuItem
       Caption = '-'
+    end
+    object AlterarRegistro1: TMenuItem
+      Caption = 'Alterar registro'
+      OnClick = AlterarRegistro1Click
     end
     object ExcluirRegistro1: TMenuItem
       Caption = 'Excluir registro'

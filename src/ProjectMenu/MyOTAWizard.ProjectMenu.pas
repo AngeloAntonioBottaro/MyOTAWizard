@@ -35,7 +35,7 @@ implementation
 uses
   MyOTAWizard.ProjectMenu.Consts,
   MyOTAWizard.ProjectMenu.Item,
-  View.AddProject;
+  View.ProjectsList.AddProject;
 
 procedure RegisterProjectMenuWizard;
 begin
@@ -82,13 +82,13 @@ end;
 
 procedure TMyOTAWizardProjectMenu.OnExecuteAdicionarProjetoNaLista(const MenuContextList: IInterfaceList);
 begin
+   ViewProjectsListAddProject := TViewProjectsListAddProject.Create(nil);
    try
-     ViewAddProject := TViewAddProject.Create(nil);
-     ViewAddProject.edtDiretorioProjeto.Text := FProject.FileName;
-     ViewAddProject.PegarNomeArquivoSelecionado;
-     ViewAddProject.ShowModal;
+     ViewProjectsListAddProject.edtDiretorioProjeto.Text := FProject.FileName;
+     ViewProjectsListAddProject.GetSelectedFileName;
+     ViewProjectsListAddProject.ShowModal;
    finally
-     FreeAndNil(ViewAddProject);
+     FreeAndNil(ViewProjectsListAddProject);
    end;
 end;
 

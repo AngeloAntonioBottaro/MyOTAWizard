@@ -117,12 +117,12 @@
         <DCCReference Include="src\Utils\MyOTAWizard.OnClicks.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.ShortCuts.pas"/>
-        <DCCReference Include="src\ProjectsList\View.ProjectsList.pas">
+        <DCCReference Include="src\ProjectsList\View.ProjectsList.List.pas">
             <Form>ViewProjectsList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="src\ProjectsList\View.AddProject.pas">
-            <Form>ViewAddProject</Form>
+        <DCCReference Include="src\ProjectsList\View.ProjectsList.AddProject.pas">
+            <Form>ViewProjectsListAddProject</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\ProjectsList\ProjectsList.IniFile.pas"/>
