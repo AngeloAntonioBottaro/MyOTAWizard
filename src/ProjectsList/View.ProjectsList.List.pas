@@ -415,7 +415,7 @@ begin
    if(ListView.ItemIndex < 0)then
      Exit;
 
-   if(ViewProjectsListAddProject = nil)then Application.CreateForm(TViewProjectsListAddProject, ViewProjectsListAddProject);
+   ViewProjectsListAddProject := TViewProjectsListAddProject.Create(nil);
    try
      ViewProjectsListAddProject.SectionToUpdate := ListView.ItemFocused.SubItems[3];
      ViewProjectsListAddProject.ShowModal;

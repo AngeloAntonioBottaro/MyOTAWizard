@@ -103,6 +103,13 @@ begin
       begin
          LTextoDaLinha := LStrListAux.Strings[LLinha];
 
+         //SE A LINHA TEM O TEXTO PRIVATE OU PUBLIC DECLARATIONS
+         if(LTextoDaLinha.Trim.Contains('{ Private declarations }'))or(LTextoDaLinha.Trim.Contains('{ Public declarations }'))then
+         begin
+            Inc(LLinha);
+            Continue;
+         end;
+
          //SE NÃO É A LINHA COM O TEXTO USES ADD A LINHA INTEIRA
          if(LTextoDaLinha.Trim <> 'uses')or(LUsesAchadas = 2)then
          begin

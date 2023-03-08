@@ -42,7 +42,6 @@ type
     procedure pnIniFilePathDblClick(Sender: TObject);
   private
     FSectionToUpdate: string;
-    procedure ConfComponentsTheme;
     procedure LoadSectionInformations(ASection: string);
     procedure VerifyFields;
     procedure SaveToList(ASection: string);
@@ -97,16 +96,7 @@ end;
 procedure TViewProjectsListAddProject.FormShow(Sender: TObject);
 begin
    TMyOTAWizardUtils.ApplyTheme(TViewProjectsListAddProject, Self);
-   Self.ConfComponentsTheme;
    Self.LoadSectionInformations(SectionToUpdate);
-end;
-
-procedure TViewProjectsListAddProject.ConfComponentsTheme;
-begin
-   lbNomeProjeto.Font.Color      := TPLColors.Texto.ToColor;
-   lbDiretorioProjeto.Font.Color := TPLColors.Texto.ToColor;
-   lbGrupo.Font.Color            := TPLColors.Texto.ToColor;
-   lbCor.Font.Color              := TPLColors.Texto.ToColor;
 end;
 
 procedure TViewProjectsListAddProject.LoadSectionInformations(ASection: string);

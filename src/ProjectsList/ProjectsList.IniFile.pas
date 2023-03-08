@@ -7,11 +7,11 @@ uses
   System.IniFiles;
 
 const
-  INI_IDENTIFIER_NAME           = 'ProjectName';
-  INI_IDENTIFIER_DIRECTORY      = 'ProjectDirectory';
-  INI_IDENTIFIER_GROUP          = 'ProjectGroup';
-  INI_IDENTIFIER_COLOR          = 'ProjectColor';
-  INI_IDENTIFIER_DATELASTOPENED = 'ProjectLastOpened';
+  INI_IDENTIFIER_NAME           = 'Name';
+  INI_IDENTIFIER_DIRECTORY      = 'Directory';
+  INI_IDENTIFIER_GROUP          = 'Group';
+  INI_IDENTIFIER_COLOR          = 'Color';
+  INI_IDENTIFIER_DATELASTOPENED = 'LastOpened';
 
 type
   IProjectsListIniFile = interface
