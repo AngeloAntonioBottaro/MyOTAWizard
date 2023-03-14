@@ -10,7 +10,7 @@ uses
 
 type
   {$SCOPEDENUMS ON}
-  TPLGroup  = (Tudo, Executaveis, Trabalho, Pessoal, Packets, Outros);
+  TPLGroup  = (Tudo, Trabalho, Pessoal, Packets, Executaveis, Outros);
   TPLColors = (Texto, Vermelho, Azul, Amarelo, Verde);
   {$SCOPEDENUMS OFF}
 

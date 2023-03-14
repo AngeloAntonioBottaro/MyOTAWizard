@@ -248,6 +248,7 @@ var
   LDirectory: string;
   LLastOpened: string;
   LGroup: string;
+  LGroupIndex: Integer;
 begin
    LName       := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_NAME, '');
    LDirectory  := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_DIRECTORY, '');
@@ -265,9 +266,10 @@ begin
      )then
        Exit;
 
+   LGroupIndex := Integer(TPLGroup(StrToPLGroup(LGroup)));
    LItem := ListView.Items.Add;
-   LItem.Caption    := LGroup;
-   LItem.ImageIndex := Integer(TPLGroup(StrToPLGroup(LGroup)));
+   LItem.Caption    := LGroupIndex.ToString + ' ' + LGroup;
+   LItem.ImageIndex := LGroupIndex;
    LItem.SubItems.Add(LName);
    LItem.SubItems.Add(LDirectory);
    LItem.SubItems.Add(LLastOpened);
