@@ -117,7 +117,7 @@ end;
 
 procedure TViewProjectsListAddProject.pnIniFilePathDblClick(Sender: TObject);
 begin
-   TMyOTAWizardUtils.Open(TProjectsListIniFile.New.IniFilePath);
+   TMyOTAWizardUtils.Open(TProjectsListIniFile.New.IniFilePath + TProjectsListIniFile.New.IniFileName);
 end;
 
 procedure TViewProjectsListAddProject.btnSelecionarProjetoClick(Sender: TObject);

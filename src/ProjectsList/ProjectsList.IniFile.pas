@@ -18,6 +18,7 @@ type
    ['{7FACB465-1798-45A9-BC21-89E1277846D7}']
    function IniFile: TIniFile;
    function IniFilePath: string;
+   function IniFileName: string;
   end;
 
   TProjectsListIniFile = class(TInterfacedObject, IProjectsListIniFile)
@@ -28,6 +29,7 @@ type
   protected
     function IniFile: TIniFile;
     function IniFilePath: string;
+    function IniFileName: string;
   public
     class function New: IProjectsListIniFile;
     constructor Create;
@@ -57,6 +59,11 @@ end;
 function TProjectsListIniFile.IniFile: TIniFile;
 begin
    Result := FIniFile;
+end;
+
+function TProjectsListIniFile.IniFileName: string;
+begin
+   Result := FIniFileName;
 end;
 
 function TProjectsListIniFile.IniFilePath: string;

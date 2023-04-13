@@ -18,6 +18,9 @@ object ViewProjectsListAddProject: TViewProjectsListAddProject
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnShow = FormShow
+  DesignSize = (
+    448
+    143)
   PixelsPerInch = 96
   TextHeight = 13
   object lbNomeProjeto: TLabel
@@ -86,11 +89,12 @@ object ViewProjectsListAddProject: TViewProjectsListAddProject
     TabOrder = 2
   end
   object pnIniFilePath: TPanel
-    Left = 409
-    Top = 4
+    Left = 425
+    Top = 3
     Width = 20
     Height = 20
     Cursor = crHelp
+    Anchors = [akTop, akRight]
     BevelOuter = bvNone
     TabOrder = 6
     OnClick = pnIniFilePathClick
