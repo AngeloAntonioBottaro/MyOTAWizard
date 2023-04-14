@@ -18,19 +18,19 @@ type
      MyMenuItemBatchCaption = 'Batchs';
      MyMenuItemBatchName    = 'miBatchs';
 
-     MyMenuItemBatchCompactarMyERPCaption = 'Compactar MyERP';
+     MyMenuItemBatchCompactarMyERPCaption = 'Compact MyERP';
      MyMenuItemBatchCompactarMyERPName    = 'miBatchCompactarMyERP';
 
      MyMenuItemExtrasCaption = 'Extras';
      MyMenuItemExtrasName    = 'miExtras';
 
-     MyMenuItemExtrasListaProjetosCaption = 'Lista de projetos';
+     MyMenuItemExtrasListaProjetosCaption = 'Projects list';
      MyMenuItemExtrasListaProjetosName    = 'miExtraListaProjetos';
 
-     MyMenuItemExtrasListaAddProjetosCaption = 'Adicionar projetos a lista';
+     MyMenuItemExtrasListaAddProjetosCaption = 'Add projects to list';
      MyMenuItemExtrasListaAddProjetosName    = 'miExtraAddProjetosLista';
 
-     MyMenuItemExtrasOrganizarUsesCaption = 'Organizar uses do arquivo atual';
+     MyMenuItemExtrasOrganizarUsesCaption = 'Uses organiztion';
      MyMenuItemExtrasOrganizarUsesName    = 'miOrganizarUses';
 
      MyMenuItemTestesCaption = 'Info';

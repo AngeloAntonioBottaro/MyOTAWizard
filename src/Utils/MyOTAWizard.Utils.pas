@@ -77,6 +77,7 @@ begin
     TColors.Blue:   Result := TColors.Aqua;
     TColors.Yellow: Result := TColors.Yellow;
     TColors.Green:  Result := TColors.Lightgreen;
+    TColors.Purple: Result := TColors.Magenta;
    else
     Result := TColors.White;
    end;
@@ -89,6 +90,7 @@ begin
     TColors.Blue:   Result := TColors.blue;
     TColors.Yellow: Result := TColors.Olive;
     TColors.Green:  Result := TColors.Green;
+    TColors.Purple: Result := TColors.Purple;
    else
     Result := TColors.Black;
    end;

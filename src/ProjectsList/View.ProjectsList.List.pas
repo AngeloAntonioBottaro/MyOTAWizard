@@ -35,6 +35,8 @@ type
     Splitter1: TSplitter;
     ListViewPaletaGrupos: TListView;
     AlterarRegistro1: TMenuItem;
+    imgListGroupLight: TImageList;
+    imgListGroupDark: TImageList;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -140,13 +142,7 @@ begin
         else
           Self.ListViewDblClick(nil);
      end;
-     VK_NUMPAD0: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Tudo.ToString);
-     VK_NUMPAD1: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Executaveis.ToString);
-     VK_NUMPAD2: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Trabalho.ToString);
-     VK_NUMPAD3: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Pessoal.ToString);
-     VK_NUMPAD4: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Packets.ToString);
-     VK_NUMPAD5: if(Shift = [ssCtrl])then Self.ListGroup(TPLGroup.Outros.ToString);
-     VK_F5:      if(Shift = [])then Self.ListProjects;
+     VK_F5: if(Shift = [])then Self.ListProjects;
    end;
 end;
 
@@ -164,10 +160,12 @@ begin
    Self.CreateGroupPallet;
 
    ListView.SmallImages := ImageListLight;
-   if(TMyOTAWizardUtils.ActiveTheme = 'Dark')then
-     ListView.SmallImages := ImageListDark;
-
-   ListViewPaletaGrupos.SmallImages := ListView.SmallImages;
+   ListViewPaletaGrupos.SmallImages := imgListGroupLight;
+   if(TMyOTAWizardUtils.ActiveTheme.Equals('Dark'))then
+   begin
+      ListView.SmallImages := ImageListDark;
+      ListViewPaletaGrupos.SmallImages := imgListGroupDark;
+   end;
 
    TMyOTAWizardUtils.ApplyTheme(TViewProjectsList, Self);
 
@@ -185,9 +183,11 @@ begin
    ListViewPaletaGrupos.Items.Clear;
    for LGroup := Low(TPLGroup) to High(TPLGroup) do
    begin
-      LItem := ListViewPaletaGrupos.Items.Add;
+      LItem            := ListViewPaletaGrupos.Items.Add;
       LItem.Caption    := '  ' + LGroup.ToString;
-      LItem.ImageIndex := Integer(LGroup) + 6;
+      LItem.ImageIndex := LGroup.ToPLColors.ToInteger + 1;
+      if(LGroup.ToString.Equals(TPLGroup.Tudo.ToString))then
+        LItem.ImageIndex := LItem.ImageIndex - 1;
    end;
 end;
 
@@ -266,10 +266,13 @@ begin
      )then
        Exit;
 
-   LGroupIndex := Integer(TPLGroup(StrToPLGroup(LGroup)));
-   LItem := ListView.Items.Add;
+   LGroupIndex      := StrToPLGroup(LGroup).ToInteger;
+   LItem            := ListView.Items.Add;
    LItem.Caption    := LGroupIndex.ToString + ' ' + LGroup;
-   LItem.ImageIndex := LGroupIndex;
+   LItem.ImageIndex := StrToPLGroup(LGroup).ToPLColors.ToInteger + 1;
+   if(LGroup.Equals(TPLGroup.Tudo.ToString))then
+     LItem.ImageIndex := LItem.ImageIndex - 1;
+
    LItem.SubItems.Add(LName);
    LItem.SubItems.Add(LDirectory);
    LItem.SubItems.Add(LLastOpened);
@@ -355,20 +358,8 @@ begin
 end;
 
 procedure TViewProjectsList.ListViewPaletaGruposCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
-var
-  LColor: Integer;
 begin
-   LColor := TPLColors.Texto.ToColor;
-   if(Item.Caption.Trim.Equals(TPLGroup.Executaveis.ToString))then
-     LColor := TPLColors.Vermelho.ToColor
-   else if(Item.Caption.Trim.Equals(TPLGroup.Trabalho.ToString))then
-     LColor := TPLColors.Amarelo.ToColor
-   else if(Item.Caption.Trim.Equals(TPLGroup.Pessoal.ToString))then
-     LColor := TPLColors.Azul.ToColor
-   else if(Item.Caption.Trim.Equals(TPLGroup.Packets.ToString))then
-     LColor := TPLColors.Verde.ToColor;
-
-   Sender.Canvas.Font.Color := LColor;
+   Sender.Canvas.Font.Color := StrToPLGroup(Item.Caption.Trim).ToColor;
 end;
 
 procedure TViewProjectsList.ListViewPaletaGruposResize(Sender: TObject);
