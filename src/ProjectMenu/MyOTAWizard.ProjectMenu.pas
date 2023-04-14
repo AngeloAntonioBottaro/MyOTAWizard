@@ -13,6 +13,8 @@ type
   private
     FProject: IOTAProject;
     procedure OnExecuteAdicionarProjetoNaLista(const MenuContextList: IInterfaceList);
+    procedure OnExecuteBossIntall(const MenuContextList: IInterfaceList);
+    function BossInitCaption: string;
     function BossInitialized: Boolean;
 
     function AddMenu(ACaption: String;
@@ -66,7 +68,7 @@ begin
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_GITHUB_WEB_CAPTION, MY_MENU_ITEM_GITHUB_WEB_POSITION, MY_MENU_CAPTION));
 
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_GITHUB_WEB_POSITION + 1, MY_MENU_CAPTION));
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_INITIALIZED_CAPTION, MY_MENU_ITEM_BOSS_INITIALIZED_POSITION, MY_MENU_CAPTION, NIL, BossInitialized));
+   ProjectManagerMenuList.Add(Self.AddMenu(BossInitCaption, MY_MENU_ITEM_BOSS_INITIALIZED_POSITION, MY_MENU_CAPTION, OnExecuteBossIntall, BossInitialized));
 end;
 
 function TMyOTAWizardProjectMenu.AddMenu(ACaption: String; APosition: Integer; AParent: string; AOnExecute: TMYOnContextMenuClick; AChecked: Boolean): IOTAProjectManagerMenu;
@@ -92,6 +94,21 @@ begin
    finally
      FreeAndNil(ViewProjectsListAddProject);
    end;
+end;
+
+procedure TMyOTAWizardProjectMenu.OnExecuteBossIntall(const MenuContextList: IInterfaceList);
+begin
+   if(BossInitialized)then
+     Exit;
+
+   //CMDComand(BOSS_INIT);
+end;
+
+function TMyOTAWizardProjectMenu.BossInitCaption: string;
+begin
+   Result := MY_MENU_ITEM_BOSS_INITIALIZE_CAPTION;
+   if(BossInitialized)then
+     Result := MY_MENU_ITEM_BOSS_INITIALIZED_CAPTION;
 end;
 
 function TMyOTAWizardProjectMenu.BossInitialized: Boolean;

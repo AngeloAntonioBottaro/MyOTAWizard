@@ -19,8 +19,16 @@ const
   MY_MENU_ITEM_GITHUB_WEB_CAPTION  = 'Open github web';
   MY_MENU_ITEM_GITHUB_WEB_POSITION = MY_MENU_POSITION + 22;
 
+  MY_MENU_ITEM_BOSS_INITIALIZE_CAPTION  = 'Boss Init';
   MY_MENU_ITEM_BOSS_INITIALIZED_CAPTION  = 'Boss Initialized';
   MY_MENU_ITEM_BOSS_INITIALIZED_POSITION = MY_MENU_POSITION + 24;
+
+  //BOSS COMMANDS
+  BOSS_INIT = 'boss init';
+  BOSS_LOGIN = 'boss login';
+  BOSS_INSTALL = 'boss install';
+  BOSS_UPDATE = 'boss update';
+  BOSS_UNINSTALL = 'boss uninstall';
 
 implementation
 
