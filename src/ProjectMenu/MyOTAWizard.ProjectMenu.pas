@@ -13,6 +13,7 @@ type
   private
     FProject: IOTAProject;
     procedure OnExecuteAdicionarProjetoNaLista(const MenuContextList: IInterfaceList);
+    function BossInitialized: Boolean;
 
     function AddMenu(ACaption: String;
                      APosition: Integer;
@@ -61,10 +62,11 @@ begin
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_ADICIONAR_PROJETO_CAPTION, MY_MENU_ITEM_ADICIONAR_PROJETO_POSITION, MY_MENU_CAPTION, OnExecuteAdicionarProjetoNaLista));
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_ADICIONAR_PROJETO_POSITION + 1, MY_MENU_CAPTION));
 
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_INIT_CAPTION, MY_MENU_ITEM_BOSS_INIT_POSITION, MY_MENU_CAPTION));
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_INSTALL_CAPTION, MY_MENU_ITEM_BOSS_INSTALL_POSITION, MY_MENU_CAPTION));
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_UPDATE_CAPTION, MY_MENU_ITEM_BOSS_UPDATE_POSITION, MY_MENU_CAPTION));
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_BOSS_UPDATE_POSITION + 1, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_GITHUB_DESKTOP_CAPTION, MY_MENU_ITEM_GITHUB_DESKTOP_POSITION, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_GITHUB_WEB_CAPTION, MY_MENU_ITEM_GITHUB_WEB_POSITION, MY_MENU_CAPTION));
+
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_GITHUB_WEB_POSITION + 1, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_BOSS_INITIALIZED_CAPTION, MY_MENU_ITEM_BOSS_INITIALIZED_POSITION, MY_MENU_CAPTION, NIL, BossInitialized));
 end;
 
 function TMyOTAWizardProjectMenu.AddMenu(ACaption: String; APosition: Integer; AParent: string; AOnExecute: TMYOnContextMenuClick; AChecked: Boolean): IOTAProjectManagerMenu;
@@ -90,6 +92,11 @@ begin
    finally
      FreeAndNil(ViewProjectsListAddProject);
    end;
+end;
+
+function TMyOTAWizardProjectMenu.BossInitialized: Boolean;
+begin
+   Result := FileExists(ExtractFilePath(FProject.FileName) + 'boss.json');
 end;
 
 {$ENDREGION 'OnExecute'}
