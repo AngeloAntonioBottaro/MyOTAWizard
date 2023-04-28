@@ -12,6 +12,7 @@ const
   INI_IDENTIFIER_GROUP          = 'Group';
   INI_IDENTIFIER_COLOR          = 'Color';
   INI_IDENTIFIER_DATELASTOPENED = 'LastOpened';
+  INI_IDENTIFIER_GITDIRECTORY   = 'GitFolder';
 
 type
   IProjectsListIniFile = interface

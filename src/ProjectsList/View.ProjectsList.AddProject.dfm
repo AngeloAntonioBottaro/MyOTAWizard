@@ -2,8 +2,8 @@ object ViewProjectsListAddProject: TViewProjectsListAddProject
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'Adicionar projeto'
-  ClientHeight = 143
+  Caption = 'Add projetcs'
+  ClientHeight = 183
   ClientWidth = 448
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,43 +20,50 @@ object ViewProjectsListAddProject: TViewProjectsListAddProject
   OnShow = FormShow
   DesignSize = (
     448
-    143)
+    183)
   PixelsPerInch = 96
   TextHeight = 13
   object lbNomeProjeto: TLabel
     Left = 8
     Top = 52
-    Width = 65
+    Width = 63
     Height = 13
-    Caption = 'Nome projeto'
+    Caption = 'Project name'
   end
   object lbDiretorioProjeto: TLabel
     Left = 8
     Top = 12
-    Width = 79
+    Width = 80
     Height = 13
-    Caption = 'Diret'#243'rio projeto'
+    Caption = 'Project directory'
   end
   object lbGrupo: TLabel
     Left = 8
-    Top = 90
+    Top = 130
     Width = 29
     Height = 13
     Caption = 'Grupo'
   end
   object lbCor: TLabel
     Left = 174
-    Top = 90
+    Top = 130
     Width = 17
     Height = 13
     Caption = 'Cor'
   end
+  object lbGitURL: TLabel
+    Left = 8
+    Top = 92
+    Width = 107
+    Height = 13
+    Caption = 'Project ".git" directory'
+  end
   object btnSalvar: TButton
     Left = 354
-    Top = 102
+    Top = 142
     Width = 75
     Height = 25
-    Caption = 'Salvar'
+    Caption = 'Save'
     ParentShowHint = False
     ShowHint = True
     TabOrder = 5
@@ -67,7 +74,10 @@ object ViewProjectsListAddProject: TViewProjectsListAddProject
     Top = 26
     Width = 28
     Height = 21
+    Hint = 'Select file'
     Caption = '...'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 1
     OnClick = btnSelecionarProjetoClick
   end
@@ -102,7 +112,7 @@ object ViewProjectsListAddProject: TViewProjectsListAddProject
   end
   object cbGrupo: TComboBox
     Left = 8
-    Top = 104
+    Top = 144
     Width = 161
     Height = 21
     Style = csDropDownList
@@ -111,11 +121,31 @@ object ViewProjectsListAddProject: TViewProjectsListAddProject
   end
   object cbCor: TComboBox
     Left = 174
-    Top = 104
+    Top = 144
     Width = 161
     Height = 21
     Style = csDropDownList
     ParentColor = True
     TabOrder = 4
+  end
+  object edtGitDirectory: TEdit
+    Left = 8
+    Top = 105
+    Width = 391
+    Height = 21
+    MaxLength = 50
+    TabOrder = 7
+  end
+  object btnSelectGitDirectory: TButton
+    Left = 401
+    Top = 105
+    Width = 28
+    Height = 21
+    Hint = 'Select file'
+    Caption = '...'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 8
+    OnClick = btnSelectGitDirectoryClick
   end
 end

@@ -23,9 +23,15 @@ type
     class procedure ApplyTheme(AClass: TCustomFormClass; AForm: TForm);
     class function FontColor(AColor: Integer): Integer;
     class procedure Open(AFileName: string);
+    class procedure Exec(AComand: string);
     class function ReturnEdtValidChar(const AChar: string): string;
     class function CreateGuidStr: String;
     class function FileExists(AFile1: string; AFile2: string = ''; AFile3: string = ''; AFile4: string = ''; AFile5: string = ''): string;
+    class function GetGitDirectory(AProject: string; ANotFoundMessage: Boolean = False): string;
+    class function GetGitURL(AProject: string): string;
+    class procedure OpenProjectOnGithubDesktop(AProject: string);
+    class function SelectDirectory(ATitulo: String): String;
+    class function SelectFile: string;
   end;
 
 procedure ShowInfo(AMsg: string);
@@ -33,6 +39,9 @@ procedure ShowError(AMsg: string);
 function ShowQuestion(AMsg: string): Boolean;
 
 implementation
+
+uses
+  ProjectsList.IniFile;
 
 const
   ALFA_ARRAY: PChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹ 0123456789.;,<>?/[]{}*&^%$#@!_+-="`~\';
@@ -124,9 +133,107 @@ begin
      Result := ColorDark(AColor);
 end;
 
+function GetGitDirectoryFromINI(AProjectPath: string): string;
+var
+  LSections: TStringList;
+  I: Integer;
+  LProjectDir: string;
+begin
+   Result    := EmptyStr;
+   LSections := TStringList.Create;
+   try
+     TProjectsListIniFile.New.IniFile.ReadSections(LSections);
+
+     for I := 0 to Pred(LSections.Count) do
+     begin
+        LProjectDir := TProjectsListIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_DIRECTORY, '');
+        if(not ExtractFilePath(LProjectDir).Equals(AProjectPath))then
+          Continue;
+
+        Result := TProjectsListIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_GITDIRECTORY, '');
+     end;
+   finally
+     LSections.Free;
+   end;
+end;
+
+class function TMyOTAWizardUtils.GetGitDirectory(AProject: string; ANotFoundMessage: Boolean = False): string;
+var
+  LDirectoryDef: string;
+begin
+   Result := EmptyStr;
+   if(AProject.Trim.IsEmpty)then
+     Exit;
+
+   Result := GetGitDirectoryFromINI(ExtractFilePath(AProject));
+
+   if(not Result.IsEmpty)then
+     Exit;
+
+   //DEFAULT DIRECTORY
+   LDirectoryDef := IncludeTrailingPathDelimiter(ExtractFilePath(AProject)) + '.git';
+   if(DirectoryExists(LDirectoryDef))then
+     Result := LDirectoryDef;
+
+   if(ANotFoundMessage)and(Result.IsEmpty)then
+     ShowInfo('Directory ".git" not found');
+end;
+
+class function TMyOTAWizardUtils.GetGitURL(AProject: string): string;
+var
+  LArquivo: TextFile;
+  LArqConf: string;
+  LStrLinha: string;
+begin
+   Result := EmptyStr;
+
+   if(not DirectoryExists(TMyOTAWizardUtils.GetGitDirectory(AProject, True)))then
+     Exit;
+
+   LArqConf := TMyOTAWizardUtils.GetGitDirectory(AProject) + '\config';
+
+   if(not System.SysUtils.FileExists(LArqConf))then
+     Exit;
+
+   AssignFile(LArquivo, LArqConf);
+   try
+     Reset(LArquivo);
+
+     while(not Eof(LArquivo))do
+     begin
+        Readln(LArquivo, LStrLinha);
+        if(not LStrLinha.Contains('url ='))then
+          Continue;
+
+        LStrLinha := StringReplace(LStrLinha, 'url =', '', [rfReplaceAll, rfIgnoreCase]);
+        if(LStrLinha.Trim.IsEmpty)then
+          Exit;
+
+        Result := LStrLinha.Trim;
+     end;
+   finally
+     CloseFile(LArquivo);
+   end;
+end;
+
 class procedure TMyOTAWizardUtils.Open(AFileName: string);
 begin
-   ShellExecute(HInstance, 'open', Pchar(AFileName), nil, nil, SW_SHOWNORMAL);
+   ShellExecute(0, 'open', Pchar(AFileName), nil, nil, SW_SHOWNORMAL);
+end;
+
+class procedure TMyOTAWizardUtils.Exec(AComand: string);
+begin
+   ShellExecute(0, nil, 'cmd.exe', Pchar('/C ' + AComand), nil, SW_HIDE);
+end;
+
+class procedure TMyOTAWizardUtils.OpenProjectOnGithubDesktop(AProject: string);
+var
+  LDir: string;
+begin
+   LDir := TMyOTAWizardUtils.GetGitDirectory(AProject, True);
+   LDir := StringReplace(LDir, '\.git', '', [rfIgnoreCase]);
+   if(not LDir.Trim.IsEmpty)then
+     TMyOTAWizardUtils.Exec('Github ' + LDir.Trim);
 end;
 
 class function TMyOTAWizardUtils.ReturnEdtValidChar(const AChar: string): string;
@@ -134,6 +241,46 @@ begin
    Result := EmptyStr;
    if(Pos(AChar, ALFA_ARRAY) <> 0)then
      Result := LowerCase(AChar)
+end;
+
+class function TMyOTAWizardUtils.SelectDirectory(ATitulo: String): String;
+var
+ LFileOpenDialog: TFileOpenDialog;
+begin
+   Result := EmptyStr;
+   if(ATitulo = EmptyStr)then
+     ATitulo := 'Selecione uma pasta';
+
+   LFileOpenDialog := TFileOpenDialog.Create(nil);
+   try
+     LFileOpenDialog.Title    := ATitulo;
+     LFileOpenDialog.Options  := [fdoPickFolders];
+
+     if(not LFileOpenDialog.Execute)then
+       Exit;
+
+     Result := Trim(LFileOpenDialog.FileName);
+   finally
+     LFileOpenDialog.Free;
+   end;
+end;
+
+class function TMyOTAWizardUtils.SelectFile: string;
+var
+  LSaveDialog: TSaveDialog;
+begin
+   Result := EmptyStr;
+   LSaveDialog := TSaveDialog.Create(nil);
+   try
+     LSaveDialog.DefaultExt := '*';
+     LSaveDialog.Filter     := 'All|*.*|Project|*.dproj|Project Group|*.groupproj';
+     LSaveDialog.InitialDir := 'C:\';
+     LSaveDialog.FileName   := '';
+     if(LSaveDialog.Execute)then
+       Result := LSaveDialog.FileName;
+   finally
+     LSaveDialog.Free;
+   end;
 end;
 
 procedure ShowInfo(AMsg: string);

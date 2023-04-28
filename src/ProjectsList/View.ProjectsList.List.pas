@@ -37,6 +37,9 @@ type
     AlterarRegistro1: TMenuItem;
     imgListGroupLight: TImageList;
     imgListGroupDark: TImageList;
+    N2: TMenuItem;
+    Opengithubweb1: TMenuItem;
+    Opengithubdesktop1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -53,6 +56,8 @@ type
     procedure ListViewPaletaGruposCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure ListViewPaletaGruposClick(Sender: TObject);
     procedure AlterarRegistro1Click(Sender: TObject);
+    procedure Opengithubweb1Click(Sender: TObject);
+    procedure Opengithubdesktop1Click(Sender: TObject);
   private
     FColIndex: Integer;
     FOrdAsc: Boolean;
@@ -365,6 +370,26 @@ end;
 procedure TViewProjectsList.ListViewPaletaGruposResize(Sender: TObject);
 begin
    ListViewPaletaGrupos.Column[0].Width := ListViewPaletaGrupos.Width - 10;
+end;
+
+procedure TViewProjectsList.Opengithubdesktop1Click(Sender: TObject);
+begin
+   if(ListView.ItemIndex < 0)then
+     Exit;
+
+   TMyOTAWizardUtils.OpenProjectOnGithubDesktop(ListView.ItemFocused.SubItems[1]);
+end;
+
+procedure TViewProjectsList.Opengithubweb1Click(Sender: TObject);
+var
+  LURL: string;
+begin
+   if(ListView.ItemIndex < 0)then
+     Exit;
+
+   LURL := TMyOTAWizardUtils.GetGitURL(ListView.ItemFocused.SubItems[1]);
+   if(not LURL.Trim.IsEmpty)then
+     TMyOTAWizardUtils.Open(LURL.Trim);
 end;
 
 procedure TViewProjectsList.AbrirNovaJanela1Click(Sender: TObject);

@@ -2,7 +2,7 @@ object ViewProjectsList: TViewProjectsList
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
-  Caption = 'Projetos'
+  Caption = 'Projects'
   ClientHeight = 455
   ClientWidth = 1074
   Color = clBtnFace
@@ -105,27 +105,38 @@ object ViewProjectsList: TViewProjectsList
     end
   end
   object PopupMenu: TPopupMenu
-    Left = 32
-    Top = 40
+    Left = 400
+    Top = 64
     object AbrirDiretorio1: TMenuItem
-      Caption = 'Abrir diret'#243'rio'
+      Caption = 'Open directory'
       ShortCut = 16464
       OnClick = AbrirDiretorio1Click
     end
     object AbrirNovaJanela1: TMenuItem
-      Caption = 'Abrir em nova janela'
+      Caption = 'Open on new window'
       OnClick = AbrirNovaJanela1Click
     end
     object N1: TMenuItem
       Caption = '-'
     end
     object AlterarRegistro1: TMenuItem
-      Caption = 'Alterar registro'
+      Caption = 'Change registry'
       OnClick = AlterarRegistro1Click
     end
     object ExcluirRegistro1: TMenuItem
-      Caption = 'Excluir registro'
+      Caption = 'Delete registry'
       OnClick = ExcluirRegistro1Click
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object Opengithubdesktop1: TMenuItem
+      Caption = 'Open github desktop'
+      OnClick = Opengithubdesktop1Click
+    end
+    object Opengithubweb1: TMenuItem
+      Caption = 'Open github web'
+      OnClick = Opengithubweb1Click
     end
   end
   object ImageListDark: TImageList

@@ -32,6 +32,9 @@ type
     lbGrupo: TLabel;
     lbCor: TLabel;
     cbCor: TComboBox;
+    lbGitURL: TLabel;
+    edtGitDirectory: TEdit;
+    btnSelectGitDirectory: TButton;
     procedure FormShow(Sender: TObject);
     procedure btnSelecionarProjetoClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -40,6 +43,7 @@ type
     procedure pnIniFilePathClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure pnIniFilePathDblClick(Sender: TObject);
+    procedure btnSelectGitDirectoryClick(Sender: TObject);
   private
     FSectionToUpdate: string;
     procedure LoadSectionInformations(ASection: string);
@@ -47,9 +51,12 @@ type
     procedure SaveToList(ASection: string);
     procedure VerifyProjectName;
     procedure CleanFields;
+    procedure InformedFileExists;
+    procedure GetInfFromNewDirectory;
+    procedure GetSelectedFileName;
+    procedure GetGitDirectory;
   public
     property SectionToUpdate: string read FSectionToUpdate write FSectionToUpdate;
-    procedure GetSelectedFileName;
   end;
 
 var
@@ -97,6 +104,7 @@ procedure TViewProjectsListAddProject.FormShow(Sender: TObject);
 begin
    TMyOTAWizardUtils.ApplyTheme(TViewProjectsListAddProject, Self);
    Self.LoadSectionInformations(SectionToUpdate);
+   Self.GetInfFromNewDirectory;
 end;
 
 procedure TViewProjectsListAddProject.LoadSectionInformations(ASection: string);
@@ -106,6 +114,7 @@ begin
 
    edtNomeProjeto.Text      := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_NAME, '');
    edtDiretorioProjeto.Text := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_DIRECTORY, '');
+   edtGitDirectory.Text     := TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_GITDIRECTORY, '');
    cbGrupo.ItemIndex        := Integer(StrToPLGroup(TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_GROUP, TPLGroup.Tudo.ToString)));
    cbCor.ItemIndex          := Integer(StrToPLColors(TProjectsListIniFile.New.IniFile.ReadString(ASection, INI_IDENTIFIER_COLOR, TPLColors.Texto.ToString)));
 end;
@@ -122,28 +131,44 @@ end;
 
 procedure TViewProjectsListAddProject.btnSelecionarProjetoClick(Sender: TObject);
 var
-  LSaveDialog: TSaveDialog;
   LFile: string;
 begin
    edtDiretorioProjeto.Text := '';
-   LFile := '';
-   LSaveDialog := TSaveDialog.Create(nil);
-   try
-     LSaveDialog.DefaultExt := 'pdf';
-     LSaveDialog.Filter     := 'All|*.*|Project|*.dproj|Project Group|*.groupproj';
-     LSaveDialog.InitialDir := 'C:\';
-     LSaveDialog.FileName   := '';
-     if(LSaveDialog.Execute)then
-       LFile := LSaveDialog.FileName;
-   finally
-     LSaveDialog.Free;
-   end;
-
+   LFile := TMyOTAWizardUtils.SelectFile;
    if(LFile = EmptyStr)then
      Exit;
 
-   edtDiretorioProjeto.Text := LFile;
-   Self.GetSelectedFileName;
+   edtDiretorioProjeto.Text := LFile.Trim;
+   Self.GetInfFromNewDirectory;
+end;
+
+procedure TViewProjectsListAddProject.btnSelectGitDirectoryClick(Sender: TObject);
+var
+  LFile: string;
+begin
+   edtGitDirectory.Text := '';
+   LFile := TMyOTAWizardUtils.SelectDirectory('Selecione a pasta de configuração do git (.git)');
+   if(LFile = EmptyStr)then
+     Exit;
+
+   edtGitDirectory.Text := LFile.Trim;
+end;
+
+procedure TViewProjectsListAddProject.GetGitDirectory;
+begin
+   edtGitDirectory.Text := TMyOTAWizardUtils.GetGitDirectory(edtDiretorioProjeto.Text);
+end;
+
+procedure TViewProjectsListAddProject.GetInfFromNewDirectory;
+begin
+   if(Trim(edtDiretorioProjeto.Text).IsEmpty)then
+     Exit;
+
+   if(Trim(edtNomeProjeto.Text).IsEmpty)then
+     Self.GetSelectedFileName;
+
+   if(Trim(edtGitDirectory.Text).IsEmpty)then
+     Self.GetGitDirectory;
 end;
 
 procedure TViewProjectsListAddProject.GetSelectedFileName;
@@ -176,16 +201,19 @@ begin
    if(Trim(edtDiretorioProjeto.Text).IsEmpty)then
    begin
       edtDiretorioProjeto.SetFocus;
-      ShowInfo('Diretório do projeto não informado');
+      ShowInfo('Project path not informed');
       Abort;
    end;
 
    if(Trim(edtNomeProjeto.Text).IsEmpty)then
    begin
       edtNomeProjeto.SetFocus;
-      ShowInfo('Nome do projeto não informado');
+      ShowInfo('Project name not informed');
       Abort;
    end;
+
+   if(Trim(edtGitDirectory.Text).IsEmpty)then
+     Self.GetGitDirectory;
 end;
 
 procedure TViewProjectsListAddProject.VerifyProjectName;
@@ -221,22 +249,24 @@ begin
      Exit;
 
    if(LExistsName)then
-     if(not ShowQuestion('Nome do projeto já existe. ' + sLineBreak + 'Deseja continuar?'))then
+     if(not ShowQuestion(' Project name already exists on list. ' + sLineBreak + 'Continue?'))then
        Abort;
 
    if(LExistsDirectory)then
-     if(not ShowQuestion('Diretório do projeto já existe. ' + sLineBreak + 'Deseja continuar?'))then
+     if(not ShowQuestion('Project path already exists on list. ' + sLineBreak + 'Continue?'))then
        Abort;
 end;
 
 procedure TViewProjectsListAddProject.SaveToList(ASection: string);
 begin
    Self.VerifyProjectName;
+   Self.InformedFileExists;
 
-   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_NAME,      Trim(edtNomeProjeto.Text));
-   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_DIRECTORY, Trim(edtDiretorioProjeto.Text));
-   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_GROUP,     Trim(cbGrupo.Text));
-   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_COLOR,     Trim(cbCor.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_NAME,         Trim(edtNomeProjeto.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_DIRECTORY,    Trim(edtDiretorioProjeto.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_GITDIRECTORY, Trim(edtGitDirectory.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_GROUP,        Trim(cbGrupo.Text));
+   TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_COLOR,        Trim(cbCor.Text));
 
    if(SectionToUpdate.IsEmpty)then
      TProjectsListIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_DATELASTOPENED, DateTimeToStr(Now));
@@ -246,8 +276,18 @@ procedure TViewProjectsListAddProject.CleanFields;
 begin
    edtNomeProjeto.Text      := EmptyStr;
    edtDiretorioProjeto.Text := EmptyStr;
+   edtGitDirectory.Text     := EmptyStr;
    cbGrupo.ItemIndex        := 0;
    cbCor.ItemIndex          := 0;
+end;
+
+procedure TViewProjectsListAddProject.InformedFileExists;
+begin
+   if(FileExists(Trim(edtDiretorioProjeto.Text)))then
+     Exit;
+
+   ShowError('File not found on path' + sLineBreak + 'Path: ' + Trim(edtDiretorioProjeto.Text));
+   Abort;
 end;
 
 end.
