@@ -16,7 +16,7 @@ type
     class procedure ListarProjetos(Sender: TObject);
     class procedure AdicionarProjetosLista(Sender: TObject);
     class procedure OrganizarUses(Sender: TObject);
-    class procedure Testes(Sender: TObject);
+    class procedure Info(Sender: TObject);
   end;
 
 implementation
@@ -171,9 +171,11 @@ begin
   end;
 end;
 
-class procedure TMyOTAWizardOnClicks.Testes(Sender: TObject);
+class procedure TMyOTAWizardOnClicks.Info(Sender: TObject);
 begin
-   ShowInfo('AAB Softwares Delphi wizard.');
+   ShowInfo('AAB Softwares Delphi wizard.' + sLineBreak +
+            'Email: angeloantoniobottaro@gmail.com' + sLineBreak +
+            'Phone: (43) 99631-0834');
 end;
 
 end.

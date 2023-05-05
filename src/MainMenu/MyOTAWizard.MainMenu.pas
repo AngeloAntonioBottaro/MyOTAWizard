@@ -135,7 +135,7 @@ begin
     .ImageList(FImages)
     .Caption(TMyOTAWizardConsts.MyMenuItemTestesCaption)
     .Name(TMyOTAWizardConsts.MyMenuItemTestesName)
-    .OnClick(TMyOTAWizardOnClicks.Testes)
+    .OnClick(TMyOTAWizardOnClicks.Info)
     .ImageResource('info')
     .CreateMenuItem;
 end;

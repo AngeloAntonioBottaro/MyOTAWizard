@@ -38,15 +38,15 @@ object ViewProjectsList: TViewProjectsList
         Width = 20
       end
       item
-        Caption = 'Nome'
+        Caption = 'Name'
         Width = 300
       end
       item
-        Caption = 'Diretorio'
+        Caption = 'Directory'
         Width = 450
       end
       item
-        Caption = 'Data'
+        Caption = 'Last opened date'
         Width = 140
       end>
     Font.Charset = DEFAULT_CHARSET
