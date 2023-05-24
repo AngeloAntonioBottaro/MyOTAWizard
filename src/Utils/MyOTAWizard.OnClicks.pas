@@ -80,6 +80,7 @@ var
   I: Integer;
   LSeparador: string;
   LUsesAchadas: Integer;
+  LTemp: string;
 begin
   EditorServices := (BorlandIDEServices as IOTAEditorServices);
   EditView       := EditorServices.TopView;
@@ -89,6 +90,9 @@ begin
 
   LActiveFileName := EditView.Buffer.FileName;
   LUsesAchadas    := 0;
+
+  (BorlandIDEServices as IOTAActionServices).SaveFile(LActiveFileName);
+
   try
     LStrList    := TStringList.Create;
     LStrListAux := TStringList.Create;
@@ -104,14 +108,14 @@ begin
          LTextoDaLinha := LStrListAux.Strings[LLinha];
 
          //SE A LINHA TEM O TEXTO PRIVATE OU PUBLIC DECLARATIONS
-         if(LTextoDaLinha.Trim.Contains('{ Private declarations }'))or(LTextoDaLinha.Trim.Contains('{ Public declarations }'))then
          begin
             Inc(LLinha);
             Continue;
          end;
 
          //SE NÃO É A LINHA COM O TEXTO USES ADD A LINHA INTEIRA
-         if(LTextoDaLinha.Trim <> 'uses')or(LUsesAchadas = 2)then
+         LTemp := Copy(LTextoDaLinha.Trim, 0, 4);
+         if(not LTemp.Equals('uses'))or(LUsesAchadas = 2)then
          begin
             LStrList.Add(LTextoDaLinha);
             Inc(LLinha);
@@ -156,12 +160,8 @@ begin
          Inc(LUsesAchadas);
       end;
 
-      if(LStrListAux.Text <> LStrList.Text)then
-      begin
-         LStrList.SavetoFile(LActiveFileName);
-         //(BorlandIDEServices as IOTAActionServices).SaveFile(LActiveFileName);
-         (BorlandIDEServices as IOTAActionServices).ReloadFile(LActiveFileName);
-      end;
+      LStrList.SavetoFile(LActiveFileName);
+      (BorlandIDEServices as IOTAActionServices).ReloadFile(LActiveFileName);
     finally
       LStrListAux.Free;
       LStrList.Free;
