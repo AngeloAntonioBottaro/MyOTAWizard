@@ -28,7 +28,8 @@ uses
   MyOTAWizard.Utils,
   View.ProjectsList.List,
   View.ProjectsList.AddProject,
-  MyOTAWizard.IOTAUtils;
+  MyOTAWizard.IOTAUtils,
+  MyOTAWizard.Consts;
 
 class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);
 var
@@ -151,6 +152,7 @@ begin
          LTextoDaLinha := LStrListAux.Strings[LLinha];
 
          //SE A LINHA TEM O TEXTO PRIVATE OU PUBLIC DECLARATIONS
+         if(LTextoDaLinha.Trim.Contains(PRIVATE_DECLARATION))or(LTextoDaLinha.Trim.Contains(PUBLIC_DECLARATION))then
          begin
             Inc(LLinha);
             Continue;

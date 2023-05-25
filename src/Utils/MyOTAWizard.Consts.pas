@@ -43,6 +43,10 @@ type
      MenuItemTestesName    = 'miTestes';
   end;
 
+const
+  PRIVATE_DECLARATION = '{ Private declarations }';
+  PUBLIC_DECLARATION  = '{ Public declarations }';
+
 implementation
 
 end.
