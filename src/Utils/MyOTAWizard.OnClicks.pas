@@ -108,6 +108,7 @@ begin
          LTextoDaLinha := LStrListAux.Strings[LLinha];
 
          //SE A LINHA TEM O TEXTO PRIVATE OU PUBLIC DECLARATIONS
+         if(LTextoDaLinha.Trim.Contains('{ Private declarations }'))or(LTextoDaLinha.Trim.Contains('{ Public declarations }'))then
          begin
             Inc(LLinha);
             Continue;
