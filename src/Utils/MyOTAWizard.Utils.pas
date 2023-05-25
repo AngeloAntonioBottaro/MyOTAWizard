@@ -30,18 +30,22 @@ type
     class function GetGitDirectory(AProject: string; ANotFoundMessage: Boolean = False): string;
     class function GetGitURL(AProject: string): string;
     class procedure OpenProjectOnGithubDesktop(AProject: string);
+    class procedure OpenProjectOnGithubWeb(AProject: string);
     class function SelectDirectory(ATitulo: String): String;
     class function SelectFile: string;
   end;
 
+procedure MessageInfo(AMsg: string);
+procedure MessageError(AMsg: string);
+procedure MessageLog(AMsg: string);
 procedure ShowInfo(AMsg: string);
-procedure ShowError(AMsg: string);
 function ShowQuestion(AMsg: string): Boolean;
 
 implementation
 
 uses
-  ProjectsList.IniFile;
+  ProjectsList.IniFile,
+  MyOTAWizard.IOTAUtils;
 
 const
   ALFA_ARRAY: PChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹ 0123456789.;,<>?/[]{}*&^%$#@!_+-="`~\';
@@ -236,6 +240,15 @@ begin
      TMyOTAWizardUtils.Exec('Github ' + LDir.Trim);
 end;
 
+class procedure TMyOTAWizardUtils.OpenProjectOnGithubWeb(AProject: string);
+var
+  LURL: string;
+begin
+   LURL := TMyOTAWizardUtils.GetGitURL(AProject);
+   if(not LURL.Trim.IsEmpty)then
+     TMyOTAWizardUtils.Open(LURL.Trim);
+end;
+
 class function TMyOTAWizardUtils.ReturnEdtValidChar(const AChar: string): string;
 begin
    Result := EmptyStr;
@@ -283,14 +296,24 @@ begin
    end;
 end;
 
+procedure MessageInfo(AMsg: string);
+begin
+   ShowMessageView('Information: ' + AMsg);
+end;
+
+procedure MessageError(AMsg: string);
+begin
+   ShowMessageView('Error: ' + AMsg);;
+end;
+
+procedure MessageLog(AMsg: string);
+begin
+   ShowMessageView('  - Log: ' + AMsg);;
+end;
+
 procedure ShowInfo(AMsg: string);
 begin
    MessageDlg(AMsg, mtInformation, [mbOK], 0);
-end;
-
-procedure ShowError(AMsg: string);
-begin
-   MessageDlg(AMsg, mtError, [mbOK], 0);
 end;
 
 function ShowQuestion(AMsg: string): Boolean;

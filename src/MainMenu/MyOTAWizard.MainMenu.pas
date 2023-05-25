@@ -21,6 +21,8 @@ type
     procedure MyMenuDestroyIfExists;
     procedure CreateMyMenu;
     procedure CreateSubMenuBatch(AParent: TMenuItem);
+    procedure CreateMenuGit(AParent: TMenuItem);
+    procedure CreateMenuInfo(AParent: TMenuItem);
     procedure CreateSubMenuExtras(AParent: TMenuItem);
   protected
     function GetIDString: string;
@@ -57,8 +59,9 @@ constructor TMyOTAWizardMainMenu.Create;
 begin
    FImages := TDictionary<string, Integer>.create;
 
-   Self.AddImageToImageList('batch');
    Self.AddImageToImageList('notepad');
+   Self.AddImageToImageList('github');
+   Self.AddImageToImageList('batch');
    Self.AddImageToImageList('info');
 
    Self.CreateMainMenu;
@@ -78,9 +81,8 @@ begin
   LBitmap := TBitmap.Create;
   try
     LBitmap.LoadFromResourceName(HInstance, AResourceName);
-
     LImageIndex := (BorlandIDEServices as INTAServices)
-                     .AddMasked(LBitmap, LBitmap.TransparentColor, TMyOTAWizardConsts.MyImagesPrefix + AResourceName);
+                     .AddMasked(LBitmap, LBitmap.TransparentColor, TMyOTAWizardConsts.ImagesPrefix + AResourceName);
 
     FImages.Add(AResourceName, LImageIndex);
   finally
@@ -96,8 +98,8 @@ end;
 
 procedure TMyOTAWizardMainMenu.MyMenuDestroyIfExists;
 begin
-   if(FDeplhiMainMenu.FindComponent(TMyOTAWizardConsts.MyMenuName) <> nil)then
-     FDeplhiMainMenu.FindComponent(TMyOTAWizardConsts.MyMenuName).Free;
+   if(FDeplhiMainMenu.FindComponent(TMyOTAWizardConsts.MenuName) <> nil)then
+     FDeplhiMainMenu.FindComponent(TMyOTAWizardConsts.MenuName).Free;
 end;
 
 procedure TMyOTAWizardMainMenu.CreateMyMenu;
@@ -107,36 +109,53 @@ begin
    Self.MyMenuDestroyIfExists;
 
    LMyMenu         := TMenuItem.create(FDeplhiMainMenu);
-   LMyMenu.Name    := TMyOTAWizardConsts.MyMenuName;
-   LMyMenu.Caption := TMyOTAWizardConsts.MyMenuCaption;
+   LMyMenu.Name    := TMyOTAWizardConsts.MenuName;
+   LMyMenu.Caption := TMyOTAWizardConsts.MenuCaption;
    FDeplhiMainMenu.Items.Add(LMyMenu);
 
    TMyOTAWizardMenuItem.New
     .Parent(LMyMenu)
     .ImageList(FImages)
-    .Caption(TMyOTAWizardConsts.MyMenuItemNotepadCaption)
-    .Name(TMyOTAWizardConsts.MyMenuItemNotepadName)
+    .Caption(TMyOTAWizardConsts.MenuItemNotepadCaption)
+    .Name(TMyOTAWizardConsts.MenuItemNotepadName)
     .ImageResource('notepad')
     .OnClick(TMyOTAWizardOnClicks.Notepad)
     .CreateMenuItem;
 
+   Self.CreateMenuGit(LMyMenu);
    Self.CreateSubMenuBatch(LMyMenu);
-   Self.CreateSubMenuExtras(LMyMenu);
+   Self.CreateMenuInfo(LMyMenu);
 
+   //INVISIBLE - FOR SHORTCUTS
+   Self.CreateSubMenuExtras(LMyMenu);
+end;
+
+procedure TMyOTAWizardMainMenu.CreateMenuGit(AParent: TMenuItem);
+begin
    TMyOTAWizardMenuItem.New
-    .Parent(LMyMenu)
-    .ImageList(FImages)
+    .Parent(AParent)
     .Caption('-')
-    .Name('miSeparator1')
+    .Name('miSeparatorGit')
     .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
-    .Parent(LMyMenu)
+    .Parent(AParent)
     .ImageList(FImages)
-    .Caption(TMyOTAWizardConsts.MyMenuItemTestesCaption)
-    .Name(TMyOTAWizardConsts.MyMenuItemTestesName)
-    .OnClick(TMyOTAWizardOnClicks.Info)
-    .ImageResource('info')
+    .Caption(TMyOTAWizardConsts.MenuItemGitWebCaption)
+    .Name(TMyOTAWizardConsts.MenuItemGitWebName)
+    .ImageResource('github')
+    .ShortCut(TMyOTAWizardShortCuts.OpenGitWeb)
+    .OnClick(TMyOTAWizardOnClicks.GitWeb)
+    .CreateMenuItem;
+
+   TMyOTAWizardMenuItem.New
+    .Parent(AParent)
+    .ImageList(FImages)
+    .Caption(TMyOTAWizardConsts.MenuItemGitDesktopCaption)
+    .Name(TMyOTAWizardConsts.MenuItemGitDesktopName)
+    .ImageResource('github')
+    .ShortCut(TMyOTAWizardShortCuts.OpenGitDesktop)
+    .OnClick(TMyOTAWizardOnClicks.GitDesktop)
     .CreateMenuItem;
 end;
 
@@ -144,22 +163,21 @@ procedure TMyOTAWizardMainMenu.CreateSubMenuBatch(AParent: TMenuItem);
 var
   LMyMenuBatch: TMenuItem;
 begin
-   LMyMenuBatch := TMyOTAWizardMenuItem.New
-                     .Parent(AParent)
-                     .ImageList(FImages)
-                     .Caption(TMyOTAWizardConsts.MyMenuItemBatchCaption)
-                     .Name(TMyOTAWizardConsts.MyMenuItemBatchName)
-                     .ImageResource('batch')
-                     .CreateMenuItem;
+   LMyMenuBatch := TMyOTAWizardMenuItem.New.Parent(AParent)
+                    .ImageList(FImages)
+                    .Caption(TMyOTAWizardConsts.MenuItemBatchCaption)
+                    .Name(TMyOTAWizardConsts.MenuItemBatchName)
+                    .ImageResource('batch')
+                    .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
-     .Parent(LMyMenuBatch)
-     .ImageList(FImages)
-     .Caption(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPCaption)
-     .Name(TMyOTAWizardConsts.MyMenuItemBatchCompactarMyERPName)
-     .ImageResource('batch')
-     .OnClick(TMyOTAWizardOnClicks.BatchCompactarMyERP)
-     .CreateMenuItem;
+    .Parent(LMyMenuBatch)
+    .ImageList(FImages)
+    .Caption(TMyOTAWizardConsts.MenuItemBatchCompactarMyERPCaption)
+    .Name(TMyOTAWizardConsts.MenuItemBatchCompactarMyERPName)
+    .ImageResource('batch')
+    .OnClick(TMyOTAWizardOnClicks.BatchCompactMyERP)
+    .CreateMenuItem;
 end;
 
 procedure TMyOTAWizardMainMenu.CreateSubMenuExtras(AParent: TMenuItem);
@@ -167,42 +185,52 @@ var
   LMyMenuExtra: TMenuItem;
 begin
    LMyMenuExtra := TMyOTAWizardMenuItem.New
-                     .Parent(AParent)
-                     .ImageList(FImages)
-                     .Caption(TMyOTAWizardConsts.MyMenuItemExtrasCaption)
-                     .Name(TMyOTAWizardConsts.MyMenuItemExtrasName)
-                     .ImageResource('')
-                     .Visible(False)
-                     .CreateMenuItem;
+                    .Parent(AParent)
+                    .Caption(TMyOTAWizardConsts.MenuItemExtrasCaption)
+                    .Name(TMyOTAWizardConsts.MenuItemExtrasName)
+                    .Visible(False)
+                    .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
     .Parent(LMyMenuExtra)
-    .ImageList(FImages)
-    .Caption(TMyOTAWizardConsts.MyMenuItemExtrasListaProjetosCaption)
-    .Name(TMyOTAWizardConsts.MyMenuItemExtrasListaProjetosName)
-    .ImageResource('')
-    .ShortCut(TMyOTAWizardShortCuts.ListarProjetos)
-    .OnClick(TMyOTAWizardOnClicks.ListarProjetos)
+    .Caption(TMyOTAWizardConsts.MenuItemExtrasListaProjetosCaption)
+    .Name(TMyOTAWizardConsts.MenuItemExtrasListaProjetosName)
+    .ShortCut(TMyOTAWizardShortCuts.ListProjects)
+    .OnClick(TMyOTAWizardOnClicks.ListProjects)
     .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
     .Parent(LMyMenuExtra)
-    .ImageList(FImages)
-    .Caption(TMyOTAWizardConsts.MyMenuItemExtrasListaAddProjetosCaption)
-    .Name(TMyOTAWizardConsts.MyMenuItemExtrasListaAddProjetosName)
-    .ImageResource('')
-    .ShortCut(TMyOTAWizardShortCuts.AdicionarProjetos)
-    .OnClick(TMyOTAWizardOnClicks.AdicionarProjetosLista)
+    .Caption(TMyOTAWizardConsts.MenuItemExtrasListaAddProjetosCaption)
+    .Name(TMyOTAWizardConsts.MenuItemExtrasListaAddProjetosName)
+    .ShortCut(TMyOTAWizardShortCuts.AddProjects)
+    .OnClick(TMyOTAWizardOnClicks.AddProjectsToList)
     .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
     .Parent(LMyMenuExtra)
+    .Caption(TMyOTAWizardConsts.MenuItemExtrasOrganizarUsesCaption)
+    .Name(TMyOTAWizardConsts.MenuItemExtrasOrganizarUsesName)
+    .ShortCut(TMyOTAWizardShortCuts.ArrangeUses)
+    .OnClick(TMyOTAWizardOnClicks.ArrangeUses)
+    .CreateMenuItem;
+end;
+
+procedure TMyOTAWizardMainMenu.CreateMenuInfo(AParent: TMenuItem);
+begin
+   TMyOTAWizardMenuItem.New
+    .Parent(AParent)
+    .Caption('-')
+    .Name('miSeparatorInfo')
+    .CreateMenuItem;
+
+   TMyOTAWizardMenuItem.New
+    .Parent(AParent)
     .ImageList(FImages)
-    .Caption(TMyOTAWizardConsts.MyMenuItemExtrasOrganizarUsesCaption)
-    .Name(TMyOTAWizardConsts.MyMenuItemExtrasOrganizarUsesName)
-    .ImageResource('')
-    .ShortCut(TMyOTAWizardShortCuts.OrganizarUses)
-    .OnClick(TMyOTAWizardOnClicks.OrganizarUses)
+    .Caption(TMyOTAWizardConsts.MenuItemTestesCaption)
+    .Name(TMyOTAWizardConsts.MenuItemTestesName)
+    .OnClick(TMyOTAWizardOnClicks.Info)
+    .ImageResource('info')
     .CreateMenuItem;
 end;
 

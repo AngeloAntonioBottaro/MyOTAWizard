@@ -1,4 +1,4 @@
-package pkMyOTAWizard;
+package MyOTAWizard;
 
 {$R *.res}
 {$R *.dres}
@@ -48,13 +48,16 @@ contains
   ProjectsList.IniFile in 'src\ProjectsList\ProjectsList.IniFile.pas',
   ProjectsList.Types in 'src\ProjectsList\ProjectsList.Types.pas',
   MyOTAWizard.Utils in 'src\Utils\MyOTAWizard.Utils.pas',
-  MyOTAWizard.KeyBiding.AdicionarProjetosLista in 'src\KeyBiding\MyOTAWizard.KeyBiding.AdicionarProjetosLista.pas',
-  MyOTAWizard.KeyBiding.ProjetosListar in 'src\KeyBiding\MyOTAWizard.KeyBiding.ProjetosListar.pas',
+  MyOTAWizard.KeyBiding.AddProjectsToList in 'src\KeyBiding\MyOTAWizard.KeyBiding.AddProjectsToList.pas',
+  MyOTAWizard.KeyBiding.ListProjects in 'src\KeyBiding\MyOTAWizard.KeyBiding.ListProjects.pas',
   MyOTAWizard.ProjectMenu in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.pas',
   MyOTAWizard.ProjectMenu.Item in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.Item.pas',
   MyOTAWizard.Types in 'src\Utils\MyOTAWizard.Types.pas',
   MyOTAWizard.ProjectMenu.Consts in 'src\ProjectMenu\MyOTAWizard.ProjectMenu.Consts.pas',
   MyOTAWizard.Consts in 'src\Utils\MyOTAWizard.Consts.pas',
-  MyOTAWizard.KeyBiding.OrganizarUses in 'src\KeyBiding\MyOTAWizard.KeyBiding.OrganizarUses.pas';
+  MyOTAWizard.KeyBiding.ArrangeUses in 'src\KeyBiding\MyOTAWizard.KeyBiding.ArrangeUses.pas',
+  MyOTAWizard.IOTAUtils in 'src\Utils\MyOTAWizard.IOTAUtils.pas',
+  MyOTAWizard.KeyBiding.GitWeb in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas',
+  MyOTAWizard.KeyBiding.GitDesktop in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas';
 
 end.

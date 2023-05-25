@@ -21,7 +21,7 @@ begin
    try
      LBmp.LoadFromResourceName(HInstance, 'splash');
      SplashScreenServices
-      .AddPluginBitmap(TMyOTAWizardConsts.MySplashWizardName, LBmp.Handle, False, '', '');
+      .AddPluginBitmap(TMyOTAWizardConsts.SplashWizardName, LBmp.Handle, False, '', '');
    finally
      LBmp.Free;
    end;

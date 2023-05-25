@@ -70,7 +70,7 @@ begin
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_GITHUB_DESKTOP_CAPTION, MY_MENU_ITEM_GITHUB_DESKTOP_POSITION, MY_MENU_CAPTION, OnExecuteOpenGithubDesktop));
    ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_ITEM_GITHUB_WEB_CAPTION, MY_MENU_ITEM_GITHUB_WEB_POSITION, MY_MENU_CAPTION, OnExecuteOpenGithubWeb));
 
-   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_GITHUB_WEB_POSITION + 1, MY_MENU_CAPTION));
+   ProjectManagerMenuList.Add(Self.AddMenu(MY_MENU_SEPARATOR, MY_MENU_ITEM_BOSS_INITIALIZED_POSITION - 1, MY_MENU_CAPTION));
    ProjectManagerMenuList.Add(Self.AddMenu(BossInitCaption, MY_MENU_ITEM_BOSS_INITIALIZED_POSITION, MY_MENU_CAPTION, OnExecuteBossIntall, BossInitialized));
 end;
 
@@ -107,12 +107,8 @@ begin
 end;
 
 procedure TMyOTAWizardProjectMenu.OnExecuteOpenGithubWeb(const MenuContextList: IInterfaceList);
-var
-  LURL: string;
 begin
-   LURL := TMyOTAWizardUtils.GetGitURL(FProject.FileName);
-   if(not LURL.Trim.IsEmpty)then
-     TMyOTAWizardUtils.Open(LURL.Trim);
+   TMyOTAWizardUtils.OpenProjectOnGithubWeb(FProject.FileName);
 end;
 
 procedure TMyOTAWizardProjectMenu.OnExecuteOpenGithubDesktop(const MenuContextList: IInterfaceList);

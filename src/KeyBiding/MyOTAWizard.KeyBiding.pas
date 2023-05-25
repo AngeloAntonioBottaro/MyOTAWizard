@@ -11,18 +11,22 @@ procedure RegisterKeyBidings;
 implementation
 
 uses
-  MyOTAWizard.KeyBiding.AdicionarProjetosLista,
-  MyOTAWizard.KeyBiding.ProjetosListar,
-  MyOTAWizard.KeyBiding.OrganizarUses;
+  MyOTAWizard.KeyBiding.ListProjects,
+  MyOTAWizard.KeyBiding.AddProjectsToList,
+  MyOTAWizard.KeyBiding.ArrangeUses,
+  MyOTAWizard.KeyBiding.GitWeb,
+  MyOTAWizard.KeyBiding.GitDesktop;
 
 var
   FLista: TList<Integer>;
 
 procedure RegisterKeyBidings;
 begin
-   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingProjetosListar.New));
-   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingAdicionarProjetosLista.New));
-   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingOrganizarUses.New));
+   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingListProjects.New));
+   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingAddProjectsToList.New));
+   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingArrangeUses.New));
+   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingGitWeb.New));
+   FLista.Add((BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TMyOTAWizardKeyBidingGitDesktop.New));
 end;
 
 initialization

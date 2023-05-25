@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{D21D51C2-D4DD-43B0-AE43-B4042EFAA02D}</ProjectGuid>
-        <MainSource>pkMyOTAWizard.dpk</MainSource>
+        <MainSource>MyOTAWizard.dpk</MainSource>
         <ProjectVersion>18.8</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
@@ -61,7 +61,7 @@
         <GenPackage>true</GenPackage>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <DCC_CBuilderOutput>All</DCC_CBuilderOutput>
-        <SanitizedProjectName>pkMyOTAWizard</SanitizedProjectName>
+        <SanitizedProjectName>MyOTAWizard</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_CBuilderOutput>None</DCC_CBuilderOutput>
@@ -131,14 +131,17 @@
         <DCCReference Include="src\ProjectsList\ProjectsList.IniFile.pas"/>
         <DCCReference Include="src\ProjectsList\ProjectsList.Types.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Utils.pas"/>
-        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.AdicionarProjetosLista.pas"/>
-        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.ProjetosListar.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.AddProjectsToList.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.ListProjects.pas"/>
         <DCCReference Include="src\ProjectMenu\MyOTAWizard.ProjectMenu.pas"/>
         <DCCReference Include="src\ProjectMenu\MyOTAWizard.ProjectMenu.Item.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Types.pas"/>
         <DCCReference Include="src\ProjectMenu\MyOTAWizard.ProjectMenu.Consts.pas"/>
         <DCCReference Include="src\Utils\MyOTAWizard.Consts.pas"/>
-        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.OrganizarUses.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.ArrangeUses.pas"/>
+        <DCCReference Include="src\Utils\MyOTAWizard.IOTAUtils.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas"/>
+        <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas"/>
         <RcItem Include="Resource\Menu\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>
@@ -154,6 +157,10 @@
         <RcItem Include="Resource\Splash\splash.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>splash</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\github.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>github</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -173,7 +180,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">pkMyOTAWizard.dpk</Source>
+                    <Source Name="MainSource">MyOTAWizard.dpk</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
@@ -196,9 +203,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\pkMyOTAWizard.bpl" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\MyOTAWizard.bpl" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>pkMyOTAWizard.bpl</RemoteName>
+                        <RemoteName>MyOTAWizard.bpl</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

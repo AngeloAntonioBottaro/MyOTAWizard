@@ -10,9 +10,11 @@ type
      'CTRL+Shift+L';
      'CTRL+Shift+E';
      }
-     ListarProjetos = 'CTRL+Shift+P';
-     AdicionarProjetos = 'CTRL+Shift+J';
-     OrganizarUses = 'CTRL+Shift+D';
+     ListProjects   = 'CTRL+Shift+P';
+     AddProjects    = 'CTRL+Shift+J';
+     ArrangeUses    = 'CTRL+Shift+Q';
+     OpenGitWeb     = 'CTRL+Shift+W';
+     OpenGitDesktop = 'CTRL+Shift+D';
      // = 'CTRL+Shift+T';
   end;
 

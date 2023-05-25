@@ -11,12 +11,15 @@ uses
 
 type
   TMyOTAWizardOnClicks = class
-    class procedure BatchCompactarMyERP(Sender: TObject);
     class procedure Notepad(Sender: TObject);
-    class procedure ListarProjetos(Sender: TObject);
-    class procedure AdicionarProjetosLista(Sender: TObject);
-    class procedure OrganizarUses(Sender: TObject);
+    class procedure GitDesktop(Sender: TObject);
+    class procedure GitWeb(Sender: TObject);
+    class procedure BatchCompactMyERP(Sender: TObject);
     class procedure Info(Sender: TObject);
+
+    class procedure ListProjects(Sender: TObject);
+    class procedure AddProjectsToList(Sender: TObject);
+    class procedure ArrangeUses(Sender: TObject);
   end;
 
 implementation
@@ -24,32 +27,8 @@ implementation
 uses
   MyOTAWizard.Utils,
   View.ProjectsList.List,
-  View.ProjectsList.AddProject;
-
-class procedure TMyOTAWizardOnClicks.AdicionarProjetosLista(Sender: TObject);
-begin
-   ViewProjectsListAddProject := TViewProjectsListAddProject.Create(nil);
-   try
-     ViewProjectsListAddProject.ShowModal;
-   finally
-     FreeAndNil(ViewProjectsListAddProject);
-   end;
-end;
-
-class procedure TMyOTAWizardOnClicks.BatchCompactarMyERP(Sender: TObject);
-var
-  LBatch: string;
-begin
-   LBatch := TMyOTAWizardUtils.FileExists('C:\Projetos\MyHelpers\Batchs\MyERP Sign.bat');
-
-   if(not LBatch.IsEmpty)then
-     TMyOTAWizardUtils.Open(LBatch);
-end;
-
-class procedure TMyOTAWizardOnClicks.ListarProjetos(Sender: TObject);
-begin
-   ShowProjectList;
-end;
+  View.ProjectsList.AddProject,
+  MyOTAWizard.IOTAUtils;
 
 class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);
 var
@@ -65,7 +44,71 @@ begin
      TMyOTAWizardUtils.Open(LExe);
 end;
 
-class procedure TMyOTAWizardOnClicks.OrganizarUses(Sender: TObject);
+class procedure TMyOTAWizardOnClicks.BatchCompactMyERP(Sender: TObject);
+var
+  LBatch: string;
+begin
+   LBatch := TMyOTAWizardUtils.FileExists('C:\Projetos\MyHelpers\Batchs\MyERP Sign.bat');
+
+   if(not LBatch.IsEmpty)then
+     TMyOTAWizardUtils.Open(LBatch);
+end;
+
+function ActiveProjectName: string;
+var
+  LProject: IOTAProject;
+begin
+   Result   := EmptyStr;
+   LProject := ActiveProject;
+
+   if(not Assigned(LProject))then
+   begin
+      MessageInfo('Nenhum projeto selecionado para a realização da ação desejada');
+      Exit;
+   end;
+
+   Result := LProject.FileName;
+end;
+
+class procedure TMyOTAWizardOnClicks.GitDesktop(Sender: TObject);
+begin
+   if(ActiveProjectName.IsEmpty)then
+     Exit;
+
+   TMyOTAWizardUtils.OpenProjectOnGithubDesktop(ActiveProjectName);
+end;
+
+class procedure TMyOTAWizardOnClicks.GitWeb(Sender: TObject);
+begin
+   if(ActiveProjectName.IsEmpty)then
+     Exit;
+
+   TMyOTAWizardUtils.OpenProjectOnGithubWeb(ActiveProjectName);
+end;
+
+class procedure TMyOTAWizardOnClicks.Info(Sender: TObject);
+begin
+   ShowInfo('AAB Softwares Delphi wizard.' + sLineBreak +
+            'Email: angeloantoniobottaro@gmail.com' + sLineBreak +
+            'Phone: (43) 99631-0834');
+end;
+
+class procedure TMyOTAWizardOnClicks.ListProjects(Sender: TObject);
+begin
+   ShowProjectList;
+end;
+
+class procedure TMyOTAWizardOnClicks.AddProjectsToList(Sender: TObject);
+begin
+   ViewProjectsListAddProject := TViewProjectsListAddProject.Create(nil);
+   try
+     ViewProjectsListAddProject.ShowModal;
+   finally
+     FreeAndNil(ViewProjectsListAddProject);
+   end;
+end;
+
+class procedure TMyOTAWizardOnClicks.ArrangeUses(Sender: TObject);
 var
   EditorServices: IOTAEditorServices;
   EditView: IOTAEditView;
@@ -108,7 +151,6 @@ begin
          LTextoDaLinha := LStrListAux.Strings[LLinha];
 
          //SE A LINHA TEM O TEXTO PRIVATE OU PUBLIC DECLARATIONS
-         if(LTextoDaLinha.Trim.Contains('{ Private declarations }'))or(LTextoDaLinha.Trim.Contains('{ Public declarations }'))then
          begin
             Inc(LLinha);
             Continue;
@@ -168,15 +210,8 @@ begin
       LStrList.Free;
     end;
   except on E: Exception do
-    ShowError('Ocorreu o erro: ' + E.Message);
+    MessageError('Ocorreu o erro: ' + E.Message);
   end;
-end;
-
-class procedure TMyOTAWizardOnClicks.Info(Sender: TObject);
-begin
-   ShowInfo('AAB Softwares Delphi wizard.' + sLineBreak +
-            'Email: angeloantoniobottaro@gmail.com' + sLineBreak +
-            'Phone: (43) 99631-0834');
 end;
 
 end.

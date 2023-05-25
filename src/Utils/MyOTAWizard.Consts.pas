@@ -5,36 +5,42 @@ interface
 type
   TMyOTAWizardConsts = class
     const
-     MyImagesPrefix = 'aabimg';
+     ImagesPrefix = 'aabimg';
 
-     MySplashWizardName = 'AAB Softwares';
+     SplashWizardName = 'AAB Softwares';
 
-     MyMenuName    = 'MyMenu';
-     MyMenuCaption = 'AAB Softwares';
+     MenuName    = 'MyMenu';
+     MenuCaption = 'AAB Softwares';
 
-     MyMenuItemNotepadCaption = 'Notepad';
-     MyMenuItemNotepadName    = 'miNotepad';
+     MenuItemNotepadCaption = 'Notepad';
+     MenuItemNotepadName    = 'miNotepad';
 
-     MyMenuItemBatchCaption = 'Batchs';
-     MyMenuItemBatchName    = 'miBatchs';
+     MenuItemBatchCaption = 'Batchs';
+     MenuItemBatchName    = 'miBatchs';
 
-     MyMenuItemBatchCompactarMyERPCaption = 'Compact MyERP';
-     MyMenuItemBatchCompactarMyERPName    = 'miBatchCompactarMyERP';
+     MenuItemGitWebCaption = 'Open git on web';
+     MenuItemGitWebName    = 'miGitWeb';
 
-     MyMenuItemExtrasCaption = 'Extras';
-     MyMenuItemExtrasName    = 'miExtras';
+     MenuItemGitDesktopCaption = 'Open git on desktop';
+     MenuItemGitDesktopName    = 'miGitDesktop';
 
-     MyMenuItemExtrasListaProjetosCaption = 'Projects list';
-     MyMenuItemExtrasListaProjetosName    = 'miExtraListaProjetos';
+     MenuItemBatchCompactarMyERPCaption = 'Compact MyERP';
+     MenuItemBatchCompactarMyERPName    = 'miBatchCompactarMyERP';
 
-     MyMenuItemExtrasListaAddProjetosCaption = 'Add projects to list';
-     MyMenuItemExtrasListaAddProjetosName    = 'miExtraAddProjetosLista';
+     MenuItemExtrasCaption = 'Extra';
+     MenuItemExtrasName    = 'miExtras';
 
-     MyMenuItemExtrasOrganizarUsesCaption = 'Uses organiztion';
-     MyMenuItemExtrasOrganizarUsesName    = 'miOrganizarUses';
+     MenuItemExtrasListaProjetosCaption = 'Projects list';
+     MenuItemExtrasListaProjetosName    = 'miExtraListaProjetos';
 
-     MyMenuItemTestesCaption = 'Info';
-     MyMenuItemTestesName    = 'miTestes';
+     MenuItemExtrasListaAddProjetosCaption = 'Add projects to list';
+     MenuItemExtrasListaAddProjetosName    = 'miExtraAddProjetosLista';
+
+     MenuItemExtrasOrganizarUsesCaption = 'Uses organization';
+     MenuItemExtrasOrganizarUsesName    = 'miOrganizarUses';
+
+     MenuItemTestesCaption = 'Info';
+     MenuItemTestesName    = 'miTestes';
   end;
 
 implementation

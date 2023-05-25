@@ -286,7 +286,7 @@ begin
    if(FileExists(Trim(edtDiretorioProjeto.Text)))then
      Exit;
 
-   ShowError('File not found on path' + sLineBreak + 'Path: ' + Trim(edtDiretorioProjeto.Text));
+   MessageError('File not found on path' + sLineBreak + 'Path: ' + Trim(edtDiretorioProjeto.Text));
    Abort;
 end;
 
