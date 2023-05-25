@@ -145,7 +145,7 @@ begin
     .Name(TMyOTAWizardConsts.MenuItemGitWebName)
     .ImageResource('github')
     .ShortCut(TMyOTAWizardShortCuts.OpenGitWeb)
-    .OnClick(TMyOTAWizardOnClicks.GitWeb)
+    .OnClick(TMyOTAWizardOnClicks.OpenGitWeb)
     .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
@@ -155,7 +155,7 @@ begin
     .Name(TMyOTAWizardConsts.MenuItemGitDesktopName)
     .ImageResource('github')
     .ShortCut(TMyOTAWizardShortCuts.OpenGitDesktop)
-    .OnClick(TMyOTAWizardOnClicks.GitDesktop)
+    .OnClick(TMyOTAWizardOnClicks.OpenGitDesktop)
     .CreateMenuItem;
 end;
 

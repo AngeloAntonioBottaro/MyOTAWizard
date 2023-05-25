@@ -12,8 +12,8 @@ uses
 type
   TMyOTAWizardOnClicks = class
     class procedure Notepad(Sender: TObject);
-    class procedure GitDesktop(Sender: TObject);
-    class procedure GitWeb(Sender: TObject);
+    class procedure OpenGitDesktop(Sender: TObject);
+    class procedure OpenGitWeb(Sender: TObject);
     class procedure BatchCompactMyERP(Sender: TObject);
     class procedure Info(Sender: TObject);
 
@@ -70,7 +70,7 @@ begin
    Result := LProject.FileName;
 end;
 
-class procedure TMyOTAWizardOnClicks.GitDesktop(Sender: TObject);
+class procedure TMyOTAWizardOnClicks.OpenGitDesktop(Sender: TObject);
 begin
    if(ActiveProjectName.IsEmpty)then
      Exit;
@@ -78,7 +78,7 @@ begin
    TMyOTAWizardUtils.OpenProjectOnGithubDesktop(ActiveProjectName);
 end;
 
-class procedure TMyOTAWizardOnClicks.GitWeb(Sender: TObject);
+class procedure TMyOTAWizardOnClicks.OpenGitWeb(Sender: TObject);
 begin
    if(ActiveProjectName.IsEmpty)then
      Exit;

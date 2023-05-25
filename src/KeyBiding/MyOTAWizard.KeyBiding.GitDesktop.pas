@@ -41,7 +41,7 @@ end;
 procedure TMyOTAWizardKeyBidingGitDesktop.Execute(const Context: IOTAKeyContext; KeyCode: TShortcut; var BindingResult: TKeyBindingResult);
 begin
    BindingResult := krHandled;
-   TMyOTAWizardOnClicks.GitDesktop(nil);
+   TMyOTAWizardOnClicks.OpenGitDesktop(nil);
 end;
 
 function TMyOTAWizardKeyBidingGitDesktop.GetBindingType: TBindingType;
