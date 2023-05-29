@@ -18,26 +18,32 @@ type
      MenuItemBatchCaption = 'Batchs';
      MenuItemBatchName    = 'miBatchs';
 
+     MenuItemBatchCompactarMyERPCaption = 'Compact MyERP';
+     MenuItemBatchCompactarMyERPName    = 'miBatchCompactarMyERP';
+
      MenuItemGitWebCaption = 'Open git on web';
      MenuItemGitWebName    = 'miGitWeb';
 
      MenuItemGitDesktopCaption = 'Open git on desktop';
      MenuItemGitDesktopName    = 'miGitDesktop';
 
-     MenuItemBatchCompactarMyERPCaption = 'Compact MyERP';
-     MenuItemBatchCompactarMyERPName    = 'miBatchCompactarMyERP';
+     MenuItemExternalCaption = 'External files';
+     MenuItemExternalName    = 'miExternalFiles';
 
-     MenuItemExtrasCaption = 'Extra';
-     MenuItemExtrasName    = 'miExtras';
+     MenuItemExternalConfCaption = 'External files configuration';
+     MenuItemExternalConfName    = 'miExternalFilesConfiguration';
 
-     MenuItemExtrasListaProjetosCaption = 'Projects list';
-     MenuItemExtrasListaProjetosName    = 'miExtraListaProjetos';
+     MenuItemToolsCaption = 'Tools';
+     MenuItemToolsName    = 'miTools';
 
-     MenuItemExtrasListaAddProjetosCaption = 'Add projects to list';
-     MenuItemExtrasListaAddProjetosName    = 'miExtraAddProjetosLista';
+     MenuItemToolsListaProjetosCaption = 'Projects list';
+     MenuItemToolsListaProjetosName    = 'miToolsListaProjetos';
 
-     MenuItemExtrasOrganizarUsesCaption = 'Uses organization';
-     MenuItemExtrasOrganizarUsesName    = 'miOrganizarUses';
+     MenuItemToolsListaAddProjetosCaption = 'Add projects to list';
+     MenuItemToolsListaAddProjetosName    = 'miToolsAddProjetosLista';
+
+     MenuItemToolsOrganizarUsesCaption = 'Arrange uses';
+     MenuItemToolsOrganizarUsesName    = 'miToolsArrangeUses';
 
      MenuItemTestesCaption = 'Info';
      MenuItemTestesName    = 'miTestes';

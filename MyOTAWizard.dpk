@@ -58,6 +58,7 @@ contains
   MyOTAWizard.KeyBiding.ArrangeUses in 'src\KeyBiding\MyOTAWizard.KeyBiding.ArrangeUses.pas',
   MyOTAWizard.IOTAUtils in 'src\Utils\MyOTAWizard.IOTAUtils.pas',
   MyOTAWizard.KeyBiding.GitWeb in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas',
-  MyOTAWizard.KeyBiding.GitDesktop in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas';
+  MyOTAWizard.KeyBiding.GitDesktop in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas',
+  View.MainMenu.ExternalFiles.Configuration in 'src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.Configuration.pas' {ViewMainMenuExternalFilesConfiguration};
 
 end.

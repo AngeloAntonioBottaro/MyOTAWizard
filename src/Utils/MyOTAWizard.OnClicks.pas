@@ -17,6 +17,7 @@ type
     class procedure BatchCompactMyERP(Sender: TObject);
     class procedure Info(Sender: TObject);
 
+    class procedure ExternalFilesConf(Sender: TObject);
     class procedure ListProjects(Sender: TObject);
     class procedure AddProjectsToList(Sender: TObject);
     class procedure ArrangeUses(Sender: TObject);
@@ -26,10 +27,11 @@ implementation
 
 uses
   MyOTAWizard.Utils,
+  MyOTAWizard.IOTAUtils,
+  MyOTAWizard.Consts,
   View.ProjectsList.List,
   View.ProjectsList.AddProject,
-  MyOTAWizard.IOTAUtils,
-  MyOTAWizard.Consts;
+  View.MainMenu.ExternalFiles.Configuration;
 
 class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);
 var
@@ -53,6 +55,17 @@ begin
 
    if(not LBatch.IsEmpty)then
      TMyOTAWizardUtils.Open(LBatch);
+end;
+
+class procedure TMyOTAWizardOnClicks.ExternalFilesConf(Sender: TObject);
+begin
+   MessageInfo('External files not implemented');
+   ViewMainMenuExternalFilesConfiguration := TViewMainMenuExternalFilesConfiguration.Create(nil);
+   try
+     ViewMainMenuExternalFilesConfiguration.ShowModal;
+   finally
+     FreeAndNil(ViewMainMenuExternalFilesConfiguration);
+   end;
 end;
 
 function ActiveProjectName: string;

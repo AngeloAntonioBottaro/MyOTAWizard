@@ -35,7 +35,7 @@ end;
 
 procedure TMyOTAWizardKeyBidingListProjects.BindKeyboard(const BindingServices: IOTAKeyBindingServices);
 begin
-   BindingServices.AddKeyBinding([TextToShortCut(TMyOTAWizardShortCuts.ListProjects)], Self.Execute, nil, 0, '', TMyOTAWizardConsts.MenuItemExtrasListaProjetosName);
+   BindingServices.AddKeyBinding([TextToShortCut(TMyOTAWizardShortCuts.ListProjects)], Self.Execute, nil, 0, '', TMyOTAWizardConsts.MenuItemToolsListaProjetosName);
 end;
 
 procedure TMyOTAWizardKeyBidingListProjects.Execute(const Context: IOTAKeyContext; KeyCode: TShortcut; var BindingResult: TKeyBindingResult);

@@ -142,6 +142,10 @@
         <DCCReference Include="src\Utils\MyOTAWizard.IOTAUtils.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas"/>
+        <DCCReference Include="src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.Configuration.pas">
+            <Form>ViewMainMenuExternalFilesConfiguration</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="Resource\Menu\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>
@@ -161,6 +165,22 @@
         <RcItem Include="Resource\Menu\github.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>github</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\settings.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>settings</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\tools.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>tools</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\externalconf.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>externalconf</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\external.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>external</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
