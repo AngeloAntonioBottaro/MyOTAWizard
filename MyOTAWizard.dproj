@@ -146,6 +146,10 @@
             <Form>ViewMainMenuExternalFilesConfiguration</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Git.pas"/>
+        <DCCReference Include="src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.pas"/>
+        <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Tools.pas"/>
+        <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Info.pas"/>
         <RcItem Include="Resource\Menu\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>
