@@ -142,14 +142,15 @@
         <DCCReference Include="src\Utils\MyOTAWizard.IOTAUtils.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas"/>
-        <DCCReference Include="src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.Configuration.pas">
-            <Form>ViewMainMenuExternalFilesConfiguration</Form>
+        <DCCReference Include="src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.List.pas">
+            <Form>ViewMainMenuExternalFilesList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Git.pas"/>
         <DCCReference Include="src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Tools.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Info.pas"/>
+        <DCCReference Include="src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.Ini.pas"/>
         <RcItem Include="Resource\Menu\batch.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>batch</ResourceId>

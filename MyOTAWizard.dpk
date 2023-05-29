@@ -59,10 +59,11 @@ contains
   MyOTAWizard.IOTAUtils in 'src\Utils\MyOTAWizard.IOTAUtils.pas',
   MyOTAWizard.KeyBiding.GitWeb in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas',
   MyOTAWizard.KeyBiding.GitDesktop in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas',
-  View.MainMenu.ExternalFiles.Configuration in 'src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.Configuration.pas' {ViewMainMenuExternalFilesConfiguration},
+  View.MainMenu.ExternalFiles.List in 'src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.List.pas' {ViewMainMenuExternalFilesList},
   MyOTAWizard.MainMenu.Git in 'src\MainMenu\MyOTAWizard.MainMenu.Git.pas',
   MyOTAWizard.MainMenu.External in 'src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.pas',
   MyOTAWizard.MainMenu.Tools in 'src\MainMenu\MyOTAWizard.MainMenu.Tools.pas',
-  MyOTAWizard.MainMenu.Info in 'src\MainMenu\MyOTAWizard.MainMenu.Info.pas';
+  MyOTAWizard.MainMenu.Info in 'src\MainMenu\MyOTAWizard.MainMenu.Info.pas',
+  MyOTAWizard.MainMenu.External.Ini in 'src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.Ini.pas';
 
 end.

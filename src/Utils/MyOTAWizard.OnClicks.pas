@@ -31,7 +31,7 @@ uses
   MyOTAWizard.Consts,
   View.ProjectsList.List,
   View.ProjectsList.AddProject,
-  View.MainMenu.ExternalFiles.Configuration;
+  View.MainMenu.ExternalFiles.List;
 
 class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);
 var
@@ -60,11 +60,11 @@ end;
 class procedure TMyOTAWizardOnClicks.ExternalFilesConf(Sender: TObject);
 begin
    MessageInfo('External files not implemented');
-   ViewMainMenuExternalFilesConfiguration := TViewMainMenuExternalFilesConfiguration.Create(nil);
+   ViewMainMenuExternalFilesList := TViewMainMenuExternalFilesList.Create(nil);
    try
-     ViewMainMenuExternalFilesConfiguration.ShowModal;
+     ViewMainMenuExternalFilesList.ShowModal;
    finally
-     FreeAndNil(ViewMainMenuExternalFilesConfiguration);
+     FreeAndNil(ViewMainMenuExternalFilesList);
    end;
 end;
 
