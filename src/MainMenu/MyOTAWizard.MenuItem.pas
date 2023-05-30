@@ -12,12 +12,14 @@ type
   TMyOTAWizardMenuItem = class
   private
     FParent: TMenuItem;
-    FCaption: String;
-    FName: String;
+    FCaption: string;
+    FName: string;
     FImageList: TDictionary<string, Integer>;
     FImageResource: string;
-    FShortCut: String;
+    FShortCut: string;
     FVisible: Boolean;
+    FTag: Integer;
+    FHint: string;
     FOnClick: TNotifyEvent;
 
     function GetImageIndex(AResourceName: String): Integer;
@@ -25,13 +27,15 @@ type
   public
     class function New: TMyOTAWizardMenuItem;
     function Parent(AParent: TMenuItem): TMyOTAWizardMenuItem;
-    function Caption(ACaption: String): TMyOTAWizardMenuItem;
-    function Name(AName: String): TMyOTAWizardMenuItem;
+    function Caption(ACaption: string): TMyOTAWizardMenuItem;
+    function Name(AName: string): TMyOTAWizardMenuItem;
     function ImageList(AImageList: TDictionary<string, Integer>): TMyOTAWizardMenuItem;
     function ImageResource(AImageResource: string): TMyOTAWizardMenuItem;
-    function ShortCut(AShortCut: String): TMyOTAWizardMenuItem;
+    function ShortCut(AShortCut: string): TMyOTAWizardMenuItem;
     function OnClick(AOnClick: TNotifyEvent): TMyOTAWizardMenuItem;
     function Visible(AVisible: Boolean): TMyOTAWizardMenuItem;
+    function Hint(AHint: string): TMyOTAWizardMenuItem;
+    function Tag(ATag: Integer): TMyOTAWizardMenuItem;
     function CreateMenuItem: TMenuItem;
   end;
 
@@ -52,6 +56,8 @@ begin
    FShortCut      := '';
    FVisible       := True;
    FOnClick       := nil;
+   FHint          := '';
+   FTag           := 0;
 end;
 
 function TMyOTAWizardMenuItem.Parent(AParent: TMenuItem): TMyOTAWizardMenuItem;
@@ -60,13 +66,13 @@ begin
    FParent := AParent;
 end;
 
-function TMyOTAWizardMenuItem.Caption(ACaption: String): TMyOTAWizardMenuItem;
+function TMyOTAWizardMenuItem.Caption(ACaption: string): TMyOTAWizardMenuItem;
 begin
    Result := Self;
    FCaption := ACaption;
 end;
 
-function TMyOTAWizardMenuItem.Name(AName: String): TMyOTAWizardMenuItem;
+function TMyOTAWizardMenuItem.Name(AName: string): TMyOTAWizardMenuItem;
 begin
    Result := Self;
    FName := AName;
@@ -84,10 +90,17 @@ begin
    FImageResource := AImageResource;
 end;
 
-function TMyOTAWizardMenuItem.ShortCut(AShortCut: String): TMyOTAWizardMenuItem;
+function TMyOTAWizardMenuItem.ShortCut(AShortCut: string): TMyOTAWizardMenuItem;
 begin
    Result := Self;
    FShortCut := AShortCut;
+end;
+
+function TMyOTAWizardMenuItem.Tag(ATag: Integer): TMyOTAWizardMenuItem;
+begin
+   Result := Self;
+   if(ATag >= 0)then
+     FTag := ATag;
 end;
 
 function TMyOTAWizardMenuItem.Visible(AVisible: Boolean): TMyOTAWizardMenuItem;
@@ -102,6 +115,12 @@ begin
    FOnClick := AOnClick;
 end;
 
+function TMyOTAWizardMenuItem.Hint(AHint: string): TMyOTAWizardMenuItem;
+begin
+   Result := Self;
+   FHint  := AHint.Trim;
+end;
+
 function TMyOTAWizardMenuItem.CreateMenuItem: TMenuItem;
 var
   LMenuItem: TMenuItem;
@@ -112,6 +131,8 @@ begin
   LMenuItem.Name    := FName;
   LMenuItem.OnClick := FOnClick;
   LMenuItem.Visible := FVisible;
+  LMenuItem.Tag     := FTag;
+  LMenuItem.Hint    := FHint;
 
   if(not FImageResource.IsEmpty)then
   begin

@@ -19,6 +19,7 @@ type
     TB_FilesSection: TStringField;
     TB_FilesShortcut: TStringField;
     DSFiles: TDataSource;
+    TB_FilesId: TIntegerField;
   private
   public
     procedure LoadConfiguration;
@@ -56,12 +57,13 @@ begin
      for I := 0 to Pred(LSections.Count) do
      begin
         TB_Files.Append;
-        TB_Files.FieldByName('Section').AsString := LSections[I];
-        TB_Files.FieldByName('Order').AsInteger := TCustomMenuIniFile.New.IniFile.ReadInteger(LSections[I], INI_IDENTIFIER_ORDER, 0);
-        TB_Files.FieldByName('Type').AsString := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_TYPE, '');
-        TB_Files.FieldByName('Caption').AsString := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_CAPTION, '');
-        TB_Files.FieldByName('Shortcut').AsString := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_SHORTCUT, '');
-        TB_Files.FieldByName('Action').AsString := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_ACTION, '');
+        TB_Files.FieldByName('Id').AsInteger       := I + 1;
+        TB_Files.FieldByName('Section').AsString   := LSections[I];
+        TB_Files.FieldByName('Order').AsInteger    := TCustomMenuIniFile.New.IniFile.ReadInteger(LSections[I], INI_IDENTIFIER_ORDER, 0);
+        TB_Files.FieldByName('Type').AsString      := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_TYPE, '');
+        TB_Files.FieldByName('Caption').AsString   := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_CAPTION, '');
+        TB_Files.FieldByName('Shortcut').AsString  := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_SHORTCUT, '');
+        TB_Files.FieldByName('Action').AsString    := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_ACTION, '');
         TB_Files.FieldByName('Parameter').AsString := TCustomMenuIniFile.New.IniFile.ReadString(LSections[I], INI_IDENTIFIER_PARAM, '');
         TB_Files.Post;
      end;

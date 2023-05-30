@@ -7,6 +7,9 @@ object CustomMenuDM: TCustomMenuDM
     Params = <>
     Left = 23
     Top = 24
+    object TB_FilesId: TIntegerField
+      FieldName = 'Id'
+    end
     object TB_FilesCaption: TStringField
       FieldName = 'Caption'
       Size = 30

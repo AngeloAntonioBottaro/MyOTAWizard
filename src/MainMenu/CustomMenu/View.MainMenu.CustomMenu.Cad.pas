@@ -54,6 +54,7 @@ type
     procedure EnableFields;
     procedure SaveToIni(ASection: string);
     procedure LoadSectionToUpdate;
+    procedure ValidateFields;
   public
     property SectionToUpdate: string read FSectionToUpdate write FSectionToUpdate;
   end;
@@ -156,6 +157,9 @@ end;
 
 procedure TViewMainMenuCustomMenuCad.EnableFields;
 begin
+   if(cbType.ItemIndex = TCustomMenuType.Separator.ToInteger)then
+     edtCaption.Text := '-';
+
    edtCaption.Enabled    := cbType.ItemIndex <> TCustomMenuType.Separator.ToInteger;
    edtShortcut.Enabled   := edtCaption.Enabled;
    edtFile.Enabled       := (cbType.ItemIndex = TCustomMenuType.ExternalFile.ToInteger) or
@@ -167,6 +171,8 @@ end;
 
 procedure TViewMainMenuCustomMenuCad.btnSaveClick(Sender: TObject);
 begin
+   Self.ValidateFields;
+
    if(SectionToUpdate.IsEmpty)then
      Self.SaveToIni(TMyOTAWizardUtils.CreateGuidStr)
    else
@@ -204,6 +210,16 @@ begin
    TCustomMenuIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_SHORTCUT, ShortCutToText(edtShortcut.HotKey));
    TCustomMenuIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_ACTION,   Trim(LAction));
    TCustomMenuIniFile.New.IniFile.WriteString(ASection, INI_IDENTIFIER_PARAM,    Trim(edtParameter.Text));
+end;
+
+procedure TViewMainMenuCustomMenuCad.ValidateFields;
+begin
+   if(cbType.ItemIndex < 0)then
+   begin
+      ShowInfo('Menu type required');
+      cbType.SetFocus;
+      Abort;
+   end;
 end;
 
 end.

@@ -51,6 +51,7 @@ begin
          .ImageResource(LImg)
          .OnClick(TMyOTAWizardMainMenuCustomMenu.CustomMenuClick)
          .ShortCut(CustomMenuDM.TB_Files.FieldByName('Shortcut').AsString)
+         .Tag(CustomMenuDM.TB_Files.FieldByName('Id').AsInteger)
          .CreateMenuItem;
 
       CustomMenuDM.TB_Files.Next;
@@ -93,11 +94,17 @@ begin
 end;
 
 class procedure TMyOTAWizardMainMenuCustomMenu.CustomMenuClick(Sender: TObject);
-var
-  LSection: string;
 begin
-   LSection := TMenuItem(Sender).Name;
-   MessageLog(LSection);
+   if(not CustomMenuDM.TB_Files.Locate('Id', TMenuItem(Sender).Tag, []))then
+     Exit;
+
+   MessageLog('Action: ' + CustomMenuDM.TB_Files.FieldByName('Action').AsString);
+   if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.ExternalFile.ToString))then
+     TMyOTAWizardUtils.Open(CustomMenuDM.TB_Files.FieldByName('Action').AsString);
+   if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.Link.ToString))then
+     TMyOTAWizardUtils.Open(CustomMenuDM.TB_Files.FieldByName('Action').AsString);
+   if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.CMDCommand.ToString))then
+     TMyOTAWizardUtils.Exec(CustomMenuDM.TB_Files.FieldByName('Action').AsString);
 end;
 
 end.
