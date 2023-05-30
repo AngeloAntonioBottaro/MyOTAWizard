@@ -14,7 +14,6 @@ type
     class procedure Notepad(Sender: TObject);
     class procedure OpenGitDesktop(Sender: TObject);
     class procedure OpenGitWeb(Sender: TObject);
-    class procedure BatchCompactMyERP(Sender: TObject);
     class procedure Info(Sender: TObject);
 
     class procedure ExternalFilesConf(Sender: TObject);
@@ -31,7 +30,7 @@ uses
   MyOTAWizard.Consts,
   View.ProjectsList.List,
   View.ProjectsList.AddProject,
-  View.MainMenu.ExternalFiles.List;
+  View.MainMenu.CustomMenu.List;
 
 class procedure TMyOTAWizardOnClicks.Notepad(Sender: TObject);
 var
@@ -47,24 +46,13 @@ begin
      TMyOTAWizardUtils.Open(LExe);
 end;
 
-class procedure TMyOTAWizardOnClicks.BatchCompactMyERP(Sender: TObject);
-var
-  LBatch: string;
-begin
-   LBatch := TMyOTAWizardUtils.FileExists('C:\Projetos\MyHelpers\Batchs\MyERP Sign.bat');
-
-   if(not LBatch.IsEmpty)then
-     TMyOTAWizardUtils.Open(LBatch);
-end;
-
 class procedure TMyOTAWizardOnClicks.ExternalFilesConf(Sender: TObject);
 begin
-   MessageInfo('External files not implemented');
-   ViewMainMenuExternalFilesList := TViewMainMenuExternalFilesList.Create(nil);
+   ViewMainMenuCustomMenuList := TViewMainMenuCustomMenuList.Create(nil);
    try
-     ViewMainMenuExternalFilesList.ShowModal;
+     ViewMainMenuCustomMenuList.ShowModal;
    finally
-     FreeAndNil(ViewMainMenuExternalFilesList);
+     FreeAndNil(ViewMainMenuCustomMenuList);
    end;
 end;
 

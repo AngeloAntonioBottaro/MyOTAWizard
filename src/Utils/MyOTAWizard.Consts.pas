@@ -15,23 +15,17 @@ type
      MenuItemNotepadCaption = 'Notepad';
      MenuItemNotepadName    = 'miNotepad';
 
-     MenuItemBatchCaption = 'Batchs';
-     MenuItemBatchName    = 'miBatchs';
-
-     MenuItemBatchCompactarMyERPCaption = 'Compact MyERP';
-     MenuItemBatchCompactarMyERPName    = 'miBatchCompactarMyERP';
-
      MenuItemGitWebCaption = 'Open git on web';
      MenuItemGitWebName    = 'miGitWeb';
 
      MenuItemGitDesktopCaption = 'Open git on desktop';
      MenuItemGitDesktopName    = 'miGitDesktop';
 
-     MenuItemExternalCaption = 'External files';
-     MenuItemExternalName    = 'miExternalFiles';
+     MenuItemCustomCaption = 'Custom menus';
+     MenuItemCustomName    = 'miCustomFiles';
 
-     MenuItemExternalConfCaption = 'External files configuration';
-     MenuItemExternalConfName    = 'miExternalFilesConfiguration';
+     MenuItemCustomConfCaption = 'Configuration';
+     MenuItemCustomConfName    = 'miCustomConfiguration';
 
      MenuItemToolsCaption = 'Tools';
      MenuItemToolsName    = 'miTools';

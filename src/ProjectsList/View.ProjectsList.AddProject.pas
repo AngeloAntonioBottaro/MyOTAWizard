@@ -48,7 +48,7 @@ type
     FSectionToUpdate: string;
     procedure LoadSectionInformations(ASection: string);
     procedure VerifyFields;
-    procedure SaveToList(ASection: string);
+    procedure SaveToIni(ASection: string);
     procedure VerifyProjectName;
     procedure CleanFields;
     procedure InformedFileExists;
@@ -189,9 +189,9 @@ begin
    Self.VerifyFields;
 
    if(SectionToUpdate.IsEmpty)then
-     Self.SaveToList(TMyOTAWizardUtils.CreateGuidStr)
+     Self.SaveToIni(TMyOTAWizardUtils.CreateGuidStr)
    else
-     Self.SaveToList(SectionToUpdate);
+     Self.SaveToIni(SectionToUpdate);
 
    Self.CleanFields;
 end;
@@ -257,7 +257,7 @@ begin
        Abort;
 end;
 
-procedure TViewProjectsListAddProject.SaveToList(ASection: string);
+procedure TViewProjectsListAddProject.SaveToIni(ASection: string);
 begin
    Self.VerifyProjectName;
    Self.InformedFileExists;

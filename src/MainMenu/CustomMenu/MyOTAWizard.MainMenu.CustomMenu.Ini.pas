@@ -1,4 +1,4 @@
-unit MyOTAWizard.MainMenu.External.Ini;
+unit MyOTAWizard.MainMenu.CustomMenu.Ini;
 
 interface
 
@@ -7,20 +7,22 @@ uses
   System.IniFiles;
 
 const
-  INI_IDENTIFIER_TYPE    = 'Type';
-  INI_IDENTIFIER_CAPTION = 'Caption';
-  INI_IDENTIFIER_FILE    = 'File';
-  INI_IDENTIFIER_COMMAND = 'CmdComand';
+  INI_IDENTIFIER_TYPE     = 'Type';
+  INI_IDENTIFIER_CAPTION  = 'Caption';
+  INI_IDENTIFIER_ORDER    = 'Order';
+  INI_IDENTIFIER_SHORTCUT = 'Shortcut';
+  INI_IDENTIFIER_ACTION   = 'Action';
+  INI_IDENTIFIER_PARAM    = 'Parameter';
 
 type
-  IExternalFile = interface
+  ICustomMenuIniFile = interface
    ['{0A894591-62BB-4C91-82F3-405DAE05F375}']
    function IniFile: TIniFile;
    function IniFilePath: string;
    function IniFileName: string;
   end;
 
-  TExternalIniFile = class(TInterfacedObject, IExternalFile)
+  TCustomMenuIniFile = class(TInterfacedObject, ICustomMenuIniFile)
   private
     FIniFile: TIniFile;
     FIniFilePath: string;
@@ -30,42 +32,42 @@ type
     function IniFilePath: string;
     function IniFileName: string;
   public
-    class function New: IExternalFile;
+    class function New: ICustomMenuIniFile;
     constructor Create;
     destructor Destroy; override;
   end;
 
 implementation
 
-class function TExternalIniFile.New: IExternalFile;
+class function TCustomMenuIniFile.New: ICustomMenuIniFile;
 begin
    Result := Self.Create;
 end;
 
-constructor TExternalIniFile.Create;
+constructor TCustomMenuIniFile.Create;
 begin
    FIniFilePath := ExtractFilePath(GetModuleName(HInstance));
    FIniFileName := 'ExternalFilesConf.ini';
    FIniFile     := TIniFile.Create(FIniFilePath + FIniFileName);
 end;
 
-destructor TExternalIniFile.Destroy;
+destructor TCustomMenuIniFile.Destroy;
 begin
    FIniFile.Free;
    inherited;
 end;
 
-function TExternalIniFile.IniFile: TIniFile;
+function TCustomMenuIniFile.IniFile: TIniFile;
 begin
    Result := FIniFile;
 end;
 
-function TExternalIniFile.IniFileName: string;
+function TCustomMenuIniFile.IniFileName: string;
 begin
    Result := FIniFileName;
 end;
 
-function TExternalIniFile.IniFilePath: string;
+function TCustomMenuIniFile.IniFilePath: string;
 begin
    Result := FIniFilePath;
 end;

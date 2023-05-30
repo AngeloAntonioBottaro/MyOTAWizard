@@ -59,11 +59,14 @@ contains
   MyOTAWizard.IOTAUtils in 'src\Utils\MyOTAWizard.IOTAUtils.pas',
   MyOTAWizard.KeyBiding.GitWeb in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas',
   MyOTAWizard.KeyBiding.GitDesktop in 'src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas',
-  View.MainMenu.ExternalFiles.List in 'src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.List.pas' {ViewMainMenuExternalFilesList},
+  View.MainMenu.CustomMenu.List in 'src\MainMenu\CustomMenu\View.MainMenu.CustomMenu.List.pas' {ViewMainMenuCustomMenuList},
   MyOTAWizard.MainMenu.Git in 'src\MainMenu\MyOTAWizard.MainMenu.Git.pas',
-  MyOTAWizard.MainMenu.External in 'src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.pas',
+  MyOTAWizard.MainMenu.CustomMenu in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.pas',
   MyOTAWizard.MainMenu.Tools in 'src\MainMenu\MyOTAWizard.MainMenu.Tools.pas',
   MyOTAWizard.MainMenu.Info in 'src\MainMenu\MyOTAWizard.MainMenu.Info.pas',
-  MyOTAWizard.MainMenu.External.Ini in 'src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.Ini.pas';
+  MyOTAWizard.MainMenu.CustomMenu.Ini in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.Ini.pas',
+  View.MainMenu.CustomMenu.Cad in 'src\MainMenu\CustomMenu\View.MainMenu.CustomMenu.Cad.pas' {ViewMainMenuCustomMenuCad},
+  MyOTAWizard.MainMenu.CustomMenu.Types in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.Types.pas',
+  MyOTAWizard.MainMenu.CustomMenu.DM in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.DM.pas' {CustomMenuDM: TDataModule};
 
 end.

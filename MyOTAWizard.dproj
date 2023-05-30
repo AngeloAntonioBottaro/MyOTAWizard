@@ -142,19 +142,25 @@
         <DCCReference Include="src\Utils\MyOTAWizard.IOTAUtils.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitWeb.pas"/>
         <DCCReference Include="src\KeyBiding\MyOTAWizard.KeyBiding.GitDesktop.pas"/>
-        <DCCReference Include="src\MainMenu\ExternalFiles\View.MainMenu.ExternalFiles.List.pas">
-            <Form>ViewMainMenuExternalFilesList</Form>
+        <DCCReference Include="src\MainMenu\CustomMenu\View.MainMenu.CustomMenu.List.pas">
+            <Form>ViewMainMenuCustomMenuList</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Git.pas"/>
-        <DCCReference Include="src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.pas"/>
+        <DCCReference Include="src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Tools.pas"/>
         <DCCReference Include="src\MainMenu\MyOTAWizard.MainMenu.Info.pas"/>
-        <DCCReference Include="src\MainMenu\ExternalFiles\MyOTAWizard.MainMenu.External.Ini.pas"/>
-        <RcItem Include="Resource\Menu\batch.bmp">
-            <ResourceType>BITMAP</ResourceType>
-            <ResourceId>batch</ResourceId>
-        </RcItem>
+        <DCCReference Include="src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.Ini.pas"/>
+        <DCCReference Include="src\MainMenu\CustomMenu\View.MainMenu.CustomMenu.Cad.pas">
+            <Form>ViewMainMenuCustomMenuCad</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.Types.pas"/>
+        <DCCReference Include="src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.DM.pas">
+            <Form>CustomMenuDM</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <RcItem Include="Resource\Menu\info.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>info</ResourceId>
@@ -186,6 +192,18 @@
         <RcItem Include="Resource\Menu\external.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>external</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\file.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>file</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\link.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>link</ResourceId>
+        </RcItem>
+        <RcItem Include="Resource\Menu\cmd.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>cmd</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

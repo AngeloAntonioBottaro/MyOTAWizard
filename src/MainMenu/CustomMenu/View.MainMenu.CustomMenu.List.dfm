@@ -1,10 +1,10 @@
-object ViewMainMenuExternalFilesList: TViewMainMenuExternalFilesList
+object ViewMainMenuCustomMenuList: TViewMainMenuCustomMenuList
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
-  Caption = 'External files'
-  ClientHeight = 540
-  ClientWidth = 652
+  Caption = 'Custom menus list'
+  ClientHeight = 346
+  ClientWidth = 948
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,25 +23,28 @@ object ViewMainMenuExternalFilesList: TViewMainMenuExternalFilesList
   object ListView: TListView
     Left = 0
     Top = 0
-    Width = 652
-    Height = 540
+    Width = 948
+    Height = 346
     Align = alClient
     Columns = <
       item
-        Caption = '#'
-        Width = 20
+        Caption = 'Order'
       end
       item
         Caption = 'Caption'
         Width = 200
       end
       item
-        Caption = 'File'
+        Caption = 'Action'
+        Width = 320
+      end
+      item
+        Caption = 'Param'
         Width = 200
       end
       item
-        Caption = 'Command'
-        Width = 200
+        Caption = 'Shortcut'
+        Width = 150
       end>
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -51,10 +54,28 @@ object ViewMainMenuExternalFilesList: TViewMainMenuExternalFilesList
     ReadOnly = True
     RowSelect = True
     ParentFont = False
-    SortType = stText
+    PopupMenu = PopupMenu
     TabOrder = 0
     ViewStyle = vsReport
-    OnColumnClick = ListViewColumnClick
-    OnCompare = ListViewCompare
+    ExplicitWidth = 898
+  end
+  object PopupMenu: TPopupMenu
+    Left = 480
+    Top = 88
+    object Newfile1: TMenuItem
+      Caption = 'New file'
+      OnClick = Newfile1Click
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object Changeregistry1: TMenuItem
+      Caption = 'Change registry'
+      OnClick = Changeregistry1Click
+    end
+    object Deletefile1: TMenuItem
+      Caption = 'Delete registry'
+      OnClick = Deletefile1Click
+    end
   end
 end

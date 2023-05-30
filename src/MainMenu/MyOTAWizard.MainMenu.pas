@@ -42,7 +42,7 @@ uses
   MyOTAWizard.ShortCuts,
   MyOTAWizard.OnClicks,
   MyOTAWizard.MainMenu.Git,
-  MyOTAWizard.MainMenu.External,
+  MyOTAWizard.MainMenu.CustomMenu,
   MyOTAWizard.MainMenu.Tools,
   MyOTAWizard.MainMenu.Info;
 
@@ -62,10 +62,12 @@ begin
 
    Self.AddImageToImageList('notepad');
    Self.AddImageToImageList('github');
-   Self.AddImageToImageList('batch');
    Self.AddImageToImageList('info');
    Self.AddImageToImageList('tools');
    Self.AddImageToImageList('external');
+   Self.AddImageToImageList('file');
+   Self.AddImageToImageList('link');
+   Self.AddImageToImageList('cmd');
    Self.AddImageToImageList('externalconf');
    Self.AddImageToImageList('settings');
 
@@ -133,7 +135,7 @@ begin
     .CreateMenuItem;
 
    TMyOTAWizardMainMenuGit.CreateMenu(AParent, FImages);
-   TMyOTAWizardMainMenuExternal.CreateMenu(AParent, FImages);
+   TMyOTAWizardMainMenuCustomMenu.CreateMenu(AParent, FImages);
    TMyOTAWizardMainMenuTools.CreateMenu(AParent, FImages);
    TMyOTAWizardMainMenuInfo.CreateMenu(AParent, FImages);
 end;
