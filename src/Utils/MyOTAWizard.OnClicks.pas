@@ -16,7 +16,7 @@ type
     class procedure OpenGitWeb(Sender: TObject);
     class procedure Info(Sender: TObject);
 
-    class procedure ExternalFilesConf(Sender: TObject);
+    class procedure CustomMenuConf(Sender: TObject);
     class procedure ListProjects(Sender: TObject);
     class procedure AddProjectsToList(Sender: TObject);
     class procedure ArrangeUses(Sender: TObject);
@@ -46,7 +46,7 @@ begin
      TMyOTAWizardUtils.Open(LExe);
 end;
 
-class procedure TMyOTAWizardOnClicks.ExternalFilesConf(Sender: TObject);
+class procedure TMyOTAWizardOnClicks.CustomMenuConf(Sender: TObject);
 begin
    ViewMainMenuCustomMenuList := TViewMainMenuCustomMenuList.Create(nil);
    try

@@ -37,6 +37,7 @@ begin
       LMsgTab := GetMyMessageGroup;
       ShowMessageView(LMsgTab);
       AddTitleMessage(AMsg, LMsgTab);
+      LMsgTab.AutoScroll := True;
    end;
 end;
 

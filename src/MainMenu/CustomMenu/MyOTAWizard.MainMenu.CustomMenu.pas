@@ -11,7 +11,7 @@ uses
 type
   TMyOTAWizardMainMenuCustomMenu = class
   public
-    class procedure ExternalFilesClick(Sender: TObject);
+    class procedure CustomMenuClick(Sender: TObject);
     class procedure CreateMenu(AParent: TMenuItem; AImages: TDictionary<string, Integer>);
   end;
 
@@ -49,7 +49,7 @@ begin
          .Caption(CustomMenuDM.TB_Files.FieldByName('Caption').AsString)
          .Name('externalconf' + IntToStr(CustomMenuDM.TB_Files.RecNo))
          .ImageResource(LImg)
-         .OnClick(TMyOTAWizardMainMenuCustomMenu.ExternalFilesClick)
+         .OnClick(TMyOTAWizardMainMenuCustomMenu.CustomMenuClick)
          .ShortCut(CustomMenuDM.TB_Files.FieldByName('Shortcut').AsString)
          .CreateMenuItem;
 
@@ -59,7 +59,7 @@ end;
 
 class procedure TMyOTAWizardMainMenuCustomMenu.CreateMenu(AParent: TMenuItem; AImages: TDictionary<string, Integer>);
 var
-  LMyMenuExternal: TMenuItem;
+  LMyCustomMenu: TMenuItem;
 begin
    TMyOTAWizardMenuItem.New
     .Parent(AParent)
@@ -67,32 +67,32 @@ begin
     .Name('miSeparatorExternal')
     .CreateMenuItem;
 
-   LMyMenuExternal := TMyOTAWizardMenuItem.New.Parent(AParent)
+   LMyCustomMenu := TMyOTAWizardMenuItem.New.Parent(AParent)
                        .ImageList(AImages)
                        .Caption(TMyOTAWizardConsts.MenuItemCustomCaption)
                        .Name(TMyOTAWizardConsts.MenuItemCustomName)
                        .ImageResource('external')
                        .CreateMenuItem;
 
-   LoadMenus(LMyMenuExternal, AImages);
+   LoadMenus(LMyCustomMenu, AImages);
 
    TMyOTAWizardMenuItem.New
-    .Parent(LMyMenuExternal)
+    .Parent(LMyCustomMenu)
     .Caption('-')
     .Name('miSeparatorExternalsConf')
     .CreateMenuItem;
 
    TMyOTAWizardMenuItem.New
-    .Parent(LMyMenuExternal)
+    .Parent(LMyCustomMenu)
     .ImageList(AImages)
     .Caption(TMyOTAWizardConsts.MenuItemCustomConfCaption)
     .Name(TMyOTAWizardConsts.MenuItemCustomConfName)
     .ImageResource('externalconf')
-    .OnClick(TMyOTAWizardOnClicks.ExternalFilesConf)
+    .OnClick(TMyOTAWizardOnClicks.CustomMenuConf)
     .CreateMenuItem;
 end;
 
-class procedure TMyOTAWizardMainMenuCustomMenu.ExternalFilesClick(Sender: TObject);
+class procedure TMyOTAWizardMainMenuCustomMenu.CustomMenuClick(Sender: TObject);
 var
   LSection: string;
 begin
