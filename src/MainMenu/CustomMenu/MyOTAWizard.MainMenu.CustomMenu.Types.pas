@@ -7,7 +7,7 @@ uses
 
 type
   {$SCOPEDENUMS ON}
-  TCustomMenuType  = (Separator, ExternalFile, Link, CMDCommand);
+  TCustomMenuType  = (Separator, ExternalFile, Link, Folder, CMDCommand);
   {$SCOPEDENUMS OFF}
 
   TCustomMenuTypeHelper = record helper for TCustomMenuType
@@ -27,6 +27,10 @@ end;
 function TCustomMenuTypeHelper.ToString: string;
 begin
    Result := GetEnumName(TypeInfo(TCustomMenuType), Integer(Self));
+   if(Self = TCustomMenuType.ExternalFile)then
+     Result := 'File'
+   else if(Self = TCustomMenuType.CMDCommand)then
+     Result := 'CMD Command';
 end;
 
 function StrToCustomMenuType(AString: string): TCustomMenuType;

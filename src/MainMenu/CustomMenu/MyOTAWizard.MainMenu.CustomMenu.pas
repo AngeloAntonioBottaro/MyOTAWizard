@@ -94,15 +94,23 @@ begin
 end;
 
 class procedure TMyOTAWizardMainMenuCustomMenu.CustomMenuClick(Sender: TObject);
+var
+  LType: string;
+  LAction: string;
 begin
    if(not CustomMenuDM.TB_Files.Locate('Id', TMenuItem(Sender).Tag, []))then
      Exit;
 
-   if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.ExternalFile.ToString))then
-     TMyOTAWizardUtils.Open(CustomMenuDM.TB_Files.FieldByName('Action').AsString);
-   if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.Link.ToString))then
-     TMyOTAWizardUtils.Open(CustomMenuDM.TB_Files.FieldByName('Action').AsString);
-   if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.CMDCommand.ToString))then
+   LType := CustomMenuDM.TB_Files.FieldByName('type').AsString;
+   LAction := CustomMenuDM.TB_Files.FieldByName('Action').AsString;
+
+   if((LType.Equals(TCustomMenuType.ExternalFile.ToString))or
+     (LType.Equals(TCustomMenuType.Folder.ToString))or
+     (LType.Equals(TCustomMenuType.Link.ToString))
+   )then
+     TMyOTAWizardUtils.Open(LAction);
+
+   if(LType.Equals(TCustomMenuType.CMDCommand.ToString))then
      TMyOTAWizardUtils.Exec(CustomMenuDM.TB_Files.FieldByName('Action').AsString);
 end;
 

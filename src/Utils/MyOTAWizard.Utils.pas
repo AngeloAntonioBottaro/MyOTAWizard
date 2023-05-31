@@ -31,7 +31,7 @@ type
     class function GetGitURL(AProject: string): string;
     class procedure OpenProjectOnGithubDesktop(AProject: string);
     class procedure OpenProjectOnGithubWeb(AProject: string);
-    class function SelectDirectory(ATitulo: String): String;
+    class function SelectDirectory(ATitulo: String = ''): String;
     class function SelectFile: string;
   end;
 
@@ -262,7 +262,7 @@ var
 begin
    Result := EmptyStr;
    if(ATitulo = EmptyStr)then
-     ATitulo := 'Selecione uma pasta';
+     ATitulo := 'Select a folder';
 
    LFileOpenDialog := TFileOpenDialog.Create(nil);
    try

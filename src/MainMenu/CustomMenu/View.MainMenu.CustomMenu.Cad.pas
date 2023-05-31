@@ -69,7 +69,8 @@ implementation
 uses
   MyOTAWizard.Utils,
   MyOTAWizard.MainMenu.CustomMenu.Types,
-  MyOTAWizard.MainMenu.CustomMenu.Ini;
+  MyOTAWizard.MainMenu.CustomMenu.Ini,
+  View.MainMenu.CustomMenu.List;
 
 procedure TViewMainMenuCustomMenuCad.FormCreate(Sender: TObject);
 var
@@ -132,7 +133,13 @@ var
   LFile: string;
 begin
    edtFile.Text := '';
-   LFile := TMyOTAWizardUtils.SelectFile;
+
+   LFile := '';
+   if(cbType.ItemIndex = TCustomMenuType.ExternalFile.ToInteger)then
+     LFile := TMyOTAWizardUtils.SelectFile
+   else if(cbType.ItemIndex = TCustomMenuType.Folder.ToInteger)then
+     LFile := TMyOTAWizardUtils.SelectDirectory;
+
    if(LFile = EmptyStr)then
      Exit;
 
@@ -163,8 +170,10 @@ begin
    edtCaption.Enabled    := cbType.ItemIndex <> TCustomMenuType.Separator.ToInteger;
    edtShortcut.Enabled   := edtCaption.Enabled;
    edtFile.Enabled       := (cbType.ItemIndex = TCustomMenuType.ExternalFile.ToInteger) or
-                            (cbType.ItemIndex = TCustomMenuType.Link.ToInteger);
-   btnSelectFile.Enabled := cbType.ItemIndex = TCustomMenuType.ExternalFile.ToInteger;
+                            (cbType.ItemIndex = TCustomMenuType.Link.ToInteger) or
+                            (cbType.ItemIndex = TCustomMenuType.Folder.ToInteger);
+   btnSelectFile.Enabled := (cbType.ItemIndex = TCustomMenuType.ExternalFile.ToInteger) or
+                            (cbType.ItemIndex = TCustomMenuType.Folder.ToInteger);
    edtCmdCommand.Enabled := cbType.ItemIndex = TCustomMenuType.CMDCommand.ToInteger;
    edtParameter.Enabled  := edtCmdCommand.Enabled;
 end;
@@ -180,6 +189,9 @@ begin
 
    Self.ClearField;
    Self.EnableFields;
+
+   if(Assigned(ViewMainMenuCustomMenuList))then
+     ViewMainMenuCustomMenuList.UpdateList;
 end;
 
 procedure TViewMainMenuCustomMenuCad.SaveToIni(ASection: string);
@@ -201,6 +213,15 @@ begin
        end;
     end;
     TCustomMenuType.Link: LAction  := edtFile.Text;
+    TCustomMenuType.Folder:
+    begin
+       LAction  := edtFile.Text;
+       if(not DirectoryExists(LAction))then
+       begin
+          ShowInfo('Folder: ' + LAction + ' not found.');
+          Exit;
+       end;
+    end;
     TCustomMenuType.CMDCommand: LAction  := edtCmdCommand.Text;
    end;
 
@@ -218,6 +239,13 @@ begin
    begin
       ShowInfo('Menu type required');
       cbType.SetFocus;
+      Abort;
+   end;
+
+   if(Trim(edtCaption.Text).IsEmpty)then
+   begin
+      ShowInfo('Menu caption required');
+      edtCaption.SetFocus;
       Abort;
    end;
 end;

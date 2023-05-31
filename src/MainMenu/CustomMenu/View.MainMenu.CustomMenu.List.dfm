@@ -57,7 +57,6 @@ object ViewMainMenuCustomMenuList: TViewMainMenuCustomMenuList
     PopupMenu = PopupMenu
     TabOrder = 0
     ViewStyle = vsReport
-    ExplicitWidth = 898
   end
   object PopupMenu: TPopupMenu
     Left = 480

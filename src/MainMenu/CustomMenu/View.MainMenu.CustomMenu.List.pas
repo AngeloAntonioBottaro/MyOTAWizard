@@ -15,7 +15,9 @@ uses
   Vcl.ComCtrls,
   Vcl.Menus,
   Data.DB,
-  Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
+  Datasnap.DBClient,
+  Vcl.Grids,
+  Vcl.DBGrids;
 
 type
   TViewMainMenuCustomMenuList = class(TForm)
@@ -33,9 +35,9 @@ type
     procedure Newfile1Click(Sender: TObject);
     procedure Changeregistry1Click(Sender: TObject);
   private
-    procedure UpdateList;
     procedure CallCustomMenuCad(ASection: string = '');
   public
+    procedure UpdateList;
   end;
 
 var

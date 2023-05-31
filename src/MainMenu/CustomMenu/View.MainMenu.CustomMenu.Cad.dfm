@@ -30,7 +30,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
     Padding.Top = 2
     Padding.Right = 5
     Padding.Bottom = 2
-    TabOrder = 0
+    TabOrder = 4
     object btnSave: TButton
       Left = 304
       Top = 2
@@ -93,7 +93,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
     Padding.Top = 2
     Padding.Right = 5
     Padding.Bottom = 2
-    TabOrder = 2
+    TabOrder = 0
     object lbCaption: TLabel
       Left = 142
       Top = 4
@@ -128,7 +128,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Width = 229
       Height = 21
       MaxLength = 50
-      TabOrder = 0
+      TabOrder = 1
     end
     object cbType: TComboBox
       Left = 8
@@ -137,7 +137,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Height = 21
       Style = csDropDownList
       ParentColor = True
-      TabOrder = 1
+      TabOrder = 0
       OnChange = cbTypeChange
       Items.Strings = (
         'Separator'
@@ -151,7 +151,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Width = 16
       Height = 21
       Associate = edtOrder
-      TabOrder = 2
+      TabOrder = 4
     end
     object edtOrder: TEdit
       Left = 8
@@ -160,7 +160,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Height = 21
       MaxLength = 50
       NumbersOnly = True
-      TabOrder = 3
+      TabOrder = 2
       Text = '0'
     end
     object edtShortcut: THotKey
@@ -170,7 +170,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Height = 19
       HotKey = 0
       Modifiers = []
-      TabOrder = 4
+      TabOrder = 3
     end
   end
   object pnCmdCommand: TPanel
@@ -184,7 +184,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
     Padding.Top = 2
     Padding.Right = 5
     Padding.Bottom = 2
-    TabOrder = 3
+    TabOrder = 2
     object lbCMDCommand: TLabel
       Left = 8
       Top = 0
@@ -212,7 +212,7 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
     Padding.Top = 2
     Padding.Right = 5
     Padding.Bottom = 2
-    TabOrder = 4
+    TabOrder = 3
     object lbParameter: TLabel
       Left = 8
       Top = 0
