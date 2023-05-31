@@ -98,7 +98,6 @@ begin
    if(not CustomMenuDM.TB_Files.Locate('Id', TMenuItem(Sender).Tag, []))then
      Exit;
 
-   MessageLog('Action: ' + CustomMenuDM.TB_Files.FieldByName('Action').AsString);
    if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.ExternalFile.ToString))then
      TMyOTAWizardUtils.Open(CustomMenuDM.TB_Files.FieldByName('Action').AsString);
    if(CustomMenuDM.TB_Files.FieldByName('type').AsString.Equals(TCustomMenuType.Link.ToString))then
