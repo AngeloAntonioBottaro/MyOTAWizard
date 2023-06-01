@@ -123,6 +123,7 @@ begin
    LAction := TCustomMenuIniFile.New.IniFile.ReadString(FSectionToUpdate, INI_IDENTIFIER_ACTION,  '');;
    case(LType)of
     TCustomMenuType.ExternalFile,
+    TCustomMenuType.Folder,
     TCustomMenuType.Link: edtFile.Text := LAction;
     TCustomMenuType.CMDCommand: edtCmdCommand.Text := LAction;
    end;
