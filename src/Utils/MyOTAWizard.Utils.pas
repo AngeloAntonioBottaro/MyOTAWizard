@@ -22,7 +22,7 @@ type
     class function ActiveTheme: string;
     class procedure ApplyTheme(AClass: TCustomFormClass; AForm: TForm);
     class function FontColor(AColor: Integer): Integer;
-    class procedure Open(AFileName: string);
+    class procedure Open(AFileName: string; AParam: string = '');
     class procedure Exec(AComand: string);
     class function ReturnEdtValidChar(const AChar: string): string;
     class function CreateGuidStr: String;
@@ -220,9 +220,9 @@ begin
    end;
 end;
 
-class procedure TMyOTAWizardUtils.Open(AFileName: string);
+class procedure TMyOTAWizardUtils.Open(AFileName: string; AParam: string = '');
 begin
-   ShellExecute(0, 'open', Pchar(AFileName), nil, nil, SW_SHOWNORMAL);
+   ShellExecute(0, 'open', Pchar(AFileName), Pchar(AParam), nil, SW_SHOWNORMAL);
 end;
 
 class procedure TMyOTAWizardUtils.Exec(AComand: string);

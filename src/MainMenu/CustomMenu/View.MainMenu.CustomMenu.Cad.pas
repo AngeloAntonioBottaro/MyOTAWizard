@@ -176,7 +176,7 @@ begin
    btnSelectFile.Enabled := (cbType.ItemIndex = TCustomMenuType.ExternalFile.ToInteger) or
                             (cbType.ItemIndex = TCustomMenuType.Folder.ToInteger);
    edtCmdCommand.Enabled := cbType.ItemIndex = TCustomMenuType.CMDCommand.ToInteger;
-   edtParameter.Enabled  := edtCmdCommand.Enabled;
+   edtParameter.Enabled  := edtFile.Enabled or edtCmdCommand.Enabled;
 end;
 
 procedure TViewMainMenuCustomMenuCad.btnSaveClick(Sender: TObject);
