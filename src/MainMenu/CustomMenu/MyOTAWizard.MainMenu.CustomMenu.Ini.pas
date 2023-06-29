@@ -47,7 +47,7 @@ end;
 constructor TCustomMenuIniFile.Create;
 begin
    FIniFilePath := ExtractFilePath(GetModuleName(HInstance));
-   FIniFileName := 'ExternalFilesConf.ini';
+   FIniFileName := 'CustomMenusConf.ini';
    FIniFile     := TIniFile.Create(FIniFilePath + FIniFileName);
 end;
 

@@ -66,7 +66,6 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Top = 14
       Width = 329
       Height = 21
-      MaxLength = 50
       TabOrder = 0
     end
     object btnSelectFile: TButton
@@ -197,7 +196,6 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Top = 14
       Width = 363
       Height = 21
-      MaxLength = 50
       TabOrder = 0
     end
   end
@@ -225,7 +223,6 @@ object ViewMainMenuCustomMenuCad: TViewMainMenuCustomMenuCad
       Top = 14
       Width = 363
       Height = 21
-      MaxLength = 50
       TabOrder = 0
     end
   end

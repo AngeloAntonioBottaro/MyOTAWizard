@@ -11,7 +11,8 @@ procedure RegisterSplashWizard;
 implementation
 
 uses
-  MyOTAWizard.Consts;
+  MyOTAWizard.Consts,
+  MyOTAWizard.Version;
 
 procedure RegisterSplashWizard;
 var
@@ -21,7 +22,7 @@ begin
    try
      LBmp.LoadFromResourceName(HInstance, 'splash');
      SplashScreenServices
-      .AddPluginBitmap(TMyOTAWizardConsts.SplashWizardName, LBmp.Handle, False, '', '');
+      .AddPluginBitmap(TMyOTAWizardConsts.SplashWizardName, LBmp.Handle, False, 'Version ' + TUtilsVersao.SemanticVersion, '');
    finally
      LBmp.Free;
    end;

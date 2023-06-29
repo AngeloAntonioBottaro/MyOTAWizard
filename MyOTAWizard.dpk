@@ -67,6 +67,7 @@ contains
   MyOTAWizard.MainMenu.CustomMenu.Ini in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.Ini.pas',
   View.MainMenu.CustomMenu.Cad in 'src\MainMenu\CustomMenu\View.MainMenu.CustomMenu.Cad.pas' {ViewMainMenuCustomMenuCad},
   MyOTAWizard.MainMenu.CustomMenu.Types in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.Types.pas',
-  MyOTAWizard.MainMenu.CustomMenu.DM in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.DM.pas' {CustomMenuDM: TDataModule};
+  MyOTAWizard.MainMenu.CustomMenu.DM in 'src\MainMenu\CustomMenu\MyOTAWizard.MainMenu.CustomMenu.DM.pas' {CustomMenuDM: TDataModule},
+  MyOTAWizard.Version in 'src\Utils\MyOTAWizard.Version.pas';
 
 end.
